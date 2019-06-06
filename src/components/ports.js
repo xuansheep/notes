@@ -6,5 +6,9 @@ export default {
     },
     category: {
         list: '/category/list',
+    },
+    mark: {
+        save: '/mark/save',
+        listIndex: '/mark/list/index',
     }
 }
