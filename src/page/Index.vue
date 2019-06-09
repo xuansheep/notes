@@ -1,7 +1,14 @@
 <template>
     <div class="background">
         <div class="header">
-            <div class="header-bottom-div">
+            <div class="header-carousel">
+                <Carousel height="200px" loop>
+                    <CarouselItem>
+                        <div class="demo-carousel">1</div>
+                    </CarouselItem>
+                </Carousel>
+            </div>
+            <div class="header-bottom-add-icon">
                 <Poptip placement="left-start" width="300" v-model="visible">
                     <Icon class="add-icon" type="md-add-circle" size="30"/>
                     <div slot="title">
@@ -15,15 +22,19 @@
                             链接：<Input v-model="markForm.link"></Input>
                         </div>
                         <div style="width: 215px">
-                            分类：<Select>
-
+                            分类：<Select v-model="markForm.categoryId">
+                            <Option v-for="category in categoryList" :value="category.name" :key="category.id"></Option>
                         </Select>
                         </div>
                         <div style="text-align: right">
                             <Button type="primary" size="small" @click="saveMark">确定</Button>
                         </div>
+                        {{markForm.categoryId}}
                     </div>
                 </Poptip>
+            </div>
+            <div class="header-bottom-del-icon">
+                <Icon class="del-icon" type="md-trash" size="30" />
             </div>
         </div>
         <div class="content">
@@ -42,16 +53,23 @@
 </template>
 
 <script>
-    import {Col} from 'iview'
-    import Select from "iview/src";
+    import {Col} from 'iview';
 
     export default {
         name: "Index",
-        components: {Select, Col},
+        components: {Col},
         data() {
             return {
-                params: {},
+                params: {
+                    page: 1,
+                    size: 10,
+                },
+                categoryParams: {
+                    page: 1,
+                    size: 999,
+                },
                 cardList: [],
+                categoryList: [],
                 markForm: {
                     name: '',
                     link: '',
@@ -67,6 +85,9 @@
             pageLoad() {
                 this.http.post(this.ports.mark.listIndex, this.params, res => {
                     this.cardList = res;
+                });
+                this.http.post(this.ports.category.list, this.categoryParams, res => {
+                    this.categoryList = res.records;
                 })
             },
             saveMark() {
@@ -105,13 +126,19 @@
         height: 20%;
         background-color: antiquewhite;
     }
+    .header-carousel {
 
-    .header-bottom-div {
+    }
+    .header-bottom-add-icon {
+        position: absolute;
+        bottom: 30px;
+        right: -30px;
+    }
+    .header-bottom-del-icon {
         position: absolute;
         bottom: 0;
         right: -30px;
     }
-
     .add-icon {
         color: dodgerblue;
         cursor: pointer;
@@ -120,12 +147,24 @@
         -webkit-transition: all 0.5s; /* Safari and Chrome */
         -o-transition: color 0.5s; /* Opera */
     }
-
     .add-icon:hover {
         color: deepskyblue;
     }
-
     .add-icon:active {
+        transform: rotate(90deg);
+    }
+    .del-icon {
+        color: red;
+        cursor: pointer;
+        transition: all 0.5s;
+        -moz-transition: color 0.5s; /* Firefox 4 */
+        -webkit-transition: all 0.5s; /* Safari and Chrome */
+        -o-transition: color 0.5s; /* Opera */
+    }
+    .del-icon:hover {
+        color: #ff4855;
+    }
+    .del-icon:active {
         transform: rotate(90deg);
     }
 
@@ -142,16 +181,13 @@
         margin-top: 15px;
         width: 97%;
     }
-
     .card-col {
         margin-bottom: 10px;
     }
-
     .card-mark-text {
         cursor: pointer;
         color: black;
     }
-
     .card-mark-text:hover {
         color: coral;
     }
