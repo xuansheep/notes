@@ -5,6 +5,8 @@ import 'iview/dist/styles/iview.css'
 import http from './components/http.js'
 import ports from './components/ports'
 
+import './assets/icon/iconfont.css'
+
 Vue.use(iView);
 
 Vue.prototype.http = http;

@@ -168,13 +168,15 @@ export default {
         axios({
             method: 'post',
             url: handleUrl(url),
-            data: data,
+            data: handleParams(data),
             timeout: TIME_OUT_MS,
+            transformRequest:[data => qs.stringify(data)],
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data; boundary='+123
             }
         }).then(
             (result) => {
+                console.log(url,result.data);
                 response(handleResults(result))
             }
         ).catch(

@@ -10,5 +10,8 @@ export default {
     mark: {
         save: '/mark/save',
         listIndex: '/mark/list/index',
+    },
+    file: {
+        import: '/file/import/chrome',
     }
 }
