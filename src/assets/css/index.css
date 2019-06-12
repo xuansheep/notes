@@ -1,0 +1,158 @@
+.background {
+    height: 1000px;
+    width: 1024px;
+    background-color: gainsboro;
+    margin: auto;
+}
+
+/**/
+.header {
+    position: relative;
+    height: 20%;
+    background-color: antiquewhite;
+}
+.header-carousel {
+    text-align: center;
+}
+.header-bottom-add-icon {
+    position: absolute;
+    top: 0;
+    right: 45px;
+}
+.header-bottom-del-icon {
+    position: absolute;
+    top: 0;
+    right: 15px;
+}
+.header-bottom-import-icon {
+    position: absolute;
+    top: 0;
+    right: 75px;
+}
+.add-icon {
+    cursor: pointer;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.add-icon:hover {
+    color: #00bfff;
+}
+.add-icon:active {
+    transform: rotate(30deg);
+}
+.del-icon {
+    cursor: pointer;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.del-icon:hover {
+    color: #ff4855;
+}
+.del-icon:active {
+    transform: rotate(30deg);
+}
+.del-dropdownMenu-div {
+    padding: 8px 16px;
+}
+/*.del-divider {
+    margin: 0;
+}*/
+#del-divider {
+    margin: 0;
+}
+.import-icon {
+    cursor: pointer;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.import-icon:hover {
+    color: #9a4f00;
+}
+.import-icon:active {
+    transform: rotate(30deg);
+}
+
+/**/
+.content {
+    height: 80%;
+    background-color: gainsboro;
+}
+
+/**/
+.card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    width: 97%;
+}
+.card-title {
+    text-align: left;
+}
+.card-title-checkBox {
+    margin-left: -0.6%;
+}
+/*.card-title-text {
+    display: inline;
+}*/
+#card-title-text {
+    display: inline;
+}
+.card-mark-checkBox {
+    position: absolute;
+    left: -20px;
+}
+.card-title-icon1 {
+    position: absolute;
+    right: 75px;
+    cursor: pointer;
+}
+.card-title-icon2 {
+    position: absolute;
+    right: 45px;
+    cursor: pointer;
+}
+.card-title-icon3 {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+}
+.card-title-icon1:hover, .card-title-icon2:hover, .card-title-icon3:hover {
+    color: black;
+}
+.card-title-icon1:active, .card-title-icon2:active, .card-title-icon3:active {
+
+}
+.card-col {
+    margin-bottom: 10px;
+    text-align: left;
+}
+.card-mark-text {
+    cursor: pointer;
+    color: black;
+}
+.card-mark-text:hover {
+    color: #ff7f50;
+}
+.card-icon {
+    margin-right: 3px;
+    margin-bottom: -3px;
+}
+
+
+
+/*color*/
+.import {
+    color: #9a4f00;
+}
+.add {
+    color: #00bfff;
+}
+.del {
+    color: #ff4855;
+}

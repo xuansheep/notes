@@ -12,8 +12,8 @@ Vue.use(iView);
 Vue.prototype.http = http;
 Vue.prototype.ports = ports;
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   render: h => h(App),
-}).$mount('#app')
+}).$mount('#app');

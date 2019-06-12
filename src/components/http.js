@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-import {Notice} from 'iview'
+import {Message} from 'iview'
 import 'iview/dist/styles/iview.css'
 
 
@@ -10,15 +10,8 @@ const TIME_OUT_MS = 60 * 1000 // 默认请求超时时间
  * @param response 返回数据列表
  */
 function handleResults (response) {
-    let remoteResponse = response.data
-    if (remoteResponse.success) {
-        return remoteResponse.data;
-    }
-    if (!remoteResponse.success) {
-        Notice.error({
-            title:remoteResponse.message
-        });
-    }
+    let remoteResponse = response.data;
+    return remoteResponse.data;
 }
 
 function handleUrl (url) {
@@ -33,6 +26,12 @@ function handleUrl (url) {
  */
 function handleParams (data) {
     return data
+}
+
+function handleParamsUpload(data) {
+    let params = new FormData();
+    params.append('file',data);
+    return params;
 }
 
 export default {
@@ -55,7 +54,11 @@ export default {
         }).then(
             (result) => {
                 console.log(url,result.data);
-                response(handleResults(result))
+                if (result.data.success) {
+                    response(handleResults(result))
+                }else {
+                    Message.error(result.data.message);
+                }
             }
         ).catch(
             (error) => {
@@ -168,16 +171,19 @@ export default {
         axios({
             method: 'post',
             url: handleUrl(url),
-            data: handleParams(data),
+            data: handleParamsUpload(data),
             timeout: TIME_OUT_MS,
-            transformRequest:[data => qs.stringify(data)],
             headers: {
                 'Content-Type': 'multipart/form-data; boundary='+123
             }
         }).then(
             (result) => {
                 console.log(url,result.data);
-                response(handleResults(result))
+                if (result.data.success) {
+                    response(handleResults(result))
+                }else {
+                    Message.error(result.data.message);
+                }
             }
         ).catch(
             (error) => {
