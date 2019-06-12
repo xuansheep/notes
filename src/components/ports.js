@@ -6,11 +6,12 @@ export default {
     },
     category: {
         list: '/category/list',
+        delete: '/category/delete',
     },
     mark: {
         save: '/mark/save',
         listIndex: '/mark/list/index',
-        delete: '/mark/delete'
+        delete: '/mark/delete',
     },
     file: {
         import: '/file/import/chrome',
