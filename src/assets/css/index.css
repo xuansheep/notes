@@ -1,5 +1,5 @@
 .background {
-    height: 1000px;
+    height: 100%;
     width: 1024px;
     background-color: gainsboro;
     margin: auto;
@@ -8,7 +8,7 @@
 /**/
 .header {
     position: relative;
-    height: 20%;
+    height: 200px;
     background-color: antiquewhite;
 }
 .header-carousel {
@@ -81,6 +81,7 @@
 /**/
 .content {
     height: 80%;
+    margin-bottom: 15px;
     background-color: gainsboro;
 }
 
@@ -93,6 +94,13 @@
 }
 .category-list {
     text-align: left;
+}
+.category-tag {
+
+}
+.category-tag-span {
+    display: inline-block;
+    margin: 2px 10px;
 }
 .card-title {
     text-align: left;

@@ -5,7 +5,7 @@
 
             </div>
             <div class="header-bottom-add-icon">
-                <Poptip placement="left-start" :width="300" v-model="visible">
+                <Poptip placement="bottom-end" :width="300" v-model="visible">
                     <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
                     <div slot="title">
                         添加书签
@@ -48,7 +48,7 @@
                 </Dropdown>
             </div>
             <div class="header-bottom-import-icon">
-                <Poptip placement="left-start" :width="300" v-model="importVisible">
+                <Poptip placement="bottom-end" :width="300" v-model="importVisible">
                     <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru"
                           size="20"/>
                     <div slot="title">
@@ -62,25 +62,29 @@
                             </Upload>
                             <div v-if="file !== null">
                                 文件名：{{file.name}}<br/>
-                                <Button type="default" size="small" @click="upload" :loading="loadingStatus">{{
-                                    loadingStatus ? '导入中' : '开始导入' }}
+                                <Button type="default" size="small" @click="upload" :loading="loadingStatus">
+                                    {{loadingStatus ? '导入中' : '开始导入' }}
                                 </Button>
                             </div>
                         </div>
                     </div>
                 </Poptip>
             </div>
-
         </div>
+
         <div class="content">
             <Card class="card">
                 <div class="category-list">
-                    <Tag v-for="category in categoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
-                        {{category.name}}
+                    <Tag style="height: auto" v-for="category in categoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
+                        <span class="category-tag-span"
+                           @dragover.prevent="handleDragOver($event, category)"
+                           @dragenter="handleDragEnter($event, category)">
+                            {{category.name}}
+                        </span>
                     </Tag>
-                    <Button icon="ios-add" type="dashed" size="small" @click="saveCategory">
-                        <Input v-if="inputStatus" size="small" style="width: 50px"></Input>
-                        添加分类
+                    <Button icon="ios-add" type="dashed" size="small" @click="inputCategory">
+                        <Input ref="c_input" v-if="inputStatus" v-model="categoryForm.name" size="small" style="width: 70px" @on-blur="saveCategory"></Input>
+                        <span v-if="!inputStatus">添加分类</span>
                     </Button>
                 </div>
             </Card>
@@ -100,7 +104,10 @@
                             <Tooltip :content="mark.name" placement="top-start" :delay="500" :max-width="500">
                                 <Checkbox class="card-mark-checkBox" v-if="modifyStatus" v-model="mark.isSelect"
                                           @on-change="onCheck(mark,card)"/>
-                                <a class="card-mark-text" :href="mark.link">
+                                <a class="card-mark-text" :href="mark.link"
+                                   draggable="true"
+                                   @dragstart="handleDragStart($event, mark)"
+                                   @dragend="handleDragEnd($event)">
                                     <img class="card-icon" :src="mark.icon">
                                     <span v-if="card.colSpan===4">{{mark.name|omitText4}}</span>
                                     <span v-if="card.colSpan===8">{{mark.name|omitText8}}</span>
@@ -115,6 +122,7 @@
                 </div>
             </Card>
         </div>
+
     </div>
 </template>
 
@@ -145,14 +153,20 @@
                     link: '',
                     categoryId: '',
                 },
+                categoryForm: {
+                    name:'',
+                },
                 ids: [],
                 file: null,
+                dragging: null,
 
                 visible: false,
                 importVisible: false,
                 modifyStatus: false,
                 loadingStatus: false,
                 checkAll: false,
+                inputStatus: false,
+                cModelVisible:false,
             }
         },
         created() {
@@ -206,22 +220,30 @@
             },
             modify() {
                 this.modifyStatus = !this.modifyStatus;
+                console.log(this.modifyStatus)
             },
             deleteMark() {
-                if (this.ids.length === 0) {
-                    this.$Message.warning('请选择书签');
-                    return;
-                }
-                this.deleteParams.ids = this.ids.join(',');
-                this.http.post(this.ports.mark.delete, this.deleteParams, res => {
+                if (this.ids.length !== 0) {
+                    this.deleteParams.ids = this.ids.join(',');
+                    this.http.post(this.ports.mark.delete, this.deleteParams, res => {
+                        this.modifyStatus = false;
+                        this.ids = [];
+                        this.pageLoad();
+                        this.$Message.success('删除成功');
+                    })
+                }else {
                     this.modifyStatus = false;
-                    this.ids = [];
-                    this.pageLoad();
-                    this.$Message.success('删除成功');
-                })
+                }
             },
             saveCategory(){
-
+                if (this.categoryForm.name.trim().length !== 0){
+                    this.http.post(this.ports.category.save, this.categoryForm, res => {
+                        this.pageLoad();
+                        this.categoryForm.name = '';
+                        this.$Message('添加成功');
+                    })
+                }
+                this.inputStatus = false;
             },
             deleteCategory(id) {
                 let params = {
@@ -232,6 +254,38 @@
                     this.$Message.success('删除成功');
                 })
             },
+            inputCategory(){
+                if (!this.inputStatus) {
+                    this.inputStatus = true;
+                }
+                this.$nextTick(()=>{
+                    this.$refs.c_input.focus();
+                });
+            },
+
+            /***可拖放***/
+            handleDragStart(e, item) {
+                this.dragging = item;
+            },
+            handleDragEnd(e) {
+                if (e.dataTransfer.dropEffect === 'none'){
+                    return;
+                }
+                this.http.post(this.ports.mark.save, this.dragging, res => {
+                    this.pageLoad();
+                });
+                this.dragging = null;
+            },
+            handleDragOver(e) {
+                e.preventDefault();
+            },
+            handleDragEnter(e, item) {
+                console.log(e)
+                if (this.dragging) {
+                    this.dragging.categoryId = item.id;
+                }
+            },
+            /***可拖放***/
 
             /***多选框***/
             onCheck(mark, card) {

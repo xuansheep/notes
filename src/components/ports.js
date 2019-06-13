@@ -7,6 +7,7 @@ export default {
     category: {
         list: '/category/list',
         delete: '/category/delete',
+        save: '/category/save',
     },
     mark: {
         save: '/mark/save',
