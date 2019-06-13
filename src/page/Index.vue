@@ -25,7 +25,7 @@
                         </Select>
                         </div>
                         <div style="text-align: right">
-                            <Button type="primary" size="small" @click="saveMark">确定</Button>
+                            <Button :loading="saveMarkLoading" type="primary" size="small" @click="saveMark">确定</Button>
                         </div>
                     </div>
                 </Poptip>
@@ -62,8 +62,8 @@
                             </Upload>
                             <div v-if="file !== null">
                                 文件名：{{file.name}}<br/>
-                                <Button type="default" size="small" @click="upload" :loading="loadingStatus">
-                                    {{loadingStatus ? '导入中' : '开始导入' }}
+                                <Button type="default" size="small" @click="upload" :loading="importLoading">
+                                    {{importLoading ? '导入中' : '开始导入' }}
                                 </Button>
                             </div>
                         </div>
@@ -163,7 +163,8 @@
                 visible: false,
                 importVisible: false,
                 modifyStatus: false,
-                loadingStatus: false,
+                importLoading: false,
+                saveMarkLoading: false,
                 checkAll: false,
                 inputStatus: false,
                 cModelVisible:false,
@@ -185,12 +186,13 @@
                 })
             },
             saveMark() {
+                this.saveMarkLoading = true;
                 this.http.post(this.ports.mark.save, this.markForm, res => {
                     this.visible = false;
                     this.markForm = {};
                     this.pageLoad();
                     this.$Message.success('添加成功');
-                })
+                },this.saveMarkLoading=false)
             },
             listMark(card, span) {
                 if (card.colSpan === span) {
@@ -208,14 +210,14 @@
                 return false;
             },
             upload() {
-                this.loadingStatus = true;
+                this.importLoading = true;
                 setTimeout(() => {
                     this.http.uploadFileFormData(this.ports.file.import, this.file, res => {
                         this.importVisible = false;
                         this.file = null;
                         this.pageLoad();
                         this.$Message.success('导入成功')
-                    }, this.loadingStatus = false);
+                    }, this.importLoading=false);
                 }, 1500);
             },
             modify() {
