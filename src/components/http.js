@@ -34,6 +34,14 @@ function handleParamsUpload(data) {
     return params;
 }
 
+function getToken (){
+    let user = JSON.parse(window.localStorage.getItem('user'));
+    if (!!user){
+        return user.token;
+    }
+    return '';
+}
+
 export default {
     /*
      * @param url
@@ -49,7 +57,8 @@ export default {
             timeout: TIME_OUT_MS,
             transformRequest:[data => qs.stringify(data)],
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'token': getToken(),
             }
         }).then(
             (result) => {
@@ -58,6 +67,9 @@ export default {
                     response(handleResults(result))
                 }else {
                     Message.error(result.data.message);
+                    if (result.data.code === 400004) {
+                        window.location.href = '/'
+                    }
                 }
             }
         ).catch(

@@ -186,13 +186,19 @@
                 })
             },
             saveMark() {
+                let reg = new RegExp(/(http|https):\/\/[a-z0-9]+/);
+                if (!reg.test(this.markForm.link)){
+                    this.$Message.warning('请输入正确的书签链接');
+                    return;
+                }
                 this.saveMarkLoading = true;
                 this.http.post(this.ports.mark.save, this.markForm, res => {
                     this.visible = false;
                     this.markForm = {};
                     this.pageLoad();
                     this.$Message.success('添加成功');
-                },this.saveMarkLoading=false)
+                    this.saveMarkLoading=false;
+                })
             },
             listMark(card, span) {
                 if (card.colSpan === span) {
@@ -216,8 +222,9 @@
                         this.importVisible = false;
                         this.file = null;
                         this.pageLoad();
-                        this.$Message.success('导入成功')
-                    }, this.importLoading=false);
+                        this.$Message.success('导入成功');
+                        this.importLoading = false;
+                    });
                 }, 1500);
             },
             modify() {
@@ -349,16 +356,16 @@
                 return value.replace(value.substring(8, value.length), "...");
             },
             omitText8: function (value) {
-                if (value.length <= 27) {
+                if (value.length <= 20) {
                     return value;
                 }
-                return value.replace(value.substring(27, value.length), "...");
+                return value.replace(value.substring(20, value.length), "...");
             },
             omitText24: function (value) {
-                if (value.length <= 50) {
+                if (value.length <= 70) {
                     return value;
                 }
-                return value.replace(value.substring(50, value.length), "...");
+                return value.replace(value.substring(70, value.length), "...");
             }
         }
     }

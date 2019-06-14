@@ -1,8 +1,8 @@
 export default {
-    manage: {
-        register: '/manage/company/register', // 注册接口
-        login: '/manage/company/login', // 登录
-        logout: '/manage/company/loginOut', // // 退出
+    user: {
+        signUp: '/user/signUp', // 注册接口
+        signIn: '/user/signIn', // 登录
+        signOut: '/user/signOut', // 退出
     },
     category: {
         list: '/category/list',

@@ -151,6 +151,8 @@
     color: #ff7f50;
 }
 .card-icon {
+    height: 16px;
+    width: 16px;
     margin-right: 3px;
     margin-bottom: -3px;
 }

@@ -1,17 +1,16 @@
 <template>
   <div id="app">
     <!--<img alt="Vue logo" src="./assets/logo.png">-->
-    <Index />
+      <router-view/>
   </div>
 </template>
 
 <script>
-import Index from './page/Index.vue'
 
 export default {
   name: 'app',
   components: {
-    Index
+
   }
 }
 </script>
