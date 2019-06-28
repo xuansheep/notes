@@ -20,6 +20,7 @@ const router = new Router({
         {path: '/', redirect: '/logIn'},
         {path: '/logIn', component: () => import('../page/LogIn.vue')},
         {path: '/index', component: () => import('../page/Index.vue')},
+        {path: '/mark', component: () => import('../page/Mark.vue')},
     ]
 });
 

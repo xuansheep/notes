@@ -66,7 +66,8 @@ export default {
                 if (result.data.success) {
                     response(handleResults(result))
                 }else {
-                    Message.error(result.data.message);
+                    let msg = !!result.data.message ? result.data.message : "服务器错误";
+                    Message.error(msg);
                     if (result.data.code === 400004) {
                         window.location.href = '/'
                     }

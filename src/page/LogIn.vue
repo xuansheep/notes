@@ -1,6 +1,6 @@
 <template>
     <div style="text-align: center">
-        <div style="margin-top: 200px">
+        <div style="margin-top: 12%">
             <div>
                 <h1>NOTES</h1>
             </div>
@@ -22,6 +22,9 @@
 </template>
 
 <script>
+
+    import eruda from 'eruda/eruda.min.js';
+
     export default {
         name: "Login",
         data() {
@@ -34,7 +37,7 @@
             }
         },
         created() {
-
+            eruda.init();
         },
         methods: {
             singIn(){
