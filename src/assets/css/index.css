@@ -16,17 +16,17 @@
 }
 .header-bottom-add-icon {
     position: absolute;
-    top: 0;
+    top: 5px;
     right: 45px;
 }
 .header-bottom-del-icon {
     position: absolute;
-    top: 0;
+    top: 5px;
     right: 15px;
 }
 .header-bottom-import-icon {
     position: absolute;
-    top: 0;
+    top: 5px;
     right: 75px;
 }
 .add-icon {
