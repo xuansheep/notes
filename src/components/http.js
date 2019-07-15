@@ -15,7 +15,9 @@ function handleResults (response) {
 }
 
 function handleUrl (url) {
-    url = 'http://127.0.0.1:10001'+url;
+    // url = 'http://127.0.0.1:10001'+url;
+    url = 'http://47.106.79.168:10001'+url;
+
 // BASE_URL是接口的ip前缀，比如http:10.100.1.1:8989/
     return url
 }
