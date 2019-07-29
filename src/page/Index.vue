@@ -1,6 +1,6 @@
 <template>
     <div class="background">
-        <div class="header">
+        <div class="header" v-bind:class={headerOpen:headerOpenStatus,headerHover:headerHoverStatus}>
             <div class="header-carousel">
 
             </div>
@@ -69,6 +69,23 @@
                         </div>
                     </div>
                 </Poptip>
+            </div>
+
+            <div class="header-bottom-openMore-icon" @mouseover="headerHoverStatus=true" @mouseout="headerHoverStatus=false">
+                <Icon class="openMore-icon" type="ios-arrow-down" size="20" @click="headerOpenStatus=true" v-if="!headerOpenStatus" />
+                <Icon class="openMore-icon" type="ios-arrow-up" size="20" @click="headerOpenStatus=false" v-if="headerOpenStatus" />
+            </div>
+            <div v-if="headerOpenStatus">
+                <Collapse simple class="collapse">
+                    <Panel  name="1">
+                        史蒂夫·乔布斯
+                        <p slot="content">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</p>
+                    </Panel>
+                    <Panel  name="2">
+                        史蒂夫·乔布斯
+                        <p slot="content">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</p>
+                    </Panel>
+                </Collapse>
             </div>
         </div>
 
@@ -145,6 +162,7 @@
                 categoryParams: {
                     page: 1,
                     size: 999,
+                    type: 1,
                 },
                 cardList: [],
                 categoryList: [],
@@ -155,6 +173,7 @@
                 },
                 categoryForm: {
                     name:'',
+                    type: 1,
                 },
                 ids: [],
                 file: null,
@@ -167,7 +186,9 @@
                 saveMarkLoading: false,
                 checkAll: false,
                 inputStatus: false,
-                cModelVisible:false,
+                cModelVisible: false,
+                headerOpenStatus: false,
+                headerHoverStatus:false,
             }
         },
         created() {
@@ -246,6 +267,7 @@
             },
             saveCategory(){
                 if (this.categoryForm.name.trim().length !== 0){
+                    this.categoryForm.type = 1;
                     this.http.post(this.ports.category.save, this.categoryForm, res => {
                         this.pageLoad();
                         this.categoryForm.name = '';

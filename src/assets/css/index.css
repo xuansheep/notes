@@ -8,7 +8,25 @@
 /**/
 .header {
     position: relative;
-    height: 200px;
+    height: 30px;
+    background-color: #ffffff;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.headerHover {
+    position: relative;
+    height: 30px;
+    background-color: antiquewhite;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.headerOpen {
+    position: relative;
+    height: 500px;
     background-color: antiquewhite;
 }
 .header-carousel {
@@ -76,6 +94,29 @@
 }
 .import-icon:active {
     transform: rotate(30deg);
+}
+.header-bottom-openMore-icon {
+    position: absolute;
+    bottom: 3px;
+    left: 502px;
+}
+.openMore-icon {
+    color: #a1a3a1;
+    cursor: pointer;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.openMore-icon:hover {
+    color: #000000;
+}
+.collapse {
+    background-color: antiquewhite;
+    text-align: left;
+}
+.collapse-panel {
+    background-color: antiquewhite;
 }
 
 /**/
@@ -154,7 +195,7 @@
     height: 16px;
     width: 16px;
     margin-right: 3px;
-    margin-bottom: -3px;
+    /*margin-bottom: -3px;*/
 }
 
 
