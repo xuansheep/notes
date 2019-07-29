@@ -4,85 +4,87 @@
             <div class="header-carousel">
 
             </div>
-            <div class="header-bottom-add-icon">
-                <Poptip placement="bottom-end" :width="300" v-model="visible">
-                    <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
-                    <div slot="title">
-                        添加书签
-                    </div>
-                    <div slot="content" style="line-height: 35px">
-                        <div style="width: 215px">
-                            名称：<Input v-model="markForm.name"></Input>
+            <div>
+                <div class="header-bottom-add-icon">
+                    <Poptip placement="bottom-end" :width="300" v-model="visible">
+                        <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
+                        <div slot="title">
+                            添加书签
                         </div>
-                        <div style="width: 215px">
-                            链接：<Input v-model="markForm.link"></Input>
-                        </div>
-                        <div style="width: 215px">
-                            分类：<Select v-model="markForm.categoryId">
-                            <Option v-for="category in categoryList" :value="category.id" :key="category.id">
-                                {{category.name}}
-                            </Option>
-                        </Select>
-                        </div>
-                        <div style="text-align: right">
-                            <Button :loading="saveMarkLoading" type="primary" size="small" @click="saveMark">确定</Button>
-                        </div>
-                    </div>
-                </Poptip>
-            </div>
-            <div class="header-bottom-del-icon">
-                <Dropdown placement="bottom-end" trigger="custom" :visible="modifyStatus">
-                    <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy"
-                          size="20" @click="modify"/>
-                    <DropdownMenu slot="list" style="width: 150px">
-                        <div class="del-dropdownMenu-div">
-                            <p>删除书签</p>
-                        </div>
-                        <Divider id="del-divider"/>
-                        <div class="del-dropdownMenu-div">
-                            <Button type="default" size="small" @click="modify">取消</Button>
-                            <span style="display:inline-block; width:30px"></span>
-                            <Button type="primary" size="small" @click="deleteMark">确定</Button>
-                        </div>
-                    </DropdownMenu>
-                </Dropdown>
-            </div>
-            <div class="header-bottom-import-icon">
-                <Poptip placement="bottom-end" :width="300" v-model="importVisible">
-                    <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru"
-                          size="20"/>
-                    <div slot="title">
-                        导入Chrome离线书签
-                    </div>
-                    <div slot="content" style="line-height: 35px">
-                        <div>
-                            <Upload :before-upload="handleUpload"
-                                    action="">
-                                <Button icon="ios-cloud-upload-outline">选择文件</Button>
-                            </Upload>
-                            <div v-if="file !== null">
-                                文件名：{{file.name}}<br/>
-                                <Button type="default" size="small" @click="upload" :loading="importLoading">
-                                    {{importLoading ? '导入中' : '开始导入' }}
-                                </Button>
+                        <div slot="content" style="line-height: 35px">
+                            <div style="width: 215px">
+                                名称：<Input v-model="markForm.name"></Input>
+                            </div>
+                            <div style="width: 215px">
+                                链接：<Input v-model="markForm.link"></Input>
+                            </div>
+                            <div style="width: 215px">
+                                分类：<Select v-model="markForm.categoryId">
+                                <Option v-for="category in categoryList" :value="category.id" :key="category.id">
+                                    {{category.name}}
+                                </Option>
+                            </Select>
+                            </div>
+                            <div style="text-align: right">
+                                <Button :loading="saveMarkLoading" type="primary" size="small" @click="saveMark">确定</Button>
                             </div>
                         </div>
-                    </div>
-                </Poptip>
+                    </Poptip>
+                </div>
+                <div class="header-bottom-del-icon">
+                    <Dropdown placement="bottom-end" trigger="custom" :visible="modifyStatus">
+                        <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy"
+                              size="20" @click="modify"/>
+                        <DropdownMenu slot="list" style="width: 150px">
+                            <div class="del-dropdownMenu-div">
+                                <p>删除书签</p>
+                            </div>
+                            <Divider id="del-divider"/>
+                            <div class="del-dropdownMenu-div">
+                                <Button type="default" size="small" @click="modify">取消</Button>
+                                <span style="display:inline-block; width:30px"></span>
+                                <Button type="primary" size="small" @click="deleteMark">确定</Button>
+                            </div>
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
+                <div class="header-bottom-import-icon">
+                    <Poptip placement="bottom-end" :width="300" v-model="importVisible">
+                        <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru"
+                              size="20"/>
+                        <div slot="title">
+                            导入Chrome离线书签
+                        </div>
+                        <div slot="content" style="line-height: 35px">
+                            <div>
+                                <Upload :before-upload="handleUpload"
+                                        action="">
+                                    <Button icon="ios-cloud-upload-outline">选择文件</Button>
+                                </Upload>
+                                <div v-if="file !== null">
+                                    文件名：{{file.name}}<br/>
+                                    <Button type="default" size="small" @click="upload" :loading="importLoading">
+                                        {{importLoading ? '导入中' : '开始导入' }}
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </Poptip>
+                </div>
             </div>
 
             <div class="header-bottom-openMore-icon" @mouseover="headerHoverStatus=true" @mouseout="headerHoverStatus=false">
                 <Icon class="openMore-icon" type="ios-arrow-down" size="20" @click="headerOpenStatus=true" v-if="!headerOpenStatus" />
                 <Icon class="openMore-icon" type="ios-arrow-up" size="20" @click="headerOpenStatus=false" v-if="headerOpenStatus" />
             </div>
-            <div v-if="headerOpenStatus">
-                <Collapse simple class="collapse">
-                    <Panel  name="1">
-                        史蒂夫·乔布斯
+            <div v-if="headerOpenStatus" class="header-open">
+                <Collapse simple class="collapse" v-model="panelName">
+                    <Panel  name="default">
+                        最近添加
                         <p slot="content">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</p>
                     </Panel>
-                    <Panel  name="2">
-                        史蒂夫·乔布斯
+                    <Panel  name="null">
+                        阅读最多
                         <p slot="content">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</p>
                     </Panel>
                 </Collapse>
@@ -175,6 +177,7 @@
                     name:'',
                     type: 1,
                 },
+                panelName: 'default',
                 ids: [],
                 file: null,
                 dragging: null,
