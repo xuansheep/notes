@@ -20,7 +20,7 @@
                             </div>
                             <div style="width: 215px">
                                 分类：<Select v-model="markForm.categoryId">
-                                <Option v-for="category in categoryList" :value="category.id" :key="category.id">
+                                <Option v-for="category in markCategoryList" :value="category.id" :key="category.id">
                                     {{category.name}}
                                 </Option>
                             </Select>
@@ -90,6 +90,13 @@
                             <FormItem label="内容" label-position="top">
                                 <Input type="textarea" v-model="noteForm.content" :rows="8" placeholder="please enter the content" />
                             </FormItem>
+                            <FormItem label="分类">
+                                <Select v-model="noteForm.categoryId">
+                                    <Option v-for="category in noteCategoryList" :value="category.id" :key="category.id">
+                                        {{category.name}}
+                                    </Option>
+                                </Select>
+                            </FormItem>
                         </Form>
                         <div class="demo-drawer-footer">
                             <Button style="margin-right: 8px" @click="drawerClose">取消</Button>
@@ -120,24 +127,31 @@
                     <Panel :name="index+''" v-for="(card,index) in noteCardList">
                         <span class="card-note-title">{{card.categoryName}}</span>
                         <div slot="content">
-                            <a class="card-note-text" v-for="note in card.noteList" @click="getNoteDeatil(note)">{{note.title}}</a>
+                            <a class="card-note-text" v-for="note in card.noteList" @click="getNoteDeatil(note.id)">{{note.title}}</a>
                             <Drawer
-                                    title="创建笔记"
-                                    v-model="noteDeatilStatus"
+                                    title="查看笔记"
+                                    v-model="noteDeatilWindowStatus"
                                     width="650"
-                                    :mask-closable="true"
+                                    :mask-closable="false"
                             >
-                                <Form :model="noteForm">
+                                <Form :model="noteDetialForm">
                                     <FormItem label="标题">
-                                        <Input v-model="noteForm.title" placeholder="please enter the title"></Input>
+                                        <Input v-model="noteDetialForm.title" placeholder="please enter the title"></Input>
                                     </FormItem>
                                     <FormItem label="内容" label-position="top">
-                                        <Input type="textarea" v-model="noteForm.content" :rows="8" placeholder="please enter the content" />
+                                        <Input type="textarea" v-model="noteDetialForm.content" :rows="8" placeholder="please enter the content" />
+                                    </FormItem>
+                                    <FormItem label="分类">
+                                        <Select v-model="noteDetialForm.categoryId">
+                                            <Option v-for="category in noteCategoryList" :value="category.id" :key="category.id">
+                                                {{category.name}}
+                                            </Option>
+                                        </Select>
                                     </FormItem>
                                 </Form>
                                 <div class="demo-drawer-footer">
-                                    <!--<Button style="margin-right: 8px" @click="drawerClose">取消</Button>-->
-                                    <!--<Button type="primary" @click="saveNote">保存</Button>-->
+                                    <Button style="margin-right: 8px" @click="drawerClose(noteDetialForm.id)">关闭</Button>
+                                    <Button type="primary" @click="saveNote">保存</Button>
                                 </div>
                             </Drawer>
                         </div>
@@ -149,7 +163,7 @@
         <div class="content">
             <Card class="card">
                 <div class="category-list">
-                    <Tag style="height: auto" v-for="category in categoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
+                    <Tag style="height: auto" v-for="category in markCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
                         <span class="category-tag-span"
                            @dragover.prevent="handleDragOver($event, category)"
                            @dragenter="handleDragEnter($event, category)">
@@ -216,13 +230,9 @@
                 deleteParams: {
                     ids: '',
                 },
-                categoryParams: {
-                    page: 1,
-                    size: 999,
-                    type: 1,
-                },
                 cardList: [],
-                categoryList: [],
+                markCategoryList: [],
+                noteCategoryList: [],
                 markForm: {
                     name: '',
                     link: '',
@@ -242,6 +252,9 @@
                     categoryId: '',
                     showStatus: false,
                 },
+                noteDetialForm: {
+
+                },
                 noteCardList: [],
 
                 visible: false,
@@ -256,7 +269,7 @@
                 headerHoverStatus: false,
 
                 addNoteWindowStatus: false,
-                noteDeatilStatus: false,
+                noteDeatilWindowStatus: false,
             }
         },
         created() {
@@ -270,10 +283,24 @@
                         c.colSpan = 4;
                     }
                 });
-                this.http.post(this.ports.category.list, this.categoryParams, res => {
-                    this.categoryList = res.records;
-                });
+                this.getCategoryList(1);
+                this.getCategoryList(2);
                 this.getNoteList();
+            },
+            getCategoryList(type){
+                let params = {
+                    page: 1,
+                    size: 999,
+                    type: type,
+                };
+                this.http.post(this.ports.category.list, params, res => {
+                    if (type === 1){
+                        this.noteCategoryList = res.records;
+                    }
+                    if (type === 2){
+                        this.markCategoryList = res.records;
+                    }
+                });
             },
             saveMark() {
                 let reg = new RegExp(/(http|https):\/\/[a-z0-9]+/);
@@ -362,23 +389,26 @@
                     this.$refs.c_input.focus();
                 });
             },
-            drawerClose(){
-                if (this.noteForm.title.trim().length > 0 || this.noteForm.content.trim().length > 0) {
-                    this.$Modal.confirm({
-                        title: '是否保留未保存笔记？',
-                        onOk: () =>{
-                            this.$Message.success("笔记以保留，下次打开可继续编辑");
-                        },
-                        onCancel: () =>{
-                            this.noteForm.title = '';
-                            this.noteForm.content = '';
-                        }
-                    })
+            drawerClose(id){
+                if (id > 0){
+                    this.noteDeatilWindowStatus = false;
                 }else {
-                    this.noteForm.title = '';
-                    this.noteForm.content = '';
+                    if (this.noteForm.title.trim().length > 0 || this.noteForm.content.trim().length > 0) {
+                        this.$Modal.confirm({
+                            title: '是否保留未保存笔记？',
+                            onOk: () =>{
+                                this.$Message.success("笔记以保留，下次打开可继续编辑");
+                            },
+                            onCancel: () =>{
+                                this.noteForm = {};
+                            }
+                        })
+                    }else {
+                        this.noteForm.title = '';
+                        this.noteForm.content = '';
+                    }
+                    this.addNoteWindowStatus = false;
                 }
-                this.addNoteWindowStatus = false;
             },
             saveNote(){
                 if (this.noteForm.title.trim().length === 0){
@@ -389,6 +419,7 @@
                     this.$Message.success('保存成功');
                     this.addNoteWindowStatus = false;
                     this.getNoteList();
+                    this.noteForm = {};
                 })
             },
             getNoteList(){
@@ -396,12 +427,18 @@
                     this.noteCardList = res;
                 })
             },
-            getNoteDeatil(note){
-                console.log("===",note)
-                this.http.post(this.ports.note.detail, {id:note.id}, res => {
-                    this.noteForm = res;
-                    this.noteDeatilStatus = true;
-                })
+            getNoteDeatil(id){
+                if (id > 0){
+                    let params = {
+                        id: id
+                    };
+                    this.http.post(this.ports.note.detail, params, res => {
+                        this.noteDetialForm = res;
+                        this.noteDeatilWindowStatus = true;
+                    })
+                }else {
+                    this.addNoteWindowStatus = true;
+                }
             },
 
             /***可拖放***/
