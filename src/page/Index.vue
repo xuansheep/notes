@@ -4,7 +4,7 @@
             <div class="header-carousel">
 
             </div>
-            <div>
+            <div v-if="!headerOpenStatus">
                 <div class="header-bottom-add-icon">
                     <Poptip placement="bottom-end" :width="300" v-model="visible">
                         <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
@@ -72,6 +72,32 @@
                     </Poptip>
                 </div>
             </div>
+            <div v-if="headerOpenStatus">
+                <div class="header-bottom-add-icon">
+                    <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20" @click="addNoteWindowStatus=true"/>
+                    <Drawer
+                            title="创建笔记"
+                            v-model="addNoteWindowStatus"
+                            width="650"
+                            :mask-closable="false"
+                            :draggable="true"
+                            @on-close="drawerClose"
+                    >
+                        <Form :model="noteForm">
+                            <FormItem label="标题">
+                                <Input v-model="noteForm.title" placeholder="please enter the title"></Input>
+                            </FormItem>
+                            <FormItem label="内容" label-position="top">
+                                <Input type="textarea" v-model="noteForm.content" :rows="8" placeholder="please enter the content" />
+                            </FormItem>
+                        </Form>
+                        <div class="demo-drawer-footer">
+                            <Button style="margin-right: 8px" @click="drawerClose">取消</Button>
+                            <Button type="primary" @click="saveNote">保存</Button>
+                        </div>
+                    </Drawer>
+                </div>
+            </div>
 
             <div class="header-bottom-openMore-icon" @mouseover="headerHoverStatus=true" @mouseout="headerHoverStatus=false">
                 <Icon class="openMore-icon" type="ios-arrow-down" size="20" @click="headerOpenStatus=true" v-if="!headerOpenStatus" />
@@ -79,13 +105,42 @@
             </div>
             <div v-if="headerOpenStatus" class="header-open">
                 <Collapse simple class="collapse" v-model="panelName">
-                    <Panel  name="default">
-                        最近添加
-                        <p slot="content">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</p>
+                    <Panel name="default">
+                        <span class="card-note-title">最近添加</span>
+                        <div slot="content">
+                            <a class="card-note-text">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</a>
+                        </div>
                     </Panel>
-                    <Panel  name="null">
-                        阅读最多
-                        <p slot="content">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</p>
+                    <Panel name="null">
+                        <span class="card-note-title">阅读最多</span>
+                        <div slot="content">
+                            <a class="card-note-text">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</a>
+                        </div>
+                    </Panel>
+                    <Panel :name="index+''" v-for="(card,index) in noteCardList">
+                        <span class="card-note-title">{{card.categoryName}}</span>
+                        <div slot="content">
+                            <a class="card-note-text" v-for="note in card.noteList" @click="getNoteDeatil(note)">{{note.title}}</a>
+                            <Drawer
+                                    title="创建笔记"
+                                    v-model="noteDeatilStatus"
+                                    width="650"
+                                    :mask-closable="true"
+                            >
+                                <Form :model="noteForm">
+                                    <FormItem label="标题">
+                                        <Input v-model="noteForm.title" placeholder="please enter the title"></Input>
+                                    </FormItem>
+                                    <FormItem label="内容" label-position="top">
+                                        <Input type="textarea" v-model="noteForm.content" :rows="8" placeholder="please enter the content" />
+                                    </FormItem>
+                                </Form>
+                                <div class="demo-drawer-footer">
+                                    <!--<Button style="margin-right: 8px" @click="drawerClose">取消</Button>-->
+                                    <!--<Button type="primary" @click="saveNote">保存</Button>-->
+                                </div>
+                            </Drawer>
+                        </div>
                     </Panel>
                 </Collapse>
             </div>
@@ -175,12 +230,19 @@
                 },
                 categoryForm: {
                     name:'',
-                    type: 1,
+                    type: 2,
                 },
                 panelName: 'default',
                 ids: [],
                 file: null,
                 dragging: null,
+                noteForm: {
+                    title: '',
+                    content: '',
+                    categoryId: '',
+                    showStatus: false,
+                },
+                noteCardList: [],
 
                 visible: false,
                 importVisible: false,
@@ -191,7 +253,10 @@
                 inputStatus: false,
                 cModelVisible: false,
                 headerOpenStatus: false,
-                headerHoverStatus:false,
+                headerHoverStatus: false,
+
+                addNoteWindowStatus: false,
+                noteDeatilStatus: false,
             }
         },
         created() {
@@ -207,7 +272,8 @@
                 });
                 this.http.post(this.ports.category.list, this.categoryParams, res => {
                     this.categoryList = res.records;
-                })
+                });
+                this.getNoteList();
             },
             saveMark() {
                 let reg = new RegExp(/(http|https):\/\/[a-z0-9]+/);
@@ -295,6 +361,47 @@
                 this.$nextTick(()=>{
                     this.$refs.c_input.focus();
                 });
+            },
+            drawerClose(){
+                if (this.noteForm.title.trim().length > 0 || this.noteForm.content.trim().length > 0) {
+                    this.$Modal.confirm({
+                        title: '是否保留未保存笔记？',
+                        onOk: () =>{
+                            this.$Message.success("笔记以保留，下次打开可继续编辑");
+                        },
+                        onCancel: () =>{
+                            this.noteForm.title = '';
+                            this.noteForm.content = '';
+                        }
+                    })
+                }else {
+                    this.noteForm.title = '';
+                    this.noteForm.content = '';
+                }
+                this.addNoteWindowStatus = false;
+            },
+            saveNote(){
+                if (this.noteForm.title.trim().length === 0){
+                    this.$Message.error('标题不能为空');
+                    return;
+                }
+                this.http.post(this.ports.note.save, this.noteForm, res => {
+                    this.$Message.success('保存成功');
+                    this.addNoteWindowStatus = false;
+                    this.getNoteList();
+                })
+            },
+            getNoteList(){
+                this.http.post(this.ports.note.list, this.listParams, res => {
+                    this.noteCardList = res;
+                })
+            },
+            getNoteDeatil(note){
+                console.log("===",note)
+                this.http.post(this.ports.note.detail, {id:note.id}, res => {
+                    this.noteForm = res;
+                    this.noteDeatilStatus = true;
+                })
             },
 
             /***可拖放***/

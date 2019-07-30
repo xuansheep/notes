@@ -16,5 +16,10 @@ export default {
     },
     file: {
         import: '/file/import/chrome',
+    },
+    note: {
+        save: '/note/save',
+        list: '/note/list',
+        detail: '/note/detail'
     }
 }

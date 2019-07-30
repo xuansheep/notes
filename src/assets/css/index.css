@@ -5,6 +5,7 @@
     margin: auto;
 }
 
+
 /**/
 .header {
     position: relative;
@@ -122,12 +123,14 @@
     padding-top: 35px
 }
 
+
 /**/
 .content {
     height: 80%;
     margin-bottom: 15px;
     background-color: gainsboro;
 }
+
 
 /**/
 .card {
@@ -201,6 +204,21 @@
     /*margin-bottom: -3px;*/
 }
 
+
+/**/
+.card-note-text {
+    cursor: pointer;
+    color: #3f3f3f;
+    font-size: 14px;
+    display: block;
+}
+.card-note-text:hover {
+    color: #ff7f50;
+}
+.card-note-title {
+    font-size: 14px;
+    font-weight: bold;
+}
 
 /*color*/
 .import {
