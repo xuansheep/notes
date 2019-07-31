@@ -20,6 +20,9 @@ export default {
     note: {
         save: '/note/save',
         list: '/note/list',
-        detail: '/note/detail'
+        detail: '/note/detail',
+        delete: '/note/delete',
+        listViewMost: '/note/list/viewMost',
+        listNewest: '/note/list/newest',
     }
 }

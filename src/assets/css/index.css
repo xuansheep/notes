@@ -120,7 +120,7 @@
     background-color: antiquewhite;
 }
 .header-open {
-    padding-top: 35px
+
 }
 
 
@@ -141,6 +141,14 @@
 }
 .category-list {
     text-align: left;
+}
+.note-category-list {
+    text-align: left;
+    padding: 30px 20px 20px 20px;
+}
+.note-category-tag {
+    background-color: #faf3e9;
+    height: auto;
 }
 .category-tag {
 

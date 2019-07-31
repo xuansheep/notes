@@ -4,7 +4,10 @@
             <div class="header-carousel">
 
             </div>
+
+            <!--书签功能按钮-->
             <div v-if="!headerOpenStatus">
+                <!--添加书签按钮-->
                 <div class="header-bottom-add-icon">
                     <Poptip placement="bottom-end" :width="300" v-model="visible">
                         <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
@@ -31,6 +34,7 @@
                         </div>
                     </Poptip>
                 </div>
+                <!--删除书签按钮-->
                 <div class="header-bottom-del-icon">
                     <Dropdown placement="bottom-end" trigger="custom" :visible="modifyStatus">
                         <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy"
@@ -48,6 +52,7 @@
                         </DropdownMenu>
                     </Dropdown>
                 </div>
+                <!--导入书签按钮-->
                 <div class="header-bottom-import-icon">
                     <Poptip placement="bottom-end" :width="300" v-model="importVisible">
                         <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru"
@@ -72,16 +77,34 @@
                     </Poptip>
                 </div>
             </div>
+
+            <!--笔记分类-->
+            <div v-if="headerOpenStatus" class="note-category-list">
+                <Tag class="note-category-tag" v-for="category in noteCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
+                    <span class="category-tag-span"
+                          @dragover.prevent="handleDragOver($event, category)"
+                          @dragenter="handleDragEnter($event, category)">
+                        {{category.name}}
+                    </span>
+                </Tag>
+                <Button icon="ios-add" type="dashed" size="small" @click="inputCategory">
+                    <Input ref="c_input" v-if="inputStatus" v-model="categoryForm.name" size="small" style="width: 70px" @on-blur="saveCategory(1)"></Input>
+                    <span v-if="!inputStatus">添加分类</span>
+                </Button>
+            </div>
+
+            <!--笔记功能按钮，详情抽屉-->
             <div v-if="headerOpenStatus">
+                <!--新增按钮-->
                 <div class="header-bottom-add-icon">
-                    <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20" @click="addNoteWindowStatus=true"/>
+                    <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20" @click="getNoteDeatil"/>
                     <Drawer
                             title="创建笔记"
-                            v-model="addNoteWindowStatus"
+                            v-model="noteWindowStatus"
                             width="650"
                             :mask-closable="false"
                             :draggable="true"
-                            @on-close="drawerClose"
+                            @on-close="drawerClose(noteForm.id)"
                     >
                         <Form :model="noteForm">
                             <FormItem label="标题">
@@ -99,67 +122,38 @@
                             </FormItem>
                         </Form>
                         <div class="demo-drawer-footer">
-                            <Button style="margin-right: 8px" @click="drawerClose">取消</Button>
+                            <Button style="margin-right: 8px" @click="drawerClose(noteForm.id)">取消</Button>
                             <Button type="primary" @click="saveNote">保存</Button>
+                            <Button v-if="noteForm.id>0" style="position: absolute; right: 15px;" type="error" @click="deleteNote">删除</Button>
                         </div>
                     </Drawer>
                 </div>
+                <!--删除-->
+                <div class="header-bottom-del-icon">
+                    <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy" size="20" @click="modify"/>
+                </div>
             </div>
 
+            <!--顶部栏-打开笔记内容-->
             <div class="header-bottom-openMore-icon" @mouseover="headerHoverStatus=true" @mouseout="headerHoverStatus=false">
-                <Icon class="openMore-icon" type="ios-arrow-down" size="20" @click="headerOpenStatus=true" v-if="!headerOpenStatus" />
+                <Icon class="openMore-icon" type="ios-arrow-down" size="20" @click="openMore" v-if="!headerOpenStatus" />
                 <Icon class="openMore-icon" type="ios-arrow-up" size="20" @click="headerOpenStatus=false" v-if="headerOpenStatus" />
             </div>
+
+            <!--笔记列表-->
             <div v-if="headerOpenStatus" class="header-open">
                 <Collapse simple class="collapse" v-model="panelName">
-                    <Panel name="default">
-                        <span class="card-note-title">最近添加</span>
-                        <div slot="content">
-                            <a class="card-note-text">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</a>
-                        </div>
-                    </Panel>
-                    <Panel name="null">
-                        <span class="card-note-title">阅读最多</span>
-                        <div slot="content">
-                            <a class="card-note-text">史蒂夫·乔布斯（Steve Jobs），1955年2月24日生于美国加利福尼亚州旧金山，美国发明家、企业家、美国苹果公司联合创办人。</a>
-                        </div>
-                    </Panel>
                     <Panel :name="index+''" v-for="(card,index) in noteCardList">
                         <span class="card-note-title">{{card.categoryName}}</span>
                         <div slot="content">
                             <a class="card-note-text" v-for="note in card.noteList" @click="getNoteDeatil(note.id)">{{note.title}}</a>
-                            <Drawer
-                                    title="查看笔记"
-                                    v-model="noteDeatilWindowStatus"
-                                    width="650"
-                                    :mask-closable="false"
-                            >
-                                <Form :model="noteDetialForm">
-                                    <FormItem label="标题">
-                                        <Input v-model="noteDetialForm.title" placeholder="please enter the title"></Input>
-                                    </FormItem>
-                                    <FormItem label="内容" label-position="top">
-                                        <Input type="textarea" v-model="noteDetialForm.content" :rows="8" placeholder="please enter the content" />
-                                    </FormItem>
-                                    <FormItem label="分类">
-                                        <Select v-model="noteDetialForm.categoryId">
-                                            <Option v-for="category in noteCategoryList" :value="category.id" :key="category.id">
-                                                {{category.name}}
-                                            </Option>
-                                        </Select>
-                                    </FormItem>
-                                </Form>
-                                <div class="demo-drawer-footer">
-                                    <Button style="margin-right: 8px" @click="drawerClose(noteDetialForm.id)">关闭</Button>
-                                    <Button type="primary" @click="saveNote">保存</Button>
-                                </div>
-                            </Drawer>
                         </div>
                     </Panel>
                 </Collapse>
             </div>
         </div>
 
+        <!--书签内容-->
         <div class="content">
             <Card class="card">
                 <div class="category-list">
@@ -171,7 +165,7 @@
                         </span>
                     </Tag>
                     <Button icon="ios-add" type="dashed" size="small" @click="inputCategory">
-                        <Input ref="c_input" v-if="inputStatus" v-model="categoryForm.name" size="small" style="width: 70px" @on-blur="saveCategory"></Input>
+                        <Input ref="c_input" v-if="inputStatus" v-model="categoryForm.name" size="small" style="width: 70px" @on-blur="saveCategory(2)"></Input>
                         <span v-if="!inputStatus">添加分类</span>
                     </Button>
                 </div>
@@ -242,7 +236,7 @@
                     name:'',
                     type: 2,
                 },
-                panelName: 'default',
+                panelName: '0',
                 ids: [],
                 file: null,
                 dragging: null,
@@ -250,12 +244,11 @@
                     title: '',
                     content: '',
                     categoryId: '',
-                    showStatus: false,
                 },
-                noteDetialForm: {
-
-                },
+                noteDetailForm: {},
                 noteCardList: [],
+                viewMostNoteList: [],
+                newestNoteList: [],
 
                 visible: false,
                 importVisible: false,
@@ -268,8 +261,7 @@
                 headerOpenStatus: false,
                 headerHoverStatus: false,
 
-                addNoteWindowStatus: false,
-                noteDeatilWindowStatus: false,
+                noteWindowStatus: false,
             }
         },
         created() {
@@ -283,8 +275,10 @@
                         c.colSpan = 4;
                     }
                 });
-                this.getCategoryList(1);
                 this.getCategoryList(2);
+            },
+            flushNoteData() {
+                this.getCategoryList(1);
                 this.getNoteList();
             },
             getCategoryList(type){
@@ -361,11 +355,15 @@
                     this.modifyStatus = false;
                 }
             },
-            saveCategory(){
+            saveCategory(type){
                 if (this.categoryForm.name.trim().length !== 0){
-                    this.categoryForm.type = 1;
+                    this.categoryForm.type = type;
                     this.http.post(this.ports.category.save, this.categoryForm, res => {
-                        this.pageLoad();
+                        if (type === 1){
+                            this.flushNoteData();
+                        } else {
+                            this.pageLoad();
+                        }
                         this.categoryForm.name = '';
                         this.$Message('添加成功');
                     })
@@ -373,13 +371,19 @@
                 this.inputStatus = false;
             },
             deleteCategory(id) {
-                let params = {
-                    ids: id,
-                };
-                this.http.post(this.ports.category.delete, params, res => {
-                    this.pageLoad();
-                    this.$Message.success('删除成功');
-                })
+                this.$Modal.confirm({
+                    title: '是否删除该分类？',
+                    onOk: () =>{
+                        let params = {
+                            ids: id,
+                        };
+                        this.http.post(this.ports.category.delete, params, res => {
+                            this.pageLoad();
+                            this.flushNoteData();
+                            this.$Message.success('删除成功');
+                        })
+                    },
+                });
             },
             inputCategory(){
                 if (!this.inputStatus) {
@@ -389,25 +393,30 @@
                     this.$refs.c_input.focus();
                 });
             },
+            openMore(){
+                this.headerOpenStatus = true;
+                this.flushNoteData();
+            },
             drawerClose(id){
                 if (id > 0){
-                    this.noteDeatilWindowStatus = false;
+                    this.noteWindowStatus = false;
+                    this.noteForm = {};
                 }else {
-                    if (this.noteForm.title.trim().length > 0 || this.noteForm.content.trim().length > 0) {
+                    if ((!!this.noteForm.title&&this.noteForm.title.trim().length>0) || (!!this.noteForm.content&&this.noteForm.content.trim().length>0)) {
                         this.$Modal.confirm({
                             title: '是否保留未保存笔记？',
                             onOk: () =>{
-                                this.$Message.success("笔记以保留，下次打开可继续编辑");
+                                this.noteDetailForm = this.noteForm;
+                                this.$Message.success("笔记已保留，下次打开可继续编辑");
                             },
                             onCancel: () =>{
                                 this.noteForm = {};
                             }
                         })
                     }else {
-                        this.noteForm.title = '';
-                        this.noteForm.content = '';
+                        this.noteForm = {};
                     }
-                    this.addNoteWindowStatus = false;
+                    this.noteWindowStatus = false;
                 }
             },
             saveNote(){
@@ -417,7 +426,7 @@
                 }
                 this.http.post(this.ports.note.save, this.noteForm, res => {
                     this.$Message.success('保存成功');
-                    this.addNoteWindowStatus = false;
+                    this.noteWindowStatus = false;
                     this.getNoteList();
                     this.noteForm = {};
                 })
@@ -433,12 +442,29 @@
                         id: id
                     };
                     this.http.post(this.ports.note.detail, params, res => {
-                        this.noteDetialForm = res;
-                        this.noteDeatilWindowStatus = true;
+                        this.noteForm = res;
                     })
                 }else {
-                    this.addNoteWindowStatus = true;
+                    this.noteForm = this.noteDetailForm;
+                    this.noteDetailForm = {};
                 }
+                this.noteWindowStatus = true;
+            },
+            deleteNote(){
+                this.$Modal.confirm({
+                    title: '是否删除此笔记？',
+                    onOk: () =>{
+                        let params = {
+                            id: this.noteForm.id
+                        };
+                        this.http.post(this.ports.note.delete, params, res => {
+                            this.$Message.success('删除成功');
+                            this.getNoteList();
+                            this.noteWindowStatus = false;
+                        })
+                    },
+
+                })
             },
 
             /***可拖放***/
