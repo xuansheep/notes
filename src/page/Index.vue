@@ -99,8 +99,8 @@
                 <div class="header-bottom-add-icon">
                     <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20" @click="getNoteDeatil"/>
                     <Drawer
-                            title="创建笔记"
-                            v-model="noteWindowStatus"
+                            :title=noteWindowTitle
+                            v-model=noteWindowStatus
                             width="650"
                             :mask-closable="false"
                             :draggable="true"
@@ -122,7 +122,7 @@
                             </FormItem>
                         </Form>
                         <div class="demo-drawer-footer">
-                            <Button style="margin-right: 8px" @click="drawerClose(noteForm.id)">取消</Button>
+                            <Button style="margin-right: 8px" @click="drawerClose(noteForm.id)">{{noteForm.id>0 ? '关闭' : '取消'}}</Button>
                             <Button type="primary" @click="saveNote">保存</Button>
                             <Button v-if="noteForm.id>0" style="position: absolute; right: 15px;" type="error" @click="deleteNote">删除</Button>
                         </div>
@@ -224,9 +224,6 @@
                 deleteParams: {
                     ids: '',
                 },
-                cardList: [],
-                markCategoryList: [],
-                noteCategoryList: [],
                 markForm: {
                     name: '',
                     link: '',
@@ -236,19 +233,25 @@
                     name:'',
                     type: 2,
                 },
-                panelName: '0',
-                ids: [],
-                file: null,
-                dragging: null,
                 noteForm: {
                     title: '',
                     content: '',
                     categoryId: '',
                 },
                 noteDetailForm: {},
+
+                ids: [],
+                cardList: [],
+                markCategoryList: [],
+                noteCategoryList: [],
                 noteCardList: [],
                 viewMostNoteList: [],
                 newestNoteList: [],
+
+                panelName: '0',
+                file: null,
+                dragging: null,
+                noteWindowTitle: '',
 
                 visible: false,
                 importVisible: false,
@@ -443,10 +446,12 @@
                     };
                     this.http.post(this.ports.note.detail, params, res => {
                         this.noteForm = res;
-                    })
+                    });
+                    this.noteWindowTitle = '查看笔记';
                 }else {
                     this.noteForm = this.noteDetailForm;
                     this.noteDetailForm = {};
+                    this.noteWindowTitle = '创建笔记';
                 }
                 this.noteWindowStatus = true;
             },
