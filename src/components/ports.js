@@ -24,5 +24,8 @@ export default {
         delete: '/note/delete',
         listViewMost: '/note/list/viewMost',
         listNewest: '/note/list/newest',
+    },
+    chat: {
+        send: '/chat/send',
     }
 }

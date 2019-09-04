@@ -21,6 +21,8 @@ const router = new Router({
         {path: '/logIn', component: () => import('../page/LogIn.vue')},
         {path: '/index', component: () => import('../page/Index.vue')},
         {path: '/mark', component: () => import('../page/Mark.vue')},
+        {path: '/web', component: () => import('../page/Web.vue')},
+        {path: '/calendar', component: () => import('../page/Calendar.vue')},
     ]
 });
 
