@@ -23,6 +23,7 @@ const router = new Router({
         {path: '/mark', component: () => import('../page/Mark.vue')},
         {path: '/web', component: () => import('../page/Web.vue')},
         {path: '/calendar', component: () => import('../page/Calendar.vue')},
+        {path: '/door', component: () => import('../page/Door.vue')},
     ]
 });
 

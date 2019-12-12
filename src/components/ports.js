@@ -27,5 +27,8 @@ export default {
     },
     chat: {
         send: '/chat/send',
+    },
+    door: {
+        open: '/door/open',
     }
 }
