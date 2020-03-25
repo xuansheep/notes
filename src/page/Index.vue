@@ -97,11 +97,11 @@
             <div v-if="headerOpenStatus">
                 <!--新增按钮-->
                 <div class="header-bottom-add-icon">
-                    <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20" @click="getNoteDeatil"/>
+                    <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20" @click="getNoteDetail"/>
                     <Drawer
                             :title=noteWindowTitle
                             v-model=noteWindowStatus
-                            width="650"
+                            width="40"
                             :mask-closable="false"
                             :draggable="true"
                             @on-close="drawerClose(noteForm.id)"
@@ -111,7 +111,7 @@
                                 <Input v-model="noteForm.title" placeholder="please enter the title"></Input>
                             </FormItem>
                             <FormItem label="内容" label-position="top">
-                                <Input type="textarea" v-model="noteForm.content" :rows="8" placeholder="please enter the content" />
+                                <Input type="textarea" v-model="noteForm.content" :rows="28" placeholder="please enter the content" />
                             </FormItem>
                             <FormItem label="分类">
                                 <Select v-model="noteForm.categoryId">
@@ -146,7 +146,7 @@
                     <Panel :name="index+''" v-for="(card,index) in noteCardList">
                         <span class="card-note-title">{{card.categoryName}}</span>
                         <div slot="content">
-                            <a class="card-note-text" v-for="note in card.noteList" @click="getNoteDeatil(note.id)">{{note.title}}</a>
+                            <a class="card-note-text" v-for="note in card.noteList" @click="getNoteDetail(note.id)">{{note.title}}</a>
                         </div>
                     </Panel>
                 </Collapse>
@@ -248,7 +248,7 @@
                 viewMostNoteList: [],
                 newestNoteList: [],
 
-                panelName: '0',
+                panelName: [],
                 file: null,
                 dragging: null,
                 noteWindowTitle: '',
@@ -439,7 +439,7 @@
                     this.noteCardList = res;
                 })
             },
-            getNoteDeatil(id){
+            getNoteDetail(id){
                 if (id > 0){
                     let params = {
                         id: id
