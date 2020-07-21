@@ -22,9 +22,6 @@
 </template>
 
 <script>
-
-    import eruda from 'eruda/eruda.min.js';
-
     export default {
         name: "Login",
         data() {
@@ -59,7 +56,7 @@
             document.querySelector('body').setAttribute('style', '')
         },
         created() {
-            //eruda.init();
+
         },
         methods: {
             singIn(){
