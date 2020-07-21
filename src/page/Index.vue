@@ -80,6 +80,9 @@
 
             <!--笔记分类-->
             <div v-if="headerOpenStatus" class="note-category-list">
+
+                <Input class="note-search" search placeholder="搜索笔记..." />
+
                 <Tag class="note-category-tag" v-for="category in noteCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
                     <span class="category-tag-span"
                           @dragover.prevent="handleDragOver($event, category)"

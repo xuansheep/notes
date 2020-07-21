@@ -37,17 +37,17 @@
 .header-bottom-add-icon {
     position: absolute;
     top: 5px;
-    right: 45px;
+    right: 48px;
 }
 .header-bottom-del-icon {
     position: absolute;
     top: 5px;
-    right: 15px;
+    right: 18px;
 }
 .header-bottom-import-icon {
     position: absolute;
     top: 5px;
-    right: 75px;
+    right: 78px;
 }
 .add-icon {
     cursor: pointer;
@@ -139,6 +139,10 @@
     margin-right: auto;
     margin-top: 15px;
     width: 97%;
+}
+.note-search {
+    margin: 5px 0 5px 0;
+    color: antiquewhite;
 }
 .category-list {
     text-align: left;
@@ -238,4 +242,10 @@
 }
 .del {
     color: #ff4855;
+}
+
+/*iviewUI*/
+.ivu-input-with-suffix {
+    padding-right: 32px;
+    background-color: #fff8ed;
 }
