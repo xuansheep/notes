@@ -23,8 +23,6 @@
 
 <script>
 
-    import eruda from 'eruda/eruda.min.js';
-
     export default {
         name: "Login",
         data() {

@@ -216,11 +216,9 @@
 
 <script>
     import '../assets/css/index.css'
-    import {Col} from 'iview';
 
     export default {
         name: "Index",
-        components: {Col},
         data() {
             return {
                 listParams: {

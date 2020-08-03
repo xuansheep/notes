@@ -1,7 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-import {Message} from 'iview'
-import 'iview/dist/styles/iview.css'
+import {Message} from 'view-design'
 
 
 const TIME_OUT_MS = 60 * 1000; // 默认请求超时时间

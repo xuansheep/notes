@@ -21,5 +21,13 @@ export default {
         save: '/note/save',
         list: '/note/list',
         detail: '/note/detail'
+    },
+    nga: {
+        subject: {
+            list: '/nga/subjectList'
+        },
+        reply: {
+            list: '/nga/replyList'
+        }
     }
 }

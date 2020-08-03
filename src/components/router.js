@@ -21,6 +21,8 @@ const router = new Router({
         {path: '/logIn', component: () => import('../page/LogIn.vue')},
         {path: '/index', component: () => import('../page/Index.vue')},
         {path: '/mark', component: () => import('../page/Mark.vue')},
+        {path: '/nga', component: () => import('../page/Nga.vue')},
+        {path: '/reply/:tid', component: () => import('../page/NgaReply.vue')},
     ]
 });
 
