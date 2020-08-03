@@ -23,6 +23,9 @@ const router = new Router({
         {path: '/mark', component: () => import('../page/Mark.vue')},
         {path: '/nga', component: () => import('../page/Nga.vue')},
         {path: '/reply/:tid', component: () => import('../page/NgaReply.vue')},
+        {path: '/web', component: () => import('../page/Web.vue')},
+        {path: '/calendar', component: () => import('../page/Calendar.vue')},
+        {path: '/door', component: () => import('../page/Door.vue')},
     ]
 });
 
