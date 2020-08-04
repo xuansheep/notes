@@ -21,7 +21,7 @@ Router.prototype.push = function push(location) {
 }
 
 const router = new Router({
-    mode: 'history',
+    //mode: 'history',
     routes: [
         {path: '/', redirect: '/logIn'},
         {path: '/logIn', component: () => import('../page/LogIn.vue')},
