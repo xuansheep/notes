@@ -1,8 +1,9 @@
 <template>
-    <div>
+    <div class="background">
         <div class="search">
             <Input style="width: 500px" search placeholder="Enter something..." v-model="form.subject" @on-enter="handleChange" />
-            <i-button style="margin-left: 20px" type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
+            <i-button style="margin-left: 20px"
+                      type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
         </div>
         <div>
             <Table :columns="columns" :data="tableDate" @on-row-click="pushReply"></Table>
@@ -31,8 +32,8 @@
                     subject:'',
                 },
                 columns:[
-                    {title:"主题", key:"subject"},
-                    {title:"作者", key:"author"},
+                    {title:"主题", key:"subject", className:"row-background"},
+                    {title:"作者", key:"author", className:"row-background"},
                 ],
                 tableDate:[],
                 totalSize:0,
@@ -42,9 +43,13 @@
         created() {
             if (!this.$route.query.page){
                 this.$route.query.page = this.form.page;
+            }else {
+                this.form.page = Number(this.$route.query.page);
             }
             if (!this.$route.query.size){
-                this.$route.query.size = this.form.size
+                this.$route.query.size = this.form.size;
+            }else {
+                this.form.size = Number(this.$route.query.size);
             }
             this.form.subject = this.$route.query.subject;
             this.pageLoad();

@@ -1,9 +1,25 @@
+.background {
+    height: 100%;
+    width: 1024px;
+    /*background-color: antiquewhite;*/
+    margin: auto;
+    border-radius: 5px;
+}
+
 .search{
     padding: 20px 10px 20px 10px;
     text-align: left;
 }
 
-.list{
+.reply-title{
+    padding: 10px 20px 20px 20px;
+}
+.reply-title p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.reply-list{
     padding: 0 20px 0 20px;
 }
 
@@ -15,3 +31,97 @@
 .reply-text{
     text-align: left;
 }
+
+/*iviewUI*/
+.ivu-table .row-background{
+    /*background-color: antiquewhite;*/
+    cursor: pointer;
+}
+
+.ivu-list-vertical .ivu-list-item-meta-title {
+    margin-bottom: 12px;
+    color: rgba(0,0,0,.85);
+    font-size: 12px;
+    line-height: 24px;
+}
+
+/*
+.ivu-input-with-suffix {
+    padding-right: 32px;
+    background-color: #fff8ed;
+}
+
+.ivu-page-item-active a, .ivu-page-item-active:hover a {
+    color: #000000;
+    font-weight: bold;
+}
+.ivu-page-next, .ivu-page-prev {
+    background-color: #fff8ed;
+}
+.ivu-page-item {
+    display: inline-block;
+    vertical-align: middle;
+    min-width: 32px;
+    height: 32px;
+    line-height: 30px;
+    margin-right: 4px;
+    text-align: center;
+    list-style: none;
+    background-color: #fff8ed;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    font-family: Arial;
+    font-weight: 500;
+    border: 1px solid #dcdee2;
+    border-radius: 4px;
+    transition: border .2s ease-in-out,color .2s ease-in-out;
+}
+.ivu-select-selection {
+    display: block;
+    box-sizing: border-box;
+    outline: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    background-color: #fff8ed;
+    border-radius: 4px;
+    border: 1px solid #dcdee2;
+    transition: all .2s ease-in-out;
+}
+.ivu-select-dropdown {
+    width: inherit;
+    max-height: 200px;
+    overflow: auto;
+    margin: 5px 0;
+    padding: 5px 0;
+    background-color: #fff8ed;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+    position: absolute;
+    z-index: 900;
+}
+.ivu-page-options-elevator input {
+    display: inline-block;
+    width: 100%;
+    height: 32px;
+    line-height: 1.5;
+    padding: 4px 7px;
+    font-size: 14px;
+    border: 1px solid #dcdee2;
+    color: #515a6e;
+    background-color: #fff8ed;
+    background-image: none;
+    position: relative;
+    cursor: text;
+    transition: border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;
+    border-radius: 4px;
+    margin: 0 8px;
+    width: 50px;
+}*/

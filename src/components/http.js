@@ -14,8 +14,7 @@ function handleResults (response) {
 }
 
 function handleUrl (url) {
-    url = 'http://47.106.79.168:10001'+url;
-    // url = 'http://127.0.0.1:10001'+url;
+    url = url;
 
 // BASE_URL是接口的ip前缀，比如http:10.100.1.1:8989/
     return url
@@ -44,6 +43,10 @@ function getToken (){
 }
 
 export default {
+
+    serverUrl:'http://47.106.79.168:10001',
+    //serverUrl:'http://127.0.0.1:10001',
+
     /*
      * @param url
      * @param data
@@ -53,7 +56,7 @@ export default {
     post (url, data, response, exception) {
         axios({
             method: 'post',
-            url: handleUrl(url),
+            url: this.serverUrl+url,
             data: handleParams(data),
             timeout: TIME_OUT_MS,
             transformRequest:[data => qs.stringify(data)],

@@ -5,6 +5,10 @@
 
             </div>
 
+            <div class="header-bottom-nga-div">
+                <img class="header-bottom-nga-icon" src="../assets/image/dex-fish-nga-1.jpg" @click="goNga" />
+            </div>
+
             <!--书签功能按钮-->
             <div v-if="!headerOpenStatus">
                 <!--添加书签按钮-->
@@ -472,6 +476,9 @@
 
                 })
             },
+            goNga(){
+                this.$router.push({path:'/nga'})
+            },
 
             /***可拖放***/
             handleDragStart(e, item) {
@@ -490,7 +497,6 @@
                 e.preventDefault();
             },
             handleDragEnter(e, item) {
-                console.log(e)
                 if (this.dragging) {
                     this.dragging.categoryId = item.id;
                 }

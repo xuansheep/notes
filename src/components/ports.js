@@ -1,33 +1,34 @@
 export default {
     user: {
-        signUp: '/user/signUp', // 注册接口
-        signIn: '/user/signIn', // 登录
-        signOut: '/user/signOut', // 退出
+        signUp: '/api/user/signUp', // 注册接口
+        signIn: '/api/user/signIn', // 登录
+        signOut: '/api/user/signOut', // 退出
     },
     category: {
-        list: '/category/list',
-        delete: '/category/delete',
-        save: '/category/save',
+        list: '/api/category/list',
+        delete: '/api/category/delete',
+        save: '/api/category/save',
     },
     mark: {
-        save: '/mark/save',
-        listIndex: '/mark/list/index',
-        delete: '/mark/delete',
+        save: '/api/mark/save',
+        listIndex: '/api/mark/list/index',
+        delete: '/api/mark/delete',
     },
     file: {
-        import: '/file/import/chrome',
+        import: '/api/file/import/chrome',
     },
     note: {
-        save: '/note/save',
-        list: '/note/list',
-        detail: '/note/detail'
+        save: '/api/note/save',
+        list: '/api/note/list',
+        detail: '/api/note/detail'
     },
     nga: {
         subject: {
-            list: '/nga/subjectList'
+            list: '/api/nga/subjectList',
+            detail: '/api/nga/subjectDetail'
         },
         reply: {
-            list: '/nga/replyList'
+            list: '/api/nga/replyList'
         }
     }
 }
