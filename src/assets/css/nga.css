@@ -1,7 +1,7 @@
-.background {
+.nga-background {
     height: 100%;
     width: 1024px;
-    /*background-color: antiquewhite;*/
+    background-color: #ffffff;
     margin: auto;
     border-radius: 5px;
 }

@@ -20,7 +20,16 @@ export default {
     note: {
         save: '/api/note/save',
         list: '/api/note/list',
-        detail: '/api/note/detail'
+        detail: '/api/note/detail',
+        delete: '/api/note/delete',
+        listViewMost: '/api/note/list/viewMost',
+        listNewest: '/api/note/list/newest',
+    },
+    chat: {
+        send: '/api/chat/send',
+    },
+    door: {
+        open: '/api/door/open',
     },
     nga: {
         subject: {

@@ -256,7 +256,20 @@
 }
 
 /*iviewUI*/
-.ivu-input-with-suffix {
+.note-category-list .ivu-input-with-suffix {
     padding-right: 32px;
     background-color: #fff8ed;
+}
+
+.header-open .ivu-collapse-content {
+    color: #515a6e;
+    padding: 0 16px;
+    background-color: antiquewhite;
+}
+
+.note-category-list .ivu-btn-dashed {
+    color: #515a6e;
+    background-color: #fff8ed;
+    border-color: #dcdee2;
+    border-style: dashed;
 }

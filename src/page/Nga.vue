@@ -1,5 +1,5 @@
 <template>
-    <div class="background">
+    <div class="nga-background">
         <div class="search">
             <Input style="width: 500px" search placeholder="Enter something..." v-model="form.subject" @on-enter="handleChange" />
             <i-button style="margin-left: 20px"

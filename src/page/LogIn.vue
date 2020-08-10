@@ -57,7 +57,10 @@
             document.querySelector('body').setAttribute('style', '')
         },
         created() {
-            //eruda.init();
+            let user = this.store.fetch('user')
+            if (!!user) {
+                this.$router.push({path:'/index'})
+            }
         },
         methods: {
             singIn(){
