@@ -6,6 +6,10 @@
         <div class="reply-list">
             <List item-layout="vertical">
                 <ListItem v-for="data in tableData" :key="data.lou">
+                    <p v-if="data.lou!==0" class="reply-lou">
+                        <span class="reply-postdate">{{data.postDate|formatDate}}</span>
+                        <span>#{{data.lou}}</span>
+                    </p>
                     <ListItemMeta :avatar="data.avatar" :title="data.username" />
                     <p class="reply-text" v-html="data.content"></p>
                 </ListItem>
@@ -78,6 +82,11 @@
                 return this.http.serverUrl + "/proxy/file?url="+url;
             },
         },
+        filters: {
+            formatDate:function (date) {
+                return new Date(date).Format('MM-dd HH:mm:ss');
+            }
+        }
     }
 </script>
 

@@ -32,6 +32,17 @@
     text-align: left;
 }
 
+.reply-lou{
+    float: right;
+    text-align: right;
+}
+
+.reply-postdate{
+    margin-right: 20px;
+    color: #969896;
+    font-size: 10px;
+}
+
 .reply-quote{
     background-color: #F9F9F9;
     padding: 10px;
