@@ -32,6 +32,13 @@
     text-align: left;
 }
 
+.reply-quote{
+    background-color: #F9F9F9;
+    padding: 10px;
+    margin-left: 10px;
+    font-size: 10px;
+}
+
 /*iviewUI*/
 .ivu-table .row-background{
     /*background-color: antiquewhite;*/
