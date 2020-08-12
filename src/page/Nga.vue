@@ -34,6 +34,14 @@
                 columns:[
                     {title:"主题", key:"subject", className:"row-background"},
                     {title:"作者", key:"author", className:"row-background"},
+                    {
+                        title: "发布时间",
+                        key: "postDate",
+                        className: "row-background",
+                        render: (h, params) => {
+                            return h('div', new Date(params.row.postDate).Format('yyyy-MM-dd HH:mm:ss'));
+                        }
+                    },
                 ],
                 tableDate:[],
                 totalSize:0,
@@ -84,20 +92,22 @@
                 })
             },
             subjectList(){
-                console.log('参数： ', this.$route.query)
+                console.log('参数： ', this.$route.query);
                 this.http.post(this.ports.nga.subject.list, this.$route.query, res => {
                     this.tableDate = res.records;
                     this.totalSize = res.total;
                 })
             },
             handleChange() {
+                this.form.page = 1;
                 this.$router.push({
                     path: `/nga`,
                     query: {
                         ...this.$route.query,
+                        page: 1,
                         subject: this.form.subject
                     }
-                })
+                });
             },
             // getQuery() {
             //     let paramsArr = []
