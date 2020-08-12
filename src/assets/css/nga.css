@@ -39,6 +39,10 @@
     font-size: 10px;
 }
 
+.reply-del-text{
+    text-decoration:line-through;
+}
+
 /*iviewUI*/
 .ivu-table .row-background{
     /*background-color: antiquewhite;*/
