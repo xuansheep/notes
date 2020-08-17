@@ -33,15 +33,17 @@
                 },
                 columns:[
                     {title:"主题", key:"subject", className:"row-background"},
-                    {title:"作者", key:"author", className:"row-background"},
+                    {title:"作者", key:"author", className:"row-background", width:200},
                     {
                         title: "发布时间",
                         key: "postDate",
                         className: "row-background",
                         render: (h, params) => {
                             return h('div', new Date(params.row.postDate).Format('yyyy-MM-dd HH:mm:ss'));
-                        }
+                        },
+                        width:200
                     },
+                    {title:"回复数", key:"replyNum", className:"row-background", width:100},
                 ],
                 tableDate:[],
                 totalSize:0,
