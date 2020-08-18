@@ -6,7 +6,7 @@
                       type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
         </div>
         <div>
-            <Table :columns="columns" :data="tableDate" @on-row-click="pushReply"></Table>
+            <Table :columns="columns" :data="tableDate" @on-row-click="pushReply" @on-sort-change="dataSort"></Table>
         </div>
         <div class="pagination">
             <Page :total="totalSize" :current="form.page" :page-size="form.size" :page-size-opts="pageSizeOpts"
@@ -28,9 +28,12 @@
                     size:15,
                     subject:'',
                     word:'',
+                    sortField:'',
+                    sort:'',
                 },
                 columns:[
-                    {title:"主题", key:"subject", className:"row-background",
+                    {
+                        title:"主题", key:"subject", className:"row-background",
                         render: (h, params) => {
                             return h('div', {
                                 domProps: {
@@ -39,7 +42,9 @@
                             })
                         }
                     },
-                    {title:"作者", key:"author", className:"row-background", width:240},
+                    {
+                        title:"作者", key:"author", className:"row-background", width:240
+                    },
                     {
                         title: "发布时间",
                         key: "postDate",
@@ -48,9 +53,12 @@
                             return h('div', !!params.row.postDate ?
                                 new Date(params.row.postDate).Format('yyyy-MM-dd HH:mm:ss') : params.row.postDateStr);
                         },
+                        sortable: 'custom',
                         width:200
                     },
-                    {title:"回复数", key:"replyNum", className:"row-background", width:100},
+                    {
+                        title:"回复数", key:"replyNum", className:"row-background", sortable:'custom', width:100
+                    },
                 ],
                 tableDate:[],
                 totalSize:0,
@@ -142,10 +150,22 @@
                         ...this.$route.query,
                         page: 1,
                         subject: '',
-                        word: ''
+                        word: '',
+                        sortField:'',
+                        sort:''
                     }
                 });
             },
+            dataSort(column){
+                this.$router.push({
+                    path: `/nga`,
+                    query: {
+                        ...this.$route.query,
+                        sortField: column.key,
+                        sort: column.order
+                    }
+                });
+            }
         }
     }
 </script>
