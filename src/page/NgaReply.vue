@@ -54,7 +54,6 @@
                 this.replyList();
             },
             subjectDetail(){
-                console.log("...............",this.form)
                 this.http.post(this.ports.nga.subject.detail, this.form, res => {
                     this.subject = res;
                 })

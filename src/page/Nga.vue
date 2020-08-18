@@ -1,7 +1,7 @@
 <template>
     <div class="nga-background">
         <div class="search">
-            <Input style="width: 500px" search placeholder="Enter something..." v-model="form.subject" @on-enter="handleChange" />
+            <Input style="width: 500px" search placeholder="Enter something..." v-model="form.subject" @on-search="handleChange" />
             <i-button style="margin-left: 20px"
                       type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
         </div>
@@ -29,9 +29,6 @@
                     subject:'',
                     word:'',
                 },
-                queryForm: {
-                    subject:'',
-                },
                 columns:[
                     {title:"主题", key:"subject", className:"row-background",
                         render: (h, params) => {
@@ -42,13 +39,14 @@
                             })
                         }
                     },
-                    {title:"作者", key:"author", className:"row-background"},
+                    {title:"作者", key:"author", className:"row-background", width:240},
                     {
                         title: "发布时间",
                         key: "postDate",
                         className: "row-background",
                         render: (h, params) => {
-                            return h('div', new Date(params.row.postDate).Format('yyyy-MM-dd HH:mm:ss'));
+                            return h('div', !!params.row.postDate ?
+                                new Date(params.row.postDate).Format('yyyy-MM-dd HH:mm:ss') : params.row.postDateStr);
                         },
                         width:200
                     },
@@ -138,6 +136,15 @@
             },
             resetQuery(){
                 this.form={};
+                this.$router.push({
+                    path: `/nga`,
+                    query: {
+                        ...this.$route.query,
+                        page: 1,
+                        subject: '',
+                        word: ''
+                    }
+                });
             },
         }
     }
