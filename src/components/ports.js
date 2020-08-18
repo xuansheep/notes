@@ -39,5 +39,10 @@ export default {
         reply: {
             list: '/api/nga/replyList'
         }
+    },
+    search: {
+        subject: {
+            list: '/api/search/subjectList',
+        },
     }
 }

@@ -27,13 +27,22 @@
                     page:1,
                     size:15,
                     subject:'',
+                    word:'',
                 },
                 queryForm: {
                     subject:'',
                 },
                 columns:[
-                    {title:"主题", key:"subject", className:"row-background"},
-                    {title:"作者", key:"author", className:"row-background", width:200},
+                    {title:"主题", key:"subject", className:"row-background",
+                        render: (h, params) => {
+                            return h('div', {
+                                domProps: {
+                                    innerHTML: params.row.subject
+                                }
+                            })
+                        }
+                    },
+                    {title:"作者", key:"author", className:"row-background"},
                     {
                         title: "发布时间",
                         key: "postDate",
@@ -62,6 +71,7 @@
                 this.form.size = Number(this.$route.query.size);
             }
             this.form.subject = this.$route.query.subject;
+            this.form.word = this.$route.query.word;
             this.pageLoad();
         },
         watch: {
@@ -95,7 +105,8 @@
             },
             subjectList(){
                 console.log('参数： ', this.$route.query);
-                this.http.post(this.ports.nga.subject.list, this.$route.query, res => {
+                let isSearch = !!this.$route.query.word;
+                this.http.post(isSearch ? this.ports.search.subject.list : this.ports.nga.subject.list, this.$route.query, res => {
                     this.tableDate = res.records;
                     this.totalSize = res.total;
                 })
@@ -107,7 +118,8 @@
                     query: {
                         ...this.$route.query,
                         page: 1,
-                        subject: this.form.subject
+                        subject: this.form.subject,
+                        word: this.form.subject
                     }
                 });
             },

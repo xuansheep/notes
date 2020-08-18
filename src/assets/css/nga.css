@@ -54,6 +54,10 @@
     text-decoration:line-through;
 }
 
+.search-highlight{
+    color: sandybrown;
+}
+
 /*iviewUI*/
 .ivu-table .row-background{
     /*background-color: antiquewhite;*/
