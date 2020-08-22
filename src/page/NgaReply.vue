@@ -6,6 +6,10 @@
         <div class="reply-list">
             <List item-layout="vertical">
                 <ListItem v-for="data in tableData" :key="data.lou">
+                    <p v-if="data.lou===0" class="reply-lou">
+                        <Button size="small" style="font-size: 12px" v-bind:class={onlyLouButton:onlyLouFlag}
+                                @click="onlyLou(data.authorId)">只看楼主</Button>
+                    </p>
                     <p v-if="data.lou!==0" class="reply-lou">
                         <span class="reply-postdate">{{data.postDate|formatDate}}</span>
                         <span>#{{data.lou}}</span>
@@ -34,10 +38,12 @@
                     page:1,
                     size:15,
                     tid: '',
+                    authorId:'',
                 },
                 tableData:[],
                 totalSize:0,
                 subject:{},
+                onlyLouFlag:false,
             }
         },
         created() {
@@ -62,6 +68,7 @@
                 this.http.post(this.ports.nga.reply.list, this.form, res => {
                     this.tableData = res.records;
                     this.tableData.forEach(data => data.avatar = this.proxyImage(data.avatar));
+                    this.form.size = res.size;
                     this.totalSize = res.total;
                 })
             },
@@ -80,6 +87,15 @@
                 }
                 return this.http.serverUrl + "/proxy/file?url="+url;
             },
+            onlyLou(authorId){
+                this.onlyLouFlag = !this.onlyLouFlag;
+                if (this.onlyLouFlag){
+                    this.form.authorId = authorId;
+                }else {
+                    this.form.authorId = null;
+                }
+                this.replyList();
+            }
         },
         filters: {
             formatDate:function (date) {

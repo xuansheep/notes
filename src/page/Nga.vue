@@ -1,7 +1,8 @@
 <template>
     <div class="nga-background">
         <div class="search">
-            <Input style="width: 500px" search placeholder="Enter something..." v-model="form.subject" @on-search="handleChange" />
+            <Input style="width: 470px" search placeholder="Enter something..." v-model="form.subject" @on-search="handleChange" />
+            <Input style="width: 200px; margin-left: 20px" search placeholder="Enter author..." v-model="form.author" @on-search="handleChange" />
             <i-button style="margin-left: 20px"
                       type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
         </div>
@@ -27,6 +28,7 @@
                     page:1,
                     size:15,
                     subject:'',
+                    author:'',
                     word:'',
                     sortField:'',
                     sort:'',
@@ -77,6 +79,7 @@
                 this.form.size = Number(this.$route.query.size);
             }
             this.form.subject = this.$route.query.subject;
+            this.form.author = this.$route.query.author;
             this.form.word = this.$route.query.word;
             this.pageLoad();
         },
@@ -125,6 +128,7 @@
                         ...this.$route.query,
                         page: 1,
                         subject: this.form.subject,
+                        author: this.form.author,
                         word: this.form.subject
                     }
                 });
@@ -150,6 +154,7 @@
                         ...this.$route.query,
                         page: 1,
                         subject: '',
+                        author: '',
                         word: '',
                         sortField:'',
                         sort:''

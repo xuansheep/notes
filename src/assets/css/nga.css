@@ -58,6 +58,11 @@
     color: sandybrown;
 }
 
+.onlyLouButton{
+    color: sandybrown;
+    border-color: sandybrown;
+}
+
 /*iviewUI*/
 .ivu-table .row-background{
     /*background-color: antiquewhite;*/
@@ -69,6 +74,16 @@
     color: rgba(0,0,0,.85);
     font-size: 12px;
     line-height: 24px;
+}
+
+.ivu-btn:hover {
+    color: sandybrown;
+    background-color: #fff;
+    border-color: sandybrown;
+}
+
+.ivu-btn:focus {
+    box-shadow: 0 0 0 0 rgba(45,140,240,.2);
 }
 
 /*
