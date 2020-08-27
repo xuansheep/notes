@@ -83,9 +83,17 @@
             this.form.word = this.$route.query.word;
             this.pageLoad();
         },
+        computed: {
+            thePage(){
+                return this.form.page;
+            }
+        },
         watch: {
             $route() {
                 this.subjectList();
+            },
+            thePage(){
+                window.scrollTo(0, 0);
             }
         },
         methods: {

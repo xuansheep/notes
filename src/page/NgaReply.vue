@@ -50,6 +50,16 @@
             this.pageLoad();
             this.form.tid = this.$route.params.tid
         },
+        computed: {
+            thePage(){
+                return this.form.page;
+            }
+        },
+        watch: {
+            thePage(){
+                window.scrollTo(0, 0);
+            }
+        },
         methods: {
             pageLoad(){
                 this.replyList();
