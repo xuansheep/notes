@@ -65,7 +65,7 @@
                         width:200
                     },
                     {
-                        title:"回复数", key:"replyNum", className:"row-background", sortable:true, sortType:this.getSort(), width:100
+                        title:"回复数", key:"replyNum", className:"row-background", sortable:'custom', sortType:this.getSort(), width:100
                     },
                 ],
                 sections:[],
@@ -174,12 +174,12 @@
                     query: {
                         ...this.$route.query,
                         page: 1,
-                        subject: '',
-                        author: '',
-                        word: '',
-                        fid:'',
-                        sortField:'',
-                        sort:''
+                        subject: null,
+                        author: null,
+                        word: null,
+                        fid:null,
+                        sortField:null,
+                        sort:null
                     }
                 });
             },
