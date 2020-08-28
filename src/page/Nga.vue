@@ -65,7 +65,7 @@
                         width:200
                     },
                     {
-                        title:"回复数", key:"replyNum", className:"row-background", sortable:'custom', width:100
+                        title:"回复数", key:"replyNum", className:"row-background", sortable:true, sortType:this.getSort(), width:100
                     },
                 ],
                 sections:[],
@@ -197,6 +197,9 @@
                 this.http.post(this.ports.nga.section.list, {}, res => {
                     this.sections = res;
                 })
+            },
+            getSort(){
+                return this.$route.query.sort;
             }
         }
     }
