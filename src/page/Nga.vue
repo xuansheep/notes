@@ -1,8 +1,13 @@
 <template>
     <div class="nga-background">
         <div class="search">
-            <Input style="width: 470px" search placeholder="Enter something..." v-model="form.subject" @on-search="handleChange" />
-            <Input style="width: 200px; margin-left: 20px" search placeholder="Enter author..." v-model="form.author" @on-search="handleChange" />
+            <Input style="width: 440px"
+                   search placeholder="Enter something..." v-model="form.subject" @on-search="handleChange" />
+            <Input style="width: 200px; margin-left: 20px"
+                   search placeholder="Enter author..." v-model="form.author" @on-search="handleChange" />
+            <Select style="width: 200px; margin-left: 20px" v-model="form.fid" clearable @on-change="handleChange">
+                <Option v-for="item in sections" :value="item.code" :key="item.code">{{item.name}}</Option>
+            </Select>
             <i-button style="margin-left: 20px"
                       type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
         </div>
@@ -27,11 +32,12 @@
                 form: {
                     page:1,
                     size:15,
-                    subject:'',
-                    author:'',
-                    word:'',
-                    sortField:'',
-                    sort:'',
+                    subject:null,
+                    author:null,
+                    word:null,
+                    fid:null,
+                    sortField:null,
+                    sort:null,
                 },
                 columns:[
                     {
@@ -62,6 +68,7 @@
                         title:"回复数", key:"replyNum", className:"row-background", sortable:'custom', width:100
                     },
                 ],
+                sections:[],
                 tableDate:[],
                 totalSize:0,
                 pageSizeOpts:[10, 15, 20, 30]
@@ -78,10 +85,15 @@
             }else {
                 this.form.size = Number(this.$route.query.size);
             }
+            if (!!this.$route.query.fid){
+                this.form.fid = Number(this.$route.query.fid);
+            }
             this.form.subject = this.$route.query.subject;
             this.form.author = this.$route.query.author;
             this.form.word = this.$route.query.word;
             this.pageLoad();
+            this.sectionList();
+            console.log("form", this.form)
         },
         computed: {
             thePage(){
@@ -137,7 +149,8 @@
                         page: 1,
                         subject: this.form.subject,
                         author: this.form.author,
-                        word: this.form.subject
+                        word: this.form.subject,
+                        fid: this.form.fid
                     }
                 });
             },
@@ -164,6 +177,7 @@
                         subject: '',
                         author: '',
                         word: '',
+                        fid:'',
                         sortField:'',
                         sort:''
                     }
@@ -178,6 +192,11 @@
                         sort: column.order
                     }
                 });
+            },
+            sectionList(){
+                this.http.post(this.ports.nga.section.list, {}, res => {
+                    this.sections = res;
+                })
             }
         }
     }

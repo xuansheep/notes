@@ -38,6 +38,9 @@ export default {
         },
         reply: {
             list: '/api/nga/replyList'
+        },
+        section: {
+            list: '/api/nga/sectionList'
         }
     },
     search: {
