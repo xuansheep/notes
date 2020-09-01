@@ -62,10 +62,11 @@
                                 new Date(params.row.postDate).Format('yyyy-MM-dd HH:mm:ss') : params.row.postDateStr);
                         },
                         sortable: 'custom',
+                        sortType:this.getSort('postDate'),
                         width:200
                     },
                     {
-                        title:"回复数", key:"replyNum", className:"row-background", sortable:'custom', sortType:this.getSort(), width:100
+                        title:"回复数", key:"replyNum", className:"row-background", sortable:'custom', sortType:this.getSort('replyNum'), width:100
                     },
                 ],
                 sections:[],
@@ -198,8 +199,10 @@
                     this.sections = res;
                 })
             },
-            getSort(){
-                return this.$route.query.sort;
+            getSort(key){
+                if (this.$route.query.sortField === key){
+                    return this.$route.query.sort;
+                }
             }
         }
     }
