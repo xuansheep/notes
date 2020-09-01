@@ -54,6 +54,42 @@
     text-decoration:line-through;
 }
 
+.reply-attach-icon{
+    cursor: pointer;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin: 2px 4px 2px 0;
+    padding: 0 8px;
+    border: 1px solid #e8eaec;
+    border-radius: 3px;
+    background: #f7f7f7;
+    font-size: 12px;
+    vertical-align: middle;
+    opacity: 1;
+    overflow: hidden;
+    transition: all 0.3s;
+    -moz-transition: all 0.3s; /* Firefox 4 */
+    -webkit-transition: all 0.3s; /* Safari and Chrome */
+    -o-transition: all 0.3s; /* Opera */
+}
+
+.reply-attach-icon:hover{
+    cursor: pointer;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin: 2px 4px 2px 0;
+    padding: 0 8px;
+    border: 1px solid #e8eaec;
+    border-radius: 3px;
+    background: #e2e2e2;
+    font-size: 12px;
+    vertical-align: middle;
+    opacity: 1;
+    overflow: hidden;
+}
+
 .search-highlight{
     color: sandybrown;
 }

@@ -16,6 +16,8 @@
                     </p>
                     <ListItemMeta :avatar="data.avatar" :title="data.username" />
                     <p class="reply-text" v-html="data.content"></p>
+                    <div style="height: 30px"></div>
+                    <div class="reply-attach-icon" v-for="attach in data.attachList" @click="showAttach(attach)">显示附件</div>
                 </ListItem>
             </List>
         </div>
@@ -105,6 +107,9 @@
                     this.form.authorId = null;
                 }
                 this.replyList();
+            },
+            showAttach(attach){
+                open("https://img.nga.178.com/attachments/"+attach.attachurl)
             }
         },
         filters: {
