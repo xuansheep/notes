@@ -1,15 +1,17 @@
 <template>
     <div class="nga-background">
         <div class="search">
-            <Input style="width: 440px"
+            <Input style="width: 380px"
                    search placeholder="Enter something..." v-model="form.subject" @on-search="handleChange" />
-            <Input style="width: 200px; margin-left: 20px"
+            <Input style="width: 200px; margin-left: 10px"
                    search placeholder="Enter author..." v-model="form.author" @on-search="handleChange" />
-            <Select style="width: 200px; margin-left: 20px" v-model="form.fid" clearable @on-change="handleChange">
+            <Select style="width: 180px; margin-left: 10px" v-model="form.fid" clearable @on-change="handleChange">
                 <Option v-for="item in sections" :value="item.code" :key="item.code">{{item.name}}</Option>
             </Select>
-            <i-button style="margin-left: 20px"
+            <i-button style="margin-left: 10px"
                       type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
+            <Input style="width: 100px; margin-left: 20px"
+                   search placeholder="全文检索" v-model="form.subject" @on-search="handleChange" />
         </div>
         <div>
             <Table :columns="columns" :data="tableDate" @on-row-click="pushReply" @on-sort-change="dataSort"></Table>
@@ -67,6 +69,9 @@
                     },
                     {
                         title:"回复数", key:"replyNum", className:"row-background", sortable:'custom', sortType:this.getSort('replyNum'), width:100
+                    },
+                    {
+                        width:100
                     },
                 ],
                 sections:[],
