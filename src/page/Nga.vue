@@ -11,7 +11,7 @@
             <i-button style="margin-left: 10px"
                       type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
             <Input style="width: 100px; margin-left: 20px"
-                   search placeholder="全文检索" v-model="form.subject" @on-search="handleChange" />
+                   search placeholder="全文检索" v-model="form.word" @on-search="handleChange" />
         </div>
         <div>
             <Table :columns="columns" :data="tableDate" @on-row-click="pushReply" @on-sort-change="dataSort"></Table>
@@ -155,7 +155,7 @@
                         page: 1,
                         subject: this.form.subject,
                         author: this.form.author,
-                        word: this.form.subject,
+                        word: this.form.word,
                         fid: this.form.fid
                     }
                 });
