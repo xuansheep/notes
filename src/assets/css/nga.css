@@ -7,8 +7,30 @@
 }
 
 .search{
+    position: relative;
     padding: 20px 10px 20px 10px;
     text-align: left;
+    height: 70px;
+}
+
+.ft-search{
+    width: 95px;
+    position: absolute;
+    right: 10px;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.ftSearchOpen{
+    width: 980px;
+}
+
+.ft-search-close{
+    color: #cccccc;
+    cursor: pointer;
+    position: absolute;
+    left: 0px;
 }
 
 .reply-title{
