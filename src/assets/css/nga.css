@@ -1,7 +1,7 @@
 @media screen and (max-width: 768px){
     .nga-background {
         height: 1170px;
-        width: 540px;
+        width: 100%;
         background-color: #ffffff;
         margin: auto;
         border-radius: 5px;
