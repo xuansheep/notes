@@ -32,6 +32,9 @@ const router = new Router({
         {path: '/web', component: () => import('../page/Web.vue')},
         {path: '/calendar', component: () => import('../page/Calendar.vue')},
         {path: '/door', component: () => import('../page/Door.vue')},
+
+        {path: '/mobile/nga', component: () => import('../page/mobile/Nga.vue')},
+        {path: '/mobile/reply/:tid', component: () => import('../page/mobile/NgaReply.vue')},
     ]
 });
 

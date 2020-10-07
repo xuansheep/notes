@@ -1,10 +1,50 @@
-.nga-background {
+@media screen and (max-width: 768px){
+    .nga-background {
+        height: 1170px;
+        width: 540px;
+        background-color: #ffffff;
+        margin: auto;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .nga-background {
+        height: 100%;
+        width: 1024px;
+        background-color: #ffffff;
+        margin: auto;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px){
+    .nga-background {
+        height: 100%;
+        width: 1024px;
+        background-color: #ffffff;
+        margin: auto;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .nga-background {
+        height: 100%;
+        width: 1024px;
+        background-color: #ffffff;
+        margin: auto;
+        border-radius: 5px;
+    }
+}
+
+/*.nga-background {
     height: 100%;
     width: 1024px;
     background-color: #ffffff;
     margin: auto;
     border-radius: 5px;
-}
+}*/
 
 .search{
     position: relative;
@@ -30,7 +70,7 @@
     color: #cccccc;
     cursor: pointer;
     position: absolute;
-    left: 0px;
+    left: 0;
 }
 
 .reply-title{

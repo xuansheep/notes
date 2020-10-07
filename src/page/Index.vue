@@ -5,6 +5,7 @@
 
             </div>
 
+            <!--nga按钮-->
             <div class="header-bottom-nga-div">
                 <img class="header-bottom-nga-icon" src="../assets/image/dex-fish-nga-1.jpg" @click="goNga" />
             </div>
@@ -477,7 +478,11 @@
                 })
             },
             goNga(){
-                this.$router.push({path:'/nga'})
+                let path = '/nga';
+                if (this.isMobile){
+                    path = '/mobile/nga';
+                }
+                this.$router.push({path: path})
             },
 
             /***可拖放***/
