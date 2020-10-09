@@ -479,7 +479,7 @@
             },
             goNga(){
                 let path = '/nga';
-                if (this.isMobile){
+                if (this.isMobile()){
                     path = '/mobile/nga';
                 }
                 this.$router.push({path: path})
