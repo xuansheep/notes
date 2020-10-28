@@ -161,6 +161,11 @@
     border-color: sandybrown;
 }
 
+.onlyImageButton{
+    color: sandybrown;
+    border-color: sandybrown;
+}
+
 /*iviewUI*/
 .ivu-table .row-background{
     /*background-color: antiquewhite;*/

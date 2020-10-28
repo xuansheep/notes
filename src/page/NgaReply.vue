@@ -7,7 +7,9 @@
             <List item-layout="vertical">
                 <ListItem v-for="data in tableData" :key="data.lou">
                     <p v-if="data.lou===0" class="reply-lou">
-                        <Button size="small" style="font-size: 12px" v-bind:class={onlyLouButton:onlyLouFlag}
+                        <Button size="small" style="font-size: 12px" v-bind:class={onlyImageButton:form.onlyImageFlag}
+                                @click="onlyImage">只看图片</Button>
+                        <Button size="small" style="font-size: 12px; margin-left: 5px" v-bind:class={onlyLouButton:onlyLouFlag}
                                 @click="onlyLou(data.authorId)">只看楼主</Button>
                     </p>
                     <p v-if="data.lou!==0" class="reply-lou">
@@ -41,11 +43,12 @@
                     size:15,
                     tid: '',
                     authorId:'',
+                    onlyImageFlag:false
                 },
                 tableData:[],
                 totalSize:0,
                 subject:{},
-                onlyLouFlag:false,
+                onlyLouFlag:false
             }
         },
         created() {
@@ -106,6 +109,10 @@
                 }else {
                     this.form.authorId = null;
                 }
+                this.replyList();
+            },
+            onlyImage(){
+                this.form.onlyImageFlag = !this.form.onlyImageFlag;
                 this.replyList();
             },
             showAttach(attach){
