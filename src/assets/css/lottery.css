@@ -1,0 +1,24 @@
+.background {
+    height: 100%;
+    width: 1024px;
+    margin: auto;
+    border-radius: 5px;
+}
+
+.lottery-option-background {
+    margin-top: 50px;
+    text-align: left;
+}
+
+.lottery-option {
+    margin: 10px 10px 10px 10px;
+}
+.lotteryOptionActive {
+    margin-left: 10px;
+    background-color: #2baee9;
+}
+
+.lottery-button {
+    text-align: center;
+    margin-top: 50px;
+}

@@ -47,5 +47,11 @@ export default {
         subject: {
             list: '/api/search/subjectList',
         },
+    },
+    lottery: {
+        option: {
+            list: '/api/lottery/option/list'
+        },
+        rand: '/api/lottery/rand'
     }
 }
