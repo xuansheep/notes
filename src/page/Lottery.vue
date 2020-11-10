@@ -4,7 +4,7 @@
             <Button class="lottery-option" v-bind:class="{lotteryOptionActive:item.activeFlag}" v-for="item in tableDate">{{item.name}}</Button>
         </div>
         <div class="lottery-button">
-            <Button @click="lottery">抽奖</Button>
+            <Button :loading="lotteryButtonLoading" @click="lottery">抽奖</Button>
         </div>
     </div>
 </template>
@@ -19,25 +19,19 @@
             return{
                 form: {},
                 tableDate: [],
+                lotteryButtonLoading: false,
                 initProperty: {
-                    currentIndex: 0,
-                    maxIndex: null,
                     maxIntervals: 1000,
                     currentIntervals: 100,
-                    growIntervals: 20,
-                    growRate: null
+                    growIntervals: 10,
+                    rounds: 24,
                 },
                 currentIndex: null,
                 maxIndex: null,
                 maxIntervals: null,
                 currentIntervals: null,
                 growIntervals: null,
-                growRate: null,
-
-                offsetValue: 0,
-
-                beforeCount: 0,
-                afterCount: 0,
+                rounds: null,
             }
         },
         created() {
@@ -50,11 +44,11 @@
             getList(){
                 this.http.post(this.ports.lottery.option.list, {}, res => {
                     this.tableDate = res;
-                    this.initProperty.maxIndex = this.tableDate.length;
-                    this.offsetValue = this.offset();
+                    this.maxIndex = this.tableDate.length;
                 })
             },
             lottery(){
+                this.lotteryButtonLoading = true;
                 this.http.post(this.ports.lottery.rand, {}, res => {
                     this.form = res;
                     this.form.activeFlag = true;
@@ -68,21 +62,17 @@
                     }
                     this.$set(this.tableDate, index, this.form);
 
-                    this.initConfig(index);
+                    this.offset(index);
+                    this.initConfig();
                     this.setActive(0);
                 })
             },
             /*动画*/
-            initConfig(resultIndex) {
-                this.currentIndex = this.initProperty.currentIndex;
-                this.maxIndex = this.initProperty.maxIndex;
+            initConfig() {
+                this.currentIndex = 0;
                 this.maxIntervals = this.initProperty.maxIntervals;
                 this.currentIntervals = this.initProperty.currentIntervals;
-                this.growIntervals = this.initProperty.growIntervals;
-
-                this.growRate = this.initProperty.maxIntervals / 2 / this.initProperty.growIntervals / (resultIndex  + this.initProperty.maxIndex);
-                console.log("this.growRate", this.growRate)
-                return true;
+                this.growIntervals = this.maxIntervals / this.rounds;
             },
             setActive(index){
                 for (let i = 0; i < this.tableDate.length; i++) {
@@ -94,14 +84,12 @@
                 if (this.currentIndex >= this.maxIndex){
                     this.currentIndex = 0;
                 }
-                this.currentIntervals += this.growIntervals;
-                if (this.currentIntervals > this.maxIntervals / 2 && this.growIntervals === this.initProperty.growIntervals) {
-                    //消除偏移量
-                    this.currentIntervals -= this.growIntervals * this.growRate * (this.offsetValue - 1);
-                    this.growIntervals *= this.growRate;
-                }
 
-                if (this.currentIntervals > this.maxIntervals) {
+                this.currentIntervals += this.growIntervals;
+
+                this.rounds--;
+                if (this.rounds <= 0) {
+                    this.lotteryButtonLoading = false;
                     return;
                 }
 
@@ -109,11 +97,10 @@
                     this.setActive(this.currentIndex)
                 }, this.currentIntervals);
             },
-            offset(){
-                let rounds = (this.initProperty.maxIntervals / 2 - this.initProperty.currentIntervals) / this.initProperty.growIntervals;
-                let offset = rounds % this.initProperty.maxIndex;
-                console.log("offset", offset);
-                return offset ;
+            offset(resultIndex){
+                let totalRounds = this.maxIndex * 4;
+                this.rounds = totalRounds + 1 + resultIndex - totalRounds % this.maxIndex;
+                console.log("this.rounds", this.rounds)
             }
             /*动画*/
         }
