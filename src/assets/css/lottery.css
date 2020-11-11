@@ -1,8 +1,37 @@
-.background {
-    height: 100%;
-    width: 1024px;
-    margin: auto;
-    border-radius: 5px;
+@media screen and (max-width: 768px){
+    .background {
+        height: 100%;
+        width: 80%;
+        margin: auto;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px){
+    .background {
+        height: 100%;
+        width: 80%;
+        margin: auto;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px){
+    .background {
+        height: 100%;
+        width: 1024px;
+        margin: auto;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .background {
+        height: 100%;
+        width: 1024px;
+        margin: auto;
+        border-radius: 5px;
+    }
 }
 
 .lottery-option-background {
@@ -16,6 +45,7 @@
 .lotteryOptionActive {
     margin-left: 10px;
     background-color: #47cb89;
+    color: #ffffff;
 }
 
 .lottery-button {

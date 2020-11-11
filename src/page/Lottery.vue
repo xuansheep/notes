@@ -4,7 +4,7 @@
             <Button class="lottery-option" v-bind:class="{lotteryOptionActive:item.activeFlag}" v-for="item in tableDate">{{item.name}}</Button>
         </div>
         <div class="lottery-button">
-            <Button :loading="lotteryButtonLoading" type="success" @click="lottery">抽奖</Button>
+            <Button :loading="lotteryButtonLoading" type="success" @click="lottery">开始</Button>
         </div>
     </div>
 </template>
