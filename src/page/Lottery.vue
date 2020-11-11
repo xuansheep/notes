@@ -4,7 +4,7 @@
             <Button class="lottery-option" v-bind:class="{lotteryOptionActive:item.activeFlag}" v-for="item in tableDate">{{item.name}}</Button>
         </div>
         <div class="lottery-button">
-            <Button :loading="lotteryButtonLoading" @click="lottery">抽奖</Button>
+            <Button :loading="lotteryButtonLoading" type="success" @click="lottery">抽奖</Button>
         </div>
     </div>
 </template>
@@ -85,9 +85,12 @@
                     this.currentIndex = 0;
                 }
 
-                this.currentIntervals += this.growIntervals;
-
                 this.rounds--;
+
+                if (this.rounds < this.maxIndex * 6) {
+                    this.currentIntervals += this.growIntervals;
+                }
+
                 if (this.rounds <= 0) {
                     this.lotteryButtonLoading = false;
                     return;
@@ -98,9 +101,9 @@
                 }, this.currentIntervals);
             },
             offset(resultIndex){
-                let totalRounds = this.maxIndex * 4;
+                let totalRounds = this.maxIndex * 10;
                 this.rounds = totalRounds + 1 + resultIndex - totalRounds % this.maxIndex;
-                console.log("this.rounds", this.rounds)
+                console.log()
             }
             /*动画*/
         }

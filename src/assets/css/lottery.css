@@ -11,11 +11,11 @@
 }
 
 .lottery-option {
-    margin: 10px 10px 10px 10px;
+    margin: 20px 10px 20px 10px;
 }
 .lotteryOptionActive {
     margin-left: 10px;
-    background-color: #2baee9;
+    background-color: #47cb89;
 }
 
 .lottery-button {
