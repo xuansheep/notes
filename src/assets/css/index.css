@@ -139,7 +139,8 @@
 /**/
 .content {
     height: 80%;
-    margin-bottom: 15px;
+    border-radius: 5px;
+    padding-bottom: 15px;
     background-color: gainsboro;
 }
 
@@ -176,6 +177,9 @@
 }
 .window-card-content {
     text-align: center;
+}
+.bookmark-card {
+    overflow-y: auto;
 }
 .card {
     margin-left: auto;

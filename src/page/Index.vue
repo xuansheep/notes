@@ -215,7 +215,7 @@
                 </Row>
             </div>
             <!--书签-->
-            <div>
+            <div class="bookmark-card">
                 <Card class="card" :bordered="true" v-for="card in cardList">
                     <div class="card-title" slot="title">
                         <Checkbox class="card-title-checkBox" v-if="modifyStatus" v-model="card.checkAll"
