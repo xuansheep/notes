@@ -145,11 +145,49 @@
 
 
 /**/
+.category-card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    width: 97%;
+}
+.window {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: -15px;
+    height: 100px;
+    width: 97%;
+}
+.window-card {
+    margin-top: 15px;
+    margin-bottom: -10px;
+    margin-right: auto;
+    height: 70px;
+    width: 100%;
+    cursor: pointer;
+}
+.window-card .ivu-card-body{
+    height: 100%;
+}
+.window-card:hover {
+    margin: 12px -2% -12px -2%;
+    height: 76px;
+    width: 104%;
+}
+.window-card-content {
+    text-align: center;
+}
 .card {
     margin-left: auto;
     margin-right: auto;
     margin-top: 15px;
     width: 97%;
+}
+.card:hover {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    width: 98%;
 }
 .note-search {
     margin: 5px 0 5px 0;

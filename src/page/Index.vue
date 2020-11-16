@@ -163,54 +163,93 @@
 
         <!--书签内容-->
         <div class="content">
-            <Card class="card">
-                <div class="category-list">
-                    <Tag style="height: auto" v-for="category in markCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
+            <!--书签分类-->
+            <div>
+                <Card class="category-card">
+                    <div class="category-list">
+                        <Tag style="height: auto" v-for="category in markCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
                         <span class="category-tag-span"
-                           @dragover.prevent="handleDragOver($event, category)"
-                           @dragenter="handleDragEnter($event, category)">
+                              @dragover.prevent="handleDragOver($event, category)"
+                              @dragenter="handleDragEnter($event, category)">
                             {{category.name}}
                         </span>
-                    </Tag>
-                    <Button icon="ios-add" type="dashed" size="small" @click="inputCategory">
-                        <Input ref="c_input" v-if="inputStatus" v-model="categoryForm.name" size="small" style="width: 70px" @on-blur="saveCategory(2)"></Input>
-                        <span v-if="!inputStatus">添加分类</span>
-                    </Button>
-                </div>
-            </Card>
-            <Card class="card" :bordered="true" v-for="card in cardList">
-                <div class="card-title" slot="title">
-                    <Checkbox class="card-title-checkBox" v-if="modifyStatus" v-model="card.checkAll"
-                              @on-change="onCheckAll(card)"></Checkbox>
-                    <p id="card-title-text">{{card.categoryName}}</p>
-                    <Icon class="card-title-icon1" custom="iconfont icon-liebiao" size="15" @click="listMark(card,24)"/>
-                    <Icon class="card-title-icon2" custom="iconfont icon-liebiao1" size="15" @click="listMark(card,8)"/>
-                    <Icon class="card-title-icon3" custom="iconfont icon-iconfontzhizuobiaozhun0247" size="15"
-                          @click="listMark(card,4)"/>
-                </div>
-                <div>
-                    <Row style="margin-left: 1%" :gutter="10">
-                        <Col class="card-col" :span="card.colSpan" v-for="mark in card.markList">
-                            <Tooltip :content="mark.name" placement="top-start" :delay="500" :max-width="500">
-                                <Checkbox class="card-mark-checkBox" v-if="modifyStatus" v-model="mark.isSelect"
-                                          @on-change="onCheck(mark,card)"/>
-                                <a class="card-mark-text" :href="mark.link"
-                                   draggable="true"
-                                   @dragstart="handleDragStart($event, mark)"
-                                   @dragend="handleDragEnd($event)">
-                                    <img class="card-icon" :src="mark.icon">
-                                    <span v-if="card.colSpan===4">{{mark.name|omitText4}}</span>
-                                    <span v-if="card.colSpan===8">{{mark.name|omitText8}}</span>
-                                    <span v-if="card.colSpan===24">{{mark.name|omitText24}}</span>
-                                </a>
-                            </Tooltip>
-                        </Col>
-                    </Row>
-                    <div v-if="card.markList.length === 0">
-                        <p>暂无内容</p>
+                        </Tag>
+                        <Button icon="ios-add" type="dashed" size="small" @click="inputCategory">
+                            <Input ref="c_input" v-if="inputStatus" v-model="categoryForm.name" size="small" style="width: 70px" @on-blur="saveCategory(2)"></Input>
+                            <span v-if="!inputStatus">添加分类</span>
+                        </Button>
                     </div>
-                </div>
-            </Card>
+                </Card>
+            </div>
+            <!--快捷入口-->
+            <div class="window">
+                <Row class="window-row" :gutter="16">
+                    <Col span="6">
+                        <Card class="window-card">
+                            <div class="window-card-content">
+
+                            </div>
+                        </Card>
+                    </Col>
+                    <Col span="6">
+                        <Card class="window-card">
+                            <div class="window-card-content">
+
+                            </div>
+                        </Card>
+                    </Col>
+                    <Col span="6">
+                        <Card class="window-card">
+                            <div class="window-card-content">
+
+                            </div>
+                        </Card>
+                    </Col>
+                    <Col span="6">
+                        <Card class="window-card">
+                            <div class="window-card-content">
+
+                            </div>
+                        </Card>
+                    </Col>
+                </Row>
+            </div>
+            <!--书签-->
+            <div>
+                <Card class="card" :bordered="true" v-for="card in cardList">
+                    <div class="card-title" slot="title">
+                        <Checkbox class="card-title-checkBox" v-if="modifyStatus" v-model="card.checkAll"
+                                  @on-change="onCheckAll(card)"></Checkbox>
+                        <p id="card-title-text">{{card.categoryName}}</p>
+                        <Icon class="card-title-icon1" custom="iconfont icon-liebiao" size="15" @click="listMark(card,24)"/>
+                        <Icon class="card-title-icon2" custom="iconfont icon-liebiao1" size="15" @click="listMark(card,8)"/>
+                        <Icon class="card-title-icon3" custom="iconfont icon-iconfontzhizuobiaozhun0247" size="15"
+                              @click="listMark(card,4)"/>
+                    </div>
+                    <div>
+                        <Row style="margin-left: 1%" :gutter="10">
+                            <Col class="card-col" :span="card.colSpan" v-for="mark in card.markList">
+                                <Tooltip :content="mark.name" placement="top-start" :delay="500" :max-width="500">
+                                    <Checkbox class="card-mark-checkBox" v-if="modifyStatus" v-model="mark.isSelect"
+                                              @on-change="onCheck(mark,card)"/>
+                                    <a class="card-mark-text" :href="mark.link"
+                                       draggable="true"
+                                       @dragstart="handleDragStart($event, mark)"
+                                       @dragend="handleDragEnd($event)">
+                                        <img class="card-icon" :src="mark.icon">
+                                        <span v-if="card.colSpan===4">{{mark.name|omitText4}}</span>
+                                        <span v-if="card.colSpan===8">{{mark.name|omitText8}}</span>
+                                        <span v-if="card.colSpan===24">{{mark.name|omitText24}}</span>
+                                    </a>
+                                </Tooltip>
+                            </Col>
+                        </Row>
+                        <div v-if="card.markList.length === 0">
+                            <p>暂无内容</p>
+                        </div>
+                    </div>
+                </Card>
+            </div>
         </div>
 
     </div>
