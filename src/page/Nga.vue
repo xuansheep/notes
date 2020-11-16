@@ -15,7 +15,7 @@
                    v-model="form.word" @on-search="handleChange" @on-focus="focusFtSearch" />
         </div>
         <div>
-            <Table :columns="columns" :data="tableDate" @on-row-click="pushReply" @on-sort-change="dataSort"></Table>
+            <Table :loading="loading" :columns="columns" :data="tableDate" @on-row-click="pushReply" @on-sort-change="dataSort"></Table>
         </div>
         <div class="pagination">
             <Page :total="totalSize" :current="form.page" :page-size="form.size" :page-size-opts="pageSizeOpts"
@@ -75,6 +75,7 @@
                         width:100
                     },
                 ],
+                loading:false,
                 sections:[],
                 tableDate:[],
                 totalSize:0,
@@ -141,11 +142,12 @@
                 })
             },
             subjectList(){
-                console.log('参数： ', this.$route.query);
+                this.loading = true;
                 let isSearch = !!this.$route.query.word;
                 this.http.post(isSearch ? this.ports.search.subject.list : this.ports.nga.subject.list, this.$route.query, res => {
                     this.tableDate = res.records;
                     this.totalSize = res.total;
+                    this.loading = false;
                 })
             },
             handleChange() {
