@@ -1,7 +1,7 @@
 .background {
     height: 100%;
     width: 1024px;
-    background-color: gainsboro;
+    background-color: #f8f8f8;
     margin: auto;
     border-radius: 5px;
 }
@@ -20,7 +20,7 @@
 .headerHover {
     position: relative;
     height: 30px;
-    background-color: antiquewhite;
+    background-color: #FFF5E8;
     transition: all 0.5s;
     -moz-transition: all 0.5s; /* Firefox 4 */
     -webkit-transition: all 0.5s; /* Safari and Chrome */
@@ -29,7 +29,7 @@
 .headerOpen {
     position: relative;
     height: 800px;
-    background-color: antiquewhite;
+    background-color: #FFF5E8;
 }
 .header-carousel {
     text-align: center;
@@ -125,11 +125,11 @@
     color: #000000;
 }
 .collapse {
-    background-color: antiquewhite;
+    background-color: #FFF5E8;
     text-align: left;
 }
 .collapse-panel {
-    background-color: antiquewhite;
+    background-color: #FFF5E8;
 }
 .header-open {
 
@@ -141,7 +141,7 @@
     height: 80%;
     border-radius: 5px;
     padding-bottom: 15px;
-    background-color: gainsboro;
+    background-color: #f8f8f8;
 }
 
 
@@ -177,6 +177,7 @@
 }
 .window-card-content {
     text-align: center;
+    height: 100%;
 }
 .bookmark-card {
     overflow-y: auto;
@@ -195,7 +196,7 @@
 }
 .note-search {
     margin: 5px 0 5px 0;
-    color: antiquewhite;
+    color: #FFF5E8;
 }
 .category-list {
     text-align: left;

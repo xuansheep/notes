@@ -185,11 +185,13 @@
             <div class="window">
                 <Row class="window-row" :gutter="16">
                     <Col span="6">
-                        <Card class="window-card">
-                            <div class="window-card-content">
-
-                            </div>
-                        </Card>
+                        <div @click="goNga">
+                            <Card style="background-color: #FFF5E8" class="window-card">
+                                <div class="window-card-content">
+                                    <img style="height: 100%" src="../assets/image/dex-fish-nga-2.jpg">
+                                </div>
+                            </Card>
+                        </div>
                     </Col>
                     <Col span="6">
                         <Card class="window-card">
