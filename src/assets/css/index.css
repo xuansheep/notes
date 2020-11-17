@@ -210,11 +210,12 @@
     height: auto;
 }
 .category-tag {
-
+    height: auto;
 }
 .category-tag-span {
     display: inline-block;
-    margin: 2px 10px;
+    padding: 2px 20px;
+    cursor: pointer;
 }
 .card-title {
     text-align: left;

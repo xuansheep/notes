@@ -167,12 +167,13 @@
             <div>
                 <Card class="category-card">
                     <div class="category-list">
-                        <Tag style="height: auto" v-for="category in markCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
-                        <span class="category-tag-span"
-                              @dragover.prevent="handleDragOver($event, category)"
-                              @dragenter="handleDragEnter($event, category)">
-                            {{category.name}}
-                        </span>
+                        <Tag class="category-tag" v-for="(category, index) in markCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
+                            <span class="category-tag-span" v-if="!category.inputStatus" @click="updateCategory(category, index)"
+                                  @dragover.prevent="handleDragOver($event, category)" @dragenter="handleDragEnter($event, category)">
+                                {{category.name}}
+                            </span>
+                            <Input :id="'c_'+index" v-if="category.inputStatus" v-model="categoryForm.name"
+                                   size="small" style="width: 70px" @on-blur="saveCategory(2, category, index)"></Input>
                         </Tag>
                         <Button icon="ios-add" type="dashed" size="small" @click="inputCategory">
                             <Input ref="c_input" v-if="inputStatus" v-model="categoryForm.name" size="small" style="width: 70px" @on-blur="saveCategory(2)"></Input>
@@ -277,6 +278,7 @@
                     categoryId: '',
                 },
                 categoryForm: {
+                    id:null,
                     name:'',
                     type: 2,
                 },
@@ -390,7 +392,6 @@
             },
             modify() {
                 this.modifyStatus = !this.modifyStatus;
-                console.log(this.modifyStatus)
             },
             deleteMark() {
                 if (this.ids.length !== 0) {
@@ -405,7 +406,15 @@
                     this.modifyStatus = false;
                 }
             },
-            saveCategory(type){
+            saveCategory(type, origin, index){
+                if (!!origin){
+                    if (this.categoryForm.name === origin.name){
+                        origin.inputStatus = false;
+                        this.$set(this.markCategoryList, index, origin);
+                        return;
+                    }
+                    this.categoryForm.id = origin.id;
+                }
                 if (this.categoryForm.name.trim().length !== 0){
                     this.categoryForm.type = type;
                     this.http.post(this.ports.category.save, this.categoryForm, res => {
@@ -414,8 +423,9 @@
                         } else {
                             this.pageLoad();
                         }
-                        this.categoryForm.name = '';
-                        this.$Message('添加成功');
+                        this.categoryForm.name = null;
+                        this.categoryForm.id = null;
+                        this.$Message.success(!!this.categoryForm.id ? '修改成功' : '添加成功');
                     })
                 }
                 this.inputStatus = false;
@@ -441,6 +451,16 @@
                 }
                 this.$nextTick(()=>{
                     this.$refs.c_input.focus();
+                });
+            },
+            updateCategory(category, index){
+                this.categoryForm.name = category.name;
+                category.inputStatus = true;
+                this.$set(this.markCategoryList, index, category);
+                this.$nextTick(()=>{
+                    let div = document.getElementById('c_'+index);
+                    let inputs = div.getElementsByTagName('input');
+                    inputs[0].focus();
                 });
             },
             openMore(){
