@@ -454,6 +454,9 @@
                 });
             },
             updateCategory(category, index){
+                if (this.modifyStatus){
+                    return;
+                }
                 this.categoryForm.name = category.name;
                 category.inputStatus = true;
                 this.$set(this.markCategoryList, index, category);
