@@ -196,21 +196,21 @@
                     <Col span="6">
                         <Card class="window-card">
                             <div class="window-card-content">
-
+                                <p style="line-height: 36px">开发中...</p>
                             </div>
                         </Card>
                     </Col>
                     <Col span="6">
                         <Card class="window-card">
                             <div class="window-card-content">
-
+                                <p style="line-height: 36px">开发中...</p>
                             </div>
                         </Card>
                     </Col>
                     <Col span="6">
                         <Card class="window-card">
                             <div class="window-card-content">
-
+                                <p style="line-height: 36px">开发中...</p>
                             </div>
                         </Card>
                     </Col>

@@ -97,7 +97,7 @@ export default {
     get (url, response, exception) {
         axios({
             method: 'get',
-            url: handleUrl(url),
+            url: this.serverUrl + url,
             timeout: TIME_OUT_MS,
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8'
@@ -126,7 +126,7 @@ export default {
     uploadFile (url, data, response, exception) {
         axios({
             method: 'post',
-            url: handleUrl(url),
+            url: this.serverUrl + url,
             data: handleParams(data),
             dataType: 'json',
             processData: false,
@@ -155,7 +155,7 @@ export default {
     downloadFile (url, data, fileName, exception) {
         axios({
             method: 'post',
-            url: handleUrl(url),
+            url: this.serverUrl + url,
             data: handleParams(data),
             responseType: 'blob'
         }).then(
@@ -188,7 +188,7 @@ export default {
     uploadFileFormData (url, data, response, exception) {
         axios({
             method: 'post',
-            url: handleUrl(url),
+            url: this.serverUrl + url,
             data: handleParamsUpload(data),
             timeout: TIME_OUT_MS,
             headers: {
