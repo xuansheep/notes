@@ -417,7 +417,7 @@
                     }
                     this.categoryForm.id = origin.id;
                 }
-                if (this.categoryForm.name.trim().length !== 0){
+                if (!!this.categoryForm.name){
                     this.categoryForm.type = type;
                     this.http.post(this.ports.category.save, this.categoryForm, res => {
                         if (type === 1){
