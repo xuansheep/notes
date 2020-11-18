@@ -1,5 +1,6 @@
 <template>
     <div class="background">
+        <Affix>
         <div class="header" v-bind:class={headerOpen:headerOpenStatus,headerHover:headerHoverStatus}>
             <div class="header-carousel">
 
@@ -160,6 +161,7 @@
                 </Collapse>
             </div>
         </div>
+        </Affix>
 
         <!--书签内容-->
         <div class="content">
@@ -197,7 +199,7 @@
                     <Col span="6">
                         <Card class="window-card">
                             <div class="window-card-content">
-                                <p style="line-height: 36px">开发中...</p>
+                                <p style="line-height: 36px" @click="goCalendar">日历</p>
                             </div>
                         </Card>
                     </Col>
@@ -547,6 +549,9 @@
                     path = '/mobile/nga';
                 }
                 this.$router.push({path: path})
+            },
+            goCalendar(){
+                this.$router.push({path: '/calendar'})
             },
 
             /***可拖放***/
