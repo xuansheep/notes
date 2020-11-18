@@ -1,17 +1,21 @@
 <template>
     <div class="nga-background">
+        <Affix>
         <div class="reply-title">
             <p>{{subject.subject}}</p>
         </div>
+        </Affix>
         <div class="reply-list">
             <List item-layout="vertical">
                 <ListItem v-for="data in tableData" :key="data.lou">
+                    <Affix>
                     <p v-if="data.lou===0" class="reply-lou">
                         <Button size="small" style="font-size: 12px" v-bind:class={onlyImageButton:form.onlyImageFlag}
                                 @click="onlyImage">只看图片</Button>
                         <Button size="small" style="font-size: 12px; margin-left: 5px" v-bind:class={onlyLouButton:onlyLouFlag}
                                 @click="onlyLou(data.authorId)">只看楼主</Button>
                     </p>
+                    </Affix>
                     <p v-if="data.lou!==0" class="reply-lou">
                         <span class="reply-postdate">{{data.postDate|formatDate}}</span>
                         <span>#{{data.lou}}</span>

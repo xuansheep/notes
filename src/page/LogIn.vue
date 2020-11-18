@@ -83,5 +83,7 @@
 </script>
 
 <style scoped>
-
+    .ivu-btn:focus {
+         box-shadow: 0 0 0 0 rgba(45,140,240,.2);
+    }
 </style>
