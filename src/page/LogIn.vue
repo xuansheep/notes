@@ -10,12 +10,9 @@
                 </Input>
             </div>
             <div style="margin-top: 5px">
-                <Input type="password" placeholder="Enter password" style="width: 200px" v-model="form.passWord">
-                    <Icon type="md-lock" slot="prefix" />
+                <Input type="password" prefix="md-lock" placeholder="Enter password" style="width: 200px" v-model="form.passWord">
+                    <Button :loading="loading" type="text" slot="suffix" icon="md-arrow-round-forward" @click="singIn" />
                 </Input>
-            </div>
-            <div style="margin-top:20px">
-                <Button :loading="loading" type="success" style="width: 200px" @click="singIn">LogIn</Button>
             </div>
         </div>
     </div>
