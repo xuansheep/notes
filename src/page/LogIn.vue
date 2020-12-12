@@ -86,4 +86,9 @@
     .ivu-btn:focus {
          box-shadow: 0 0 0 0 rgba(45,140,240,.2);
     }
+    .ivu-btn-text.active,
+    .ivu-btn-text:active,
+    .ivu-btn:not([disabled]):hover{
+        background-color: transparent;
+    }
 </style>

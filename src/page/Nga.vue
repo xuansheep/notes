@@ -11,7 +11,7 @@
             <i-button style="margin-left: 15px" v-if="!fullTextSearch"
                       type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
             <Icon v-if="fullTextSearch" class="ft-search-close" type="ios-arrow-forward" size="32" @click="blurFtSearch" />
-            <Input class="ft-search" v-bind:class={ftSearchOpen:fullTextSearch} search placeholder="Full text Search"
+            <Input class="ft-search" v-bind:class={ftSearchOpen:fullTextSearch} search placeholder="Full text search..."
                    v-model="form.word" @on-search="handleChange" @on-focus="focusFtSearch" />
         </div>
         <div>

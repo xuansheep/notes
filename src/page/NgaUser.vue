@@ -1,40 +1,26 @@
 <template>
     <div class="nga-background">
-        <Affix>
-        <div class="reply-title">
-            <p>{{subject.subject}}</p>
-        </div>
-        </Affix>
-        <div class="reply-list">
-            <List item-layout="vertical">
-                <ListItem v-for="data in tableData" :key="data.lou">
-                    <Affix>
-                    <p v-if="data.lou===0" class="reply-lou">
-                        <Button size="small" style="font-size: 12px" v-bind:class={onlyImageButton:form.onlyImageFlag}
-                                @click="onlyImage">只看图片</Button>
-                        <Button size="small" style="font-size: 12px; margin-left: 5px" v-bind:class={onlyLouButton:onlyLouFlag}
-                                @click="onlyLou(data.authorId)">只看楼主</Button>
-                    </p>
-                    </Affix>
-                    <p v-if="data.lou!==0" class="reply-lou">
-                        <span class="reply-postdate">{{data.postDate|formatDate}}</span>
-                        <span>#{{data.lou}}</span>
-                    </p>
-                    <div >
-                        <ListItemMeta :title="data.username" >
-                            <img class="reply-avatar" :src="data.avatar" slot="avatar" @click="pushUserCenter(data.authorId)">
-                        </ListItemMeta>
+        <Avatar :src="user.avatar" icon="ios-person" size="100" />
+        <span style="margin-left: 20px; font-weight: bold; font-size: 30px">{{user.username}}</span>
+        <Card icon="ios-options" :padding="0" shadow style="width: 100%;">
+            <CellGroup>
+                <div style="height: 30px"></div>
+                <Cell extra="查看" :to="'/nga?author='+user.username">
+                    <span style="margin-right: 10px">所有主题</span>
+                    <Badge v-if="subjectNum || subjectNum >= 0" :count="subjectNum" overflow-count="999" show-zero type="normal"></Badge>
+                    <div v-else class="user-center-spin">
+                        <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
                     </div>
-                    <p class="reply-text" v-html="data.content"></p>
-                    <div style="height: 30px"></div>
-                    <div class="reply-attach-icon" v-for="attach in data.attachList" @click="showAttach(attach)">显示附件</div>
-                </ListItem>
-            </List>
-        </div>
-        <div class="pagination">
-            <Page :total="totalSize" :current="form.page" :page-size="form.size"
-                  @on-change="changePage" show-elevator show-sizer show-total />
-        </div>
+                </Cell>
+                <Cell extra="查看" :to="'/userReply/'+user.uid">
+                    <span style="margin-right: 10px">所有回复</span>
+                    <Badge v-if="replyNum  || replyNum >= 0" :count="replyNum" overflow-count="999" show-zero type="normal"></Badge>
+                    <div v-else class="user-center-spin">
+                        <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
+                    </div>
+                </Cell>
+            </CellGroup>
+        </Card>
     </div>
 </template>
 
@@ -43,57 +29,38 @@
     import '../assets/css/nga.css'
 
     export default {
-        name: "NgaReply",
+        name: "NgaUser",
         data(){
             return{
                 form:{
-                    page:1,
-                    size:15,
-                    tid: '',
-                    authorId:'',
-                    onlyImageFlag:false
+                    uid:"undefined"
                 },
-                tableData:[],
-                totalSize:0,
-                subject:{},
-                onlyLouFlag:false
+                user:{},
+                subjectNum:undefined,
+                replyNum:undefined
+
             }
         },
         created() {
+            this.form.uid = this.$route.params.uid;
             this.pageLoad();
-            this.form.tid = this.$route.params.tid
-        },
-        computed: {
-            thePage(){
-                return this.form.page;
-            }
-        },
-        watch: {
-            thePage(){
-                window.scrollTo(0, 0);
-            }
         },
         methods: {
             pageLoad(){
-                this.replyList();
-                this.subjectDetail();
+                this.userDetail();
             },
-            changePage(current){
-                this.form.page = current;
-                this.replyList();
-            },
-            subjectDetail(){
-                this.http.post(this.ports.nga.subject.detail, this.form, res => {
-                    this.subject = res;
-                })
-            },
-            replyList(){
-                this.http.post(this.ports.nga.reply.list, this.form, res => {
-                    this.tableData = res.records;
-                    this.tableData.forEach(data => data.avatar = this.proxyImage(data.avatar));
-                    this.form.size = res.size;
-                    this.totalSize = res.total;
-                })
+            userDetail(){
+                this.http.post(this.ports.nga.user.detail, this.form, res => {
+                    this.user = res;
+                    this.user.avatar = this.proxyImage(this.user.avatar);
+
+                    this.http.post(this.ports.nga.user.subjectNum, this.form, res => {
+                        this.subjectNum = res;
+                    });
+                    this.http.post(this.ports.nga.user.replyNum, this.form, res => {
+                        this.replyNum = res;
+                    })
+                });
             },
             proxyImage(url){
                 if (!url){
@@ -110,31 +77,7 @@
                 }
                 return this.http.serverUrl + "/proxy/file?url="+url;
             },
-            onlyLou(authorId){
-                this.onlyLouFlag = !this.onlyLouFlag;
-                if (this.onlyLouFlag){
-                    this.form.authorId = authorId;
-                }else {
-                    this.form.authorId = null;
-                }
-                this.replyList();
-            },
-            onlyImage(){
-                this.form.onlyImageFlag = !this.form.onlyImageFlag;
-                this.replyList();
-            },
-            showAttach(attach){
-                open("https://img.nga.178.com/attachments/"+attach.attachurl)
-            },
-            pushUserCenter(uid){
-                this.$router.push(`/user/${uid}`);
-            }
         },
-        filters: {
-            formatDate:function (date) {
-                return new Date(date).Format('MM-dd HH:mm:ss');
-            }
-        }
     }
 </script>
 

@@ -41,6 +41,12 @@ export default {
         },
         section: {
             list: '/api/nga/sectionList'
+        },
+        user: {
+            detail: '/api/nga/userDetail',
+            subjectNum: '/api/nga/userSubjectNum',
+            replyNum: '/api/nga/userReplyNum',
+            replyList: '/api/nga/userReplyList'
         }
     },
     search: {

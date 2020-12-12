@@ -1,28 +1,15 @@
 <template>
     <div class="nga-background">
-        <Affix>
-        <div class="reply-title">
-            <p>{{subject.subject}}</p>
-        </div>
-        </Affix>
         <div class="reply-list">
             <List item-layout="vertical">
-                <ListItem v-for="data in tableData" :key="data.lou">
-                    <Affix>
-                    <p v-if="data.lou===0" class="reply-lou">
-                        <Button size="small" style="font-size: 12px" v-bind:class={onlyImageButton:form.onlyImageFlag}
-                                @click="onlyImage">只看图片</Button>
-                        <Button size="small" style="font-size: 12px; margin-left: 5px" v-bind:class={onlyLouButton:onlyLouFlag}
-                                @click="onlyLou(data.authorId)">只看楼主</Button>
-                    </p>
-                    </Affix>
+                <ListItem v-for="data in tableData" :key="data.id">
                     <p v-if="data.lou!==0" class="reply-lou">
                         <span class="reply-postdate">{{data.postDate|formatDate}}</span>
                         <span>#{{data.lou}}</span>
                     </p>
                     <div >
-                        <ListItemMeta :title="data.username" >
-                            <img class="reply-avatar" :src="data.avatar" slot="avatar" @click="pushUserCenter(data.authorId)">
+                        <ListItemMeta>
+                            <h2 style="cursor: pointer" slot="title" @click="pushSubjectReply(data.tid)">{{data.subject}}</h2>
                         </ListItemMeta>
                     </div>
                     <p class="reply-text" v-html="data.content"></p>
@@ -43,7 +30,7 @@
     import '../assets/css/nga.css'
 
     export default {
-        name: "NgaReply",
+        name: "NgaUserReply",
         data(){
             return{
                 form:{
@@ -55,13 +42,11 @@
                 },
                 tableData:[],
                 totalSize:0,
-                subject:{},
-                onlyLouFlag:false
             }
         },
         created() {
             this.pageLoad();
-            this.form.tid = this.$route.params.tid
+            this.form.authorId = this.$route.params.authorId
         },
         computed: {
             thePage(){
@@ -76,19 +61,13 @@
         methods: {
             pageLoad(){
                 this.replyList();
-                this.subjectDetail();
             },
             changePage(current){
                 this.form.page = current;
                 this.replyList();
             },
-            subjectDetail(){
-                this.http.post(this.ports.nga.subject.detail, this.form, res => {
-                    this.subject = res;
-                })
-            },
             replyList(){
-                this.http.post(this.ports.nga.reply.list, this.form, res => {
+                this.http.post(this.ports.nga.user.replyList, this.form, res => {
                     this.tableData = res.records;
                     this.tableData.forEach(data => data.avatar = this.proxyImage(data.avatar));
                     this.form.size = res.size;
@@ -110,25 +89,12 @@
                 }
                 return this.http.serverUrl + "/proxy/file?url="+url;
             },
-            onlyLou(authorId){
-                this.onlyLouFlag = !this.onlyLouFlag;
-                if (this.onlyLouFlag){
-                    this.form.authorId = authorId;
-                }else {
-                    this.form.authorId = null;
-                }
-                this.replyList();
-            },
-            onlyImage(){
-                this.form.onlyImageFlag = !this.form.onlyImageFlag;
-                this.replyList();
-            },
             showAttach(attach){
                 open("https://img.nga.178.com/attachments/"+attach.attachurl)
             },
-            pushUserCenter(uid){
-                this.$router.push(`/user/${uid}`);
-            }
+            pushSubjectReply(tid){
+                this.$router.push(`/reply/${tid}`);
+            },
         },
         filters: {
             formatDate:function (date) {
