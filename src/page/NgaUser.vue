@@ -5,7 +5,7 @@
         <Card icon="ios-options" :padding="0" shadow style="width: 100%;">
             <CellGroup>
                 <div style="height: 30px"></div>
-                <Cell extra="查看" :to="'/nga?author='+user.username">
+                <Cell extra="查看" :to="isMobile() ? '/mobile/nga?author='+user.username : '/nga?author='+user.username">
                     <span style="margin-right: 10px">所有主题</span>
                     <Badge v-if="subjectNum || subjectNum >= 0" :count="subjectNum" overflow-count="999" show-zero type="normal"></Badge>
                     <div v-else class="user-center-spin">

@@ -20,7 +20,11 @@
                         <span class="reply-postdate">{{data.postDate|formatDate}}</span>
                         <span>#{{data.lou}}</span>
                     </p>
-                    <ListItemMeta :avatar="data.avatar" :title="data.username" />
+                    <div >
+                        <ListItemMeta :title="data.username" >
+                            <img class="reply-avatar" :src="data.avatar" slot="avatar" @click="pushUserCenter(data.authorId)">
+                        </ListItemMeta>
+                    </div>
                     <p class="reply-text" v-html="data.content"></p>
                     <div style="height: 30px"></div>
                     <div class="reply-attach-icon" v-for="attach in data.attachList" @click="showAttach(attach)">显示附件</div>
@@ -121,6 +125,9 @@
             },
             showAttach(attach){
                 open("https://img.nga.178.com/attachments/"+attach.attachurl)
+            },
+            pushUserCenter(uid){
+                this.$router.push(`/user/${uid}`);
             }
         },
         filters: {
