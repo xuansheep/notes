@@ -27,7 +27,15 @@
                     </div>
                     <p class="reply-text" v-html="data.content"></p>
                     <div style="height: 30px"></div>
-                    <div class="reply-attach-icon" v-for="attach in data.attachList" @click="showAttach(attach)">显示附件</div>
+                    <div style="height: 26px;">
+                        <div class="reply-attach-icon" v-for="attach in data.attachList" @click="showAttach(attach)">显示附件</div>
+                        <div class="reply-supplement">
+                            <Tooltip placement="top-end">
+                                <div slot="content" v-html="data.signature"></div>
+                                <Icon v-if="data.signature" class="reply-supplement-signature" type="md-pricetags" color="#666666" size="22" />
+                            </Tooltip>
+                        </div>
+                    </div>
                 </ListItem>
             </List>
         </div>

@@ -1,26 +1,33 @@
 <template>
     <div class="nga-background">
-        <div class="reply-list">
-            <List item-layout="vertical">
-                <ListItem v-for="data in tableData" :key="data.id">
-                    <p v-if="data.lou!==0" class="reply-lou">
-                        <span class="reply-postdate">{{data.postDate|formatDate}}</span>
-                        <span>#{{data.lou}}</span>
-                    </p>
-                    <div >
-                        <ListItemMeta>
-                            <h2 style="cursor: pointer" slot="title" @click="pushSubjectReply(data.tid)">{{data.subject}}</h2>
-                        </ListItemMeta>
-                    </div>
-                    <p class="reply-text" v-html="data.content"></p>
-                    <div style="height: 30px"></div>
-                    <div class="reply-attach-icon" v-for="attach in data.attachList" @click="showAttach(attach)">显示附件</div>
-                </ListItem>
-            </List>
+        <div>
+            <Avatar :src="user.avatar" icon="ios-person" size="100" />
+            <span class="user-username-span">{{user.username}}</span>
         </div>
-        <div class="pagination">
-            <Page :total="totalSize" :current="form.page" :page-size="form.size"
-                  @on-change="changePage" show-elevator show-sizer show-total />
+        <div style="height: 30px"></div>
+        <div class="user-reply-div">
+            <div class="reply-list">
+                <List item-layout="vertical" :loading="loading">
+                    <ListItem v-for="data in tableData" :key="data.id">
+                        <p v-if="data.lou!==0" class="reply-lou">
+                            <span class="reply-postdate">{{data.postDate|formatDate}}</span>
+                            <span>#{{data.lou}}</span>
+                        </p>
+                        <div >
+                            <ListItemMeta>
+                                <h2 style="cursor: pointer" slot="title" @click="pushSubjectReply(data.tid)">{{data.subject}}</h2>
+                            </ListItemMeta>
+                        </div>
+                        <p class="reply-text" v-html="data.content"></p>
+                        <div style="height: 30px"></div>
+                        <div class="reply-attach-icon" v-for="attach in data.attachList" @click="showAttach(attach)">显示附件</div>
+                    </ListItem>
+                </List>
+            </div>
+            <div class="pagination">
+                <Page :total="totalSize" :current="form.page" :page-size="form.size"
+                      @on-change="changePage" show-elevator show-sizer show-total />
+            </div>
         </div>
     </div>
 </template>
@@ -40,13 +47,19 @@
                     authorId:'',
                     onlyImageFlag:false
                 },
+                userForm:{
+                    uid:undefined
+                },
+                user:{},
+                loading:false,
                 tableData:[],
                 totalSize:0,
             }
         },
         created() {
             this.pageLoad();
-            this.form.authorId = this.$route.params.authorId
+            this.form.authorId = this.$route.params.authorId;
+            this.userForm.uid = this.$route.params.authorId;
         },
         computed: {
             thePage(){
@@ -60,6 +73,7 @@
         },
         methods: {
             pageLoad(){
+                this.userDetail();
                 this.replyList();
             },
             changePage(current){
@@ -67,12 +81,20 @@
                 this.replyList();
             },
             replyList(){
+                this.loading = true;
                 this.http.post(this.ports.nga.user.replyList, this.form, res => {
                     this.tableData = res.records;
                     this.tableData.forEach(data => data.avatar = this.proxyImage(data.avatar));
                     this.form.size = res.size;
                     this.totalSize = res.total;
+                    this.loading = false;
                 })
+            },
+            userDetail(){
+                this.http.post(this.ports.nga.user.detail, this.userForm, res => {
+                    this.user = res;
+                    this.user.avatar = this.proxyImage(this.user.avatar);
+                });
             },
             proxyImage(url){
                 if (!url){

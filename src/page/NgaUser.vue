@@ -1,7 +1,7 @@
 <template>
     <div class="nga-background">
         <Avatar :src="user.avatar" icon="ios-person" size="100" />
-        <span style="margin-left: 20px; font-weight: bold; font-size: 30px">{{user.username}}</span>
+        <span class="user-username-span">{{user.username}}</span>
         <Card icon="ios-options" :padding="0" shadow style="width: 100%;">
             <CellGroup>
                 <div style="height: 30px"></div>
