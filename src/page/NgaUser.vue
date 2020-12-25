@@ -1,7 +1,15 @@
 <template>
     <div class="nga-background">
-        <Avatar :src="user.avatar" icon="ios-person" size="100" />
-        <span class="user-username-span">{{user.username}}</span>
+        <div>
+            <Avatar :src="user.avatar" icon="ios-person" size="100" />
+            <span class="user-username-span">{{user.username}}</span>
+            <div class="user-card">
+                <p>威望：{{(user.rvrc/10).toFixed(1)}}</p>
+                <p>铜币：{{user.money}}</p>
+                <p>总发帖数：{{user.postNum}}</p>
+                <p>注册时间：{{user.regDate|formatDate}}</p>
+            </div>
+        </div>
         <Card icon="ios-options" :padding="0" shadow style="width: 100%;">
             <CellGroup>
                 <div style="height: 30px"></div>
@@ -78,6 +86,11 @@
                 return this.http.serverUrl + "/proxy/file?url="+url;
             },
         },
+        filters: {
+            formatDate:function (date) {
+                return new Date(date).Format('yyyy-MM-dd HH:mm:ss');
+            }
+        }
     }
 </script>
 

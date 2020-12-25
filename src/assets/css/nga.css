@@ -107,8 +107,8 @@
 }
 
 .reply-avatar{
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
     line-height: 32px;
     border-radius: 50%;
     display: inline-block;
@@ -212,7 +212,15 @@
     transition: all .2s ease-in-out;
 }
 
-/*iviewUI*/
+.user-card{
+    font-weight: bold;
+    padding: 12px;
+    width: 240px;
+    height: 100%;
+    float: right;
+}
+
+    /*iviewUI*/
 .ivu-table .row-background{
     /*background-color: antiquewhite;*/
     cursor: pointer;
@@ -241,6 +249,11 @@
 
 .reply-supplement .ivu-tooltip-inner {
     max-width: 1024px;
+}
+
+.reply-list .ivu-list-item-meta-description{
+    margin-top: -15px;
+    font-size: 8px;
 }
 
 /*

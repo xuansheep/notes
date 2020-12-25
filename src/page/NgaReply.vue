@@ -23,6 +23,11 @@
                     <div >
                         <ListItemMeta :title="data.username" >
                             <img class="reply-avatar" :src="data.avatar" slot="avatar" @click="pushUserCenter(data.authorId)">
+                            <p style="font-size: 8px" slot="description">
+                                <span>威望：{{(data.rvrc/10).toFixed(1)}}</span> &nbsp;
+                                <span>铜币：{{data.money}}</span> &nbsp;
+                                <span>发帖数：{{data.postNum}}</span> &nbsp;
+                            </p>
                         </ListItemMeta>
                     </div>
                     <p class="reply-text" v-html="data.content"></p>
@@ -31,8 +36,13 @@
                         <div class="reply-attach-icon" v-for="attach in data.attachList" @click="showAttach(attach)">显示附件</div>
                         <div class="reply-supplement">
                             <Tooltip placement="top-end">
-                                <div slot="content" v-html="data.signature"></div>
-                                <Icon v-if="data.signature" class="reply-supplement-signature" type="md-pricetags" color="#666666" size="22" />
+                                <div style="overflow: auto" slot="content" v-html="data.signature"></div>
+                                <Icon v-if="data.signature" class="reply-supplement-signature" type="md-pricetags" color="#666666" size="20" />
+                            </Tooltip>
+                            &nbsp;
+                            <Tooltip placement="top-end">
+                                <div slot="content" v-html="data.fromClient"></div>
+                                <Icon v-if="data.fromClient" class="reply-supplement-signature" type="md-settings" color="#666666" size="20" />
                             </Tooltip>
                         </div>
                     </div>
