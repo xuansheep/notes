@@ -326,7 +326,7 @@
                 this.http.post(this.ports.mark.listIndex, this.listParams, res => {
                     this.cardList = res;
                     for (let c of this.cardList) {
-                        c.colSpan = 4;
+                        c.colSpan = 24;
                     }
                 });
                 this.getCategoryList(2);
