@@ -15,10 +15,10 @@ Vue.use(Router);
     ]
 })*/
 
-const originalPush = Router.prototype.push
+const originalPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)
-}
+};
 
 const router = new Router({
     //mode: 'history',
@@ -27,6 +27,7 @@ const router = new Router({
         {path: '/logIn', component: () => import('../page/LogIn.vue')},
         {path: '/index', component: () => import('../page/Index.vue')},
         {path: '/mark', component: () => import('../page/Mark.vue')},
+        {path: '/person', component: () => import('../page/Person.vue')},
         {path: '/nga', component: () => import('../page/Nga.vue')},
         {path: '/reply/:tid', component: () => import('../page/NgaReply.vue')},
         {path: '/user/:uid', component: () => import('../page/NgaUser.vue')},

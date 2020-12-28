@@ -7,15 +7,39 @@
             </div>
 
             <!--nga按钮-->
-            <div class="header-bottom-nga-div">
+            <!--<div class="header-bottom-nga-div">
                 <img class="header-bottom-nga-icon" src="../assets/image/dex-fish-nga-1.jpg" @click="goNga" />
-            </div>
+            </div>-->
 
             <!--书签功能按钮-->
             <div v-if="!headerOpenStatus">
+                <!--导入书签按钮-->
+                <div class="header-bottom-import-icon">
+                    <Poptip placement="bottom-start" :width="200" v-model="importVisible">
+                        <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru"
+                              size="20"/>
+                        <div slot="title">
+                            导入Chrome离线书签
+                        </div>
+                        <div slot="content" style="line-height: 35px">
+                            <div>
+                                <Upload :before-upload="handleUpload"
+                                        action="">
+                                    <Button icon="ios-cloud-upload-outline">选择文件</Button>
+                                </Upload>
+                                <div v-if="file !== null">
+                                    文件名：{{file.name}}<br/>
+                                    <Button type="default" size="small" @click="upload" :loading="importLoading">
+                                        {{importLoading ? '导入中' : '开始导入' }}
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </Poptip>
+                </div>
                 <!--添加书签按钮-->
                 <div class="header-bottom-add-icon">
-                    <Poptip placement="bottom-end" :width="300" v-model="visible">
+                    <Poptip placement="bottom-start" :width="300" v-model="visible">
                         <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
                         <div slot="title">
                             添加书签
@@ -42,7 +66,7 @@
                 </div>
                 <!--删除书签按钮-->
                 <div class="header-bottom-del-icon">
-                    <Dropdown placement="bottom-end" trigger="custom" :visible="modifyStatus">
+                    <Dropdown placement="bottom-start" trigger="custom" :visible="modifyStatus">
                         <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy"
                               size="20" @click="modify"/>
                         <DropdownMenu slot="list" style="width: 150px">
@@ -58,29 +82,9 @@
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <!--导入书签按钮-->
-                <div class="header-bottom-import-icon">
-                    <Poptip placement="bottom-end" :width="300" v-model="importVisible">
-                        <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru"
-                              size="20"/>
-                        <div slot="title">
-                            导入Chrome离线书签
-                        </div>
-                        <div slot="content" style="line-height: 35px">
-                            <div>
-                                <Upload :before-upload="handleUpload"
-                                        action="">
-                                    <Button icon="ios-cloud-upload-outline">选择文件</Button>
-                                </Upload>
-                                <div v-if="file !== null">
-                                    文件名：{{file.name}}<br/>
-                                    <Button type="default" size="small" @click="upload" :loading="importLoading">
-                                        {{importLoading ? '导入中' : '开始导入' }}
-                                    </Button>
-                                </div>
-                            </div>
-                        </div>
-                    </Poptip>
+                <!--退出按钮-->
+                <div class="header-bottom-logout-icon">
+                    <Icon class="logout-icon" type="md-exit" size="26" @click="signOut"/>
                 </div>
             </div>
 
@@ -206,7 +210,7 @@
                     <Col span="6">
                         <Card class="window-card">
                             <div class="window-card-content">
-                                <p style="line-height: 36px">开发中...</p>
+                                <p style="line-height: 36px" @click="goPerson">人物</p>
                             </div>
                         </Card>
                     </Col>
@@ -552,6 +556,20 @@
             },
             goCalendar(){
                 this.$router.push({path: '/calendar'})
+            },
+            goPerson(){
+                this.$router.push({path: '/person'})
+            },
+            signOut(){
+                this.$Modal.confirm({
+                    title: '退出',
+                    content: '确定要退出吗？',
+                    onOk: () => {
+                        this.http.post(this.ports.user.signOut, res => {})
+                        this.store.remove('user');
+                        this.$router.push({path: '/logIn'})
+                    }
+                });
             },
 
             /***可拖放***/

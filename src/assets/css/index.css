@@ -45,20 +45,25 @@
     width: 30px;
     border-radius: 15px;
 }
+.header-bottom-import-icon {
+    position: absolute;
+    top: 5px;
+    left: 78px;
+}
 .header-bottom-add-icon {
     position: absolute;
     top: 5px;
-    right: 48px;
+    left: 18px;
 }
 .header-bottom-del-icon {
     position: absolute;
     top: 5px;
-    right: 18px;
+    left: 48px;
 }
-.header-bottom-import-icon {
+.header-bottom-logout-icon{
     position: absolute;
     top: 5px;
-    right: 78px;
+    right: 18px;
 }
 .add-icon {
     cursor: pointer;
@@ -106,6 +111,19 @@
     color: #9a4f00;
 }
 .import-icon:active {
+    transform: rotate(30deg);
+}
+.logout-icon {
+    cursor: pointer;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.logout-icon:hover {
+    color: #ff2300;
+}
+.logout-icon:active {
     transform: rotate(30deg);
 }
 .header-bottom-openMore-icon {
@@ -308,7 +326,7 @@
 .header-open .ivu-collapse-content {
     color: #515a6e;
     padding: 0 16px;
-    background-color: antiquewhite;
+    background-color: #FFF5E8;
 }
 
 .note-category-list .ivu-btn-dashed {

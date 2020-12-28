@@ -59,5 +59,9 @@ export default {
             list: '/api/lottery/option/list'
         },
         rand: '/api/lottery/rand'
+    },
+    person: {
+        save: '/api/person/save',
+        list: '/api/person/list',
     }
 }
