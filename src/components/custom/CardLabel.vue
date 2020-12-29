@@ -16,12 +16,12 @@
                     <Radio v-for="dict in dictData" :label="dict.value">{{dict.name}}</Radio>
                 </RadioGroup>
 
-                <DatePicker v-if="modifyStatus&&modifyType==='date'" v-model="contentValue" type="date" size="small"></DatePicker>
+                <DatePicker v-if="modifyStatus&&modifyType==='date'" v-model="contentValue" @on-change="getDate" type="date" size="small"></DatePicker>
 
             </div>
         </div>
         <div v-if="modifyType" class="card-label-update">
-            <Icon v-if="!modifyStatus&&hoverStatus" type="md-create" @click="modifyStatus = true" />
+            <Icon v-if="!modifyStatus&&hoverStatus" custom="iconfont icon-bianji" @click="modifyStatus = true" />
             <Icon v-if="modifyStatus" type="md-checkmark" v-on:click="executeFun(method)" />
         </div>
     </div>
@@ -99,6 +99,9 @@
                 }
                 return this.contentValue;
             },
+            getDate(date){
+                this.contentValue = date;
+            },
             resetField(){
                 this.modifyStatus = false;
                 this.contentValue = undefined;
@@ -117,12 +120,20 @@
     }
     .card-label-content {
         margin-left: 70px;
-        max-width: 300px;
+        max-width: 260px;
     }
     .card-label-update {
         position: absolute;
         right: 2px;
         top: 0;
         cursor: pointer;
+        color: #c5cfe2;
+        transition: all 0.5s;
+        -moz-transition: all 0.5s; /* Firefox 4 */
+        -webkit-transition: all 0.5s; /* Safari and Chrome */
+        -o-transition: all 0.5s; /* Opera */
+    }
+    .card-label-update:hover {
+        color: #3f3f3f;
     }
 </style>

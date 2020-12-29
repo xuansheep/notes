@@ -17,17 +17,24 @@
                             <FormItem label="姓名">
                                 <Input v-model="personForm.name" placeholder="请输入姓名"></Input>
                             </FormItem>
+                            <FormItem label="手机号">
+                                <Input v-model="personForm.mobileNo" placeholder="请输入手机号" />
+                            </FormItem>
+                            <br>
                             <FormItem label="性别">
                                 <RadioGroup v-model="personForm.sex" type="button">
                                     <Radio v-for="dict in sexDict" :label="dict.value">{{dict.name}}</Radio>
                                 </RadioGroup>
                             </FormItem>
-                            <FormItem label="手机号">
-                                <Input v-model="personForm.mobileNo" placeholder="请输入手机号" />
+                            <FormItem label="生日">
+                                <DatePicker v-model="personForm.birthday" @on-change="getDate" type="date" placeholder="请选择生日"></DatePicker>
                             </FormItem>
                             <br>
-                            <FormItem label="生日">
-                                <DatePicker v-model="personForm.birthday" type="date" placeholder="请选择生日"></DatePicker>
+                            <FormItem label="身份证号">
+                                <Input v-model="personForm.idCard" placeholder="请输入身份证号" />
+                            </FormItem>
+                            <FormItem label="籍贯">
+                                <Input v-model="personForm.hometown" placeholder="请输入籍贯地址" />
                             </FormItem>
                             <FormItem label="籍贯地址">
                                 <Input v-model="personForm.hometownAddress" placeholder="请输入籍贯地址" style="width: 500px" />
@@ -36,6 +43,9 @@
                                 <Input v-model="personForm.liveAddress" placeholder="请输入现居地址" style="width: 500px" />
                             </FormItem>
                             <br>
+                            <FormItem label="微信昵称">
+                                <Input v-model="personForm.weChatName" placeholder="请输入微信昵称" />
+                            </FormItem>
                             <FormItem label="微信号">
                                 <Input v-model="personForm.weChatNo" placeholder="请输入微信号" />
                             </FormItem>
@@ -51,10 +61,10 @@
         <!--人物信息-->
         <div class="person-background">
             <Scroll :on-reach-bottom="handleReachBottom" height="820" loading-text="拼命加载中...">
-                <Row :gutter="12">
-                    <Col span="6" style="margin-bottom: 12px" v-for="person in tableData">
-                        <Card>
-                            <div class="person-card">
+                <Row :gutter="24">
+                    <Col span="6" style="margin-bottom: 24px" v-for="(person, index) in tableData">
+                        <Card style="border-radius: 10px">
+                            <div class="person-card" @mouseover="hoverPersonCard(person, index)" @mouseleave="leavePersonCard(person, index)">
                                 <div class="person-header">
                                     <Avatar shape="square" icon="ios-person" size="60" />
                                     <span class="person-header-name">{{person.name}}</span>
@@ -65,7 +75,7 @@
                                 <CardLabel title="籍贯" :content="person.hometown" />
                                 <CardLabel title="生日" :content="person.birthday | formatDateyyyyMMdd" />
                                 <div style="height: 20px">
-                                    <Icon class="person-more-button" type="md-arrow-forward" size="20" @click="openPersonDetail(person.id)" />
+                                    <Icon v-if="person.hoverStatus" class="person-more-button" custom="iconfont icon-chakan-copy" size="20" @click="openPersonDetail(person.id)" />
                                 </div>
                             </div>
                         </Card>
@@ -76,12 +86,14 @@
         <!--详情弹窗-->
         <Modal ref="detailModal" v-model="detailWindowStatus" :mask-closable="false" footer-hide width="800" @on-cancel="closePersonDetail">
             <Tabs ref="cardLabelGroup">
-                <TabPane label="基本信息" ref="cardLabelGroup1">
+                <TabPane label="基本信息">
                     <div class="detail-tab-div">
                         <CardLabel prop="name" title="姓名" :content="personDetail.name"/>
                         <CardLabel prop="sex" modify-type="radio" :dictData="sexDict" :method="updatePerson" title="性别" :content="personDetail.sex"/>
+                        <CardLabel prop="idCard" modify-type="input" :method="updatePerson" title="身份证号" :content="personDetail.idCard"/>
                         <CardLabel prop="mobileNo" modify-type="input" :method="updatePerson" title="手机号" :content="personDetail.mobileNo"/>
-                        <CardLabel prop="weChatName" modify-type="input" :method="updatePerson" title="微信名" :content="personDetail.weChatName"/>
+                        <CardLabel prop="weChatName" modify-type="input" :method="updatePerson" title="微信昵称" :content="personDetail.weChatName"/>
+                        <CardLabel prop="weChatNo" modify-type="input" :method="updatePerson" title="微信号" :content="personDetail.weChatNo"/>
                     </div>
                     <div class="detail-tab-div">
                         <CardLabel prop="birthday" modify-type="date" :method="updatePerson" title="生日" :content="personDetail.birthday | formatDateyyyyMMdd" />
@@ -154,7 +166,6 @@
                             }
                             resolve();
                         });
-
                     }, 1000);
                 });
             },
@@ -186,11 +197,15 @@
             getPersonList(){
                 this.http.post(this.ports.person.list, this.form, res => {
                     this.tableData = res.records;
+                    this.tableData.forEach(item => item.hoverStatus = false);
                     this.pageAdd();
                 });
             },
             pageAdd(){
                 this.form.page++;
+            },
+            getDate(date){
+                this.personForm.birthday = date;
             },
             openPersonDetail(personId){
                 this.http.post(this.ports.person.detail, {id: personId}, res => {
@@ -208,6 +223,15 @@
                     })
                 })
             },
+            hoverPersonCard(person, index){
+                person.hoverStatus = true;
+                this.$set(this.tableData, index, person);
+
+            },
+            leavePersonCard(person, index){
+                person.hoverStatus = false;
+                this.$set(this.tableData, index, person);
+            }
         }
     }
 </script>

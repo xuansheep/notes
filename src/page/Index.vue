@@ -16,8 +16,7 @@
                 <!--导入书签按钮-->
                 <div class="header-bottom-import-icon">
                     <Poptip placement="bottom-start" :width="200" v-model="importVisible">
-                        <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru"
-                              size="20"/>
+                        <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru" size="20"/>
                         <div slot="title">
                             导入Chrome离线书签
                         </div>
@@ -84,7 +83,7 @@
                 </div>
                 <!--退出按钮-->
                 <div class="header-bottom-logout-icon">
-                    <Icon class="logout-icon" type="md-exit" size="26" @click="signOut"/>
+                    <Icon class="logout-icon" custom="iconfont icon-dengchu" size="26" @click="signOut"/>
                 </div>
             </div>
 

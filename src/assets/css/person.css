@@ -23,6 +23,7 @@
 
 .person-card {
     position:relative;
+    min-height: 220px;
 }
 
 .person-header {
