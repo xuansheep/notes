@@ -62,6 +62,8 @@ export default {
     },
     person: {
         save: '/api/person/save',
+        update: '/api/person/update',
         list: '/api/person/list',
+        detail: '/api/person/detail',
     }
 }

@@ -21,6 +21,10 @@
     padding: 12px;
 }
 
+.person-card {
+    position:relative;
+}
+
 .person-header {
     position:relative;
 }
@@ -31,6 +35,23 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.person-more-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.detail-tab-div {
+    float: left;
+    width: 46%;
+    margin-right: 2%;
+}
+
+.detail-tab-div .card-label-div {
+    margin-bottom: 12px;
 }
 
 /*iviewUI*/

@@ -40,6 +40,10 @@ Vue.filter('formatDateMMddHHmmss', function (date) {
   return new Date(date).Format('MM-dd HH:mm:ss');
 });
 
+Vue.filter('formatDateyyyyMMdd', function (date) {
+  return !!date ? new Date(date).Format('yyyy-MM-dd') : undefined;
+});
+
 Vue.filter('formatDate', function (date) {
   return new Date(date).Format('yyyy-MM-dd HH:mm:ss');
 });
