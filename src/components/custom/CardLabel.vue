@@ -109,7 +109,6 @@
 <style>
     .card-label-div {
         position: relative;
-        z-index: 999;
     }
     .card-label-title {
         width: 70px;
