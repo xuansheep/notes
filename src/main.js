@@ -11,6 +11,9 @@ import './assets/icon/iconfont.css'
 
 Vue.use(ViewUI);
 
+import waterfall from 'vue-waterfall2'
+Vue.use(waterfall);
+
 Vue.prototype.http = http;
 Vue.prototype.ports = ports;
 Vue.prototype.store = store;

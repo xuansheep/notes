@@ -18,12 +18,28 @@
 
                 <DatePicker v-if="modifyStatus&&modifyType==='date'" v-model="contentValue" @on-change="getDate" type="date" size="small"></DatePicker>
 
+                <CheckboxGroup v-if="modifyStatus&&modifyType==='checkBox'&&dictData.length<=3" v-model="contentValue" size="small">
+                    <Checkbox v-for="dict in dictData" :label="dict.value" border>{{dict.name}}</Checkbox>
+                </CheckboxGroup>
+
             </div>
         </div>
         <div v-if="modifyType" class="card-label-update">
             <Icon v-if="!modifyStatus&&hoverStatus" custom="iconfont icon-bianji" @click="modifyStatus = true" />
             <Icon v-if="modifyStatus" type="md-checkmark" v-on:click="executeFun(method)" />
         </div>
+
+        <!--多选框，选项大于3时展示-->
+        <Modal v-model="!!modifyType&&modifyStatus&&modifyType==='checkBox'&&dictData.length>3"
+               title="选择" :closable="false" :mask-closable="false" >
+            <CheckboxGroup v-if="modifyStatus&&modifyType==='checkBox'" v-model="contentValue" size="small">
+                <Checkbox v-for="dict in dictData" :label="dict.value" border>{{dict.name}}</Checkbox>
+            </CheckboxGroup>
+            <div slot="footer">
+                <Button icon="md-checkmark" @click="executeFun(method)">确定</Button>
+            </div>
+        </Modal>
+
     </div>
 
 </template>
@@ -57,7 +73,7 @@
                 default: ''
             },
             content: {
-                type: [String, Number, Boolean, Date],
+                type: [String, Number, Boolean, Date, Array],
                 default: ''
             },
         },
@@ -89,13 +105,29 @@
                 if ('string' === typeof this.contentValue && this.contentValue.length === 0) {
                     return '--';
                 }
-                if (!!this.dictData && this.dictData.length > 0){
+                let isArray = this.contentValue instanceof Array;
+                if (isArray && this.contentValue.length === 0) {
+                    return '--'
+                }
+                if (!!this.dictData && this.dictData.length > 0) {
+                    let dictData = [];
                     for (let i = 0; i < this.dictData.length; i++) {
-                        if (this.dictData[i].value === this.contentValue) {
-                            return this.dictData[i].name;
+                        if (isArray) {
+                            for (let j = 0; j < this.contentValue.length; j++) {
+                                if (this.contentValue[j] === this.dictData[i].value) {
+                                    dictData.push(this.dictData[i].name);
+                                }
+                            }
+                        }else {
+                            if (this.contentValue === this.dictData[i].value) {
+                                return this.dictData[i].name;
+                            }
                         }
                     }
-                    return '--';
+                    if (dictData.length === 0){
+                        return '--';
+                    }
+                    return dictData.join("、")
                 }
                 return this.contentValue;
             },

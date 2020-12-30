@@ -49,6 +49,12 @@
                             <FormItem label="微信号">
                                 <Input v-model="personForm.weChatNo" placeholder="请输入微信号" />
                             </FormItem>
+                            <br>
+                            <FormItem label="爱好">
+                                <CheckboxGroup v-model="personForm.hobby">
+                                    <Checkbox v-for="dict in hobbyDict" :label="dict.value" border>{{dict.name}}</Checkbox>
+                                </CheckboxGroup>
+                            </FormItem>
                         </Form>
                         <div class="demo-drawer-footer">
                             <Button style="margin-right: 8px" @click="drawerClose">取消</Button>
@@ -60,9 +66,9 @@
         </div>
         <!--人物信息-->
         <div class="person-background">
-            <Scroll :on-reach-bottom="handleReachBottom" height="820" loading-text="拼命加载中...">
-                <Row :gutter="24">
-                    <Col span="6" style="margin-bottom: 24px" v-for="(person, index) in tableData">
+            <waterfall :col="col" :width="itemWidth" :gutterWidth="gutterWidth" :data="tableData" :loadDistance="1"  @loadmore="loadMore"  @scroll="scroll"  >
+                <template>
+                    <div style="margin-bottom: 24px" :loading="scrollLoading" v-for="(person,index) in tableData">
                         <Card style="border-radius: 10px">
                             <div class="person-card" @mouseover="hoverPersonCard(person, index)" @mouseleave="leavePersonCard(person, index)">
                                 <div class="person-header">
@@ -79,9 +85,15 @@
                                 </div>
                             </div>
                         </Card>
-                    </Col>
-                </Row>
-            </Scroll>
+                    </div>
+                </template>
+            </waterfall>
+            <div class="scroll-loading" :style="{paddingBottom: scrollLoadingHeight + 'px'}">
+                <Spin v-if="scrollLoading">
+                    <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
+                    <div>拼命加载中...</div>
+                </Spin>
+            </div>
         </div>
         <!--详情弹窗-->
         <Modal ref="detailModal" v-model="detailWindowStatus" :mask-closable="false" footer-hide width="800" @on-cancel="closePersonDetail">
@@ -100,6 +112,7 @@
                         <CardLabel prop="hometown" modify-type="input" :method="updatePerson" title="籍贯" :content="personDetail.hometown" />
                         <CardLabel prop="hometownAddress" modify-type="input" :method="updatePerson" title="籍贯地址" :content="personDetail.hometownAddress" />
                         <CardLabel prop="liveAddress" modify-type="input" :method="updatePerson" title="现居地址" :content="personDetail.liveAddress" />
+                        <CardLabel prop="hobby" modify-type="checkBox" :dictData="hobbyDict" :method="updatePerson" title="爱好" :content="personDetail.hobby"/>
                     </div>
                 </TabPane>
                 <TabPane label="其他信息">
@@ -122,7 +135,7 @@
             return{
                 form:{
                     page:1,
-                    size:20,
+                    size:16,
                 },
                 personForm:{
                     name: undefined,
@@ -134,6 +147,7 @@
                     weChatNo: undefined,
                     weChatName: undefined,
                     birthday: undefined,
+                    hobby:undefined,
                 },
                 tableData:[],
                 personWindowStatus:false,
@@ -145,29 +159,33 @@
                     {name: '男', value: 1},
                     {name: '女', value: 2},
                 ],
+                hobbyDict:[
+                    {name: '篮球', value: 1},
+                    {name: '足球', value: 2},
+                    {name: '游泳', value: 3},
+                    {name: '声乐', value: 4},
+                    {name: '舞蹈', value: 5},
+                ],
+
+                //clientWidth:document.documentElement.clientWidth,
+                clientWidth:1012,
+                col:4,
+                gutterWidth:24,
+                scrollLoading:false,
+                scrollLoadingHeight:0,
             }
         },
         created() {
             this.pageLoad();
         },
+        computed:{
+            itemWidth(){
+                return this.clientWidth/this.col - this.gutterWidth;
+            },
+        },
         methods: {
             pageLoad(){
                 this.getPersonList();
-            },
-            handleReachBottom () {
-                return new Promise(resolve => {
-                    setTimeout(() => {
-                        this.http.post(this.ports.person.list, this.form, res => {
-                            if (!!res.records && res.records.length > 0){
-                                this.pageAdd();
-                                res.records.forEach(item => {
-                                    this.tableData.push(item);
-                                })
-                            }
-                            resolve();
-                        });
-                    }, 1000);
-                });
             },
             drawerOpen(){
                 this.personWindowStatus = true;
@@ -182,16 +200,19 @@
                     return;
                 }
                 this.http.post(this.ports.person.save, this.personForm, res => {
-                    this.form.page = 1;
+                    this.resetFormPage();
                     this.getPersonList();
                     this.personWindowStatus = false;
                     this.$Message.success("创建成功");
+                    this.personForm = {};
                 });
             },
             updatePerson(fieldName, value){
                 this.$set(this.personDetail, fieldName, value);
                 this.http.post(this.ports.person.update, this.personDetail, res => {
                     this.$Message.success("修改成功");
+                    this.resetFormPage();
+                    this.getPersonList();
                 });
             },
             getPersonList(){
@@ -231,7 +252,34 @@
             leavePersonCard(person, index){
                 person.hoverStatus = false;
                 this.$set(this.tableData, index, person);
-            }
+            },
+            resetFormPage(){
+                this.form.page = 1;
+            },
+            /**瀑布流*/
+            scroll(scrollData){
+                //console.log(scrollData)
+            },
+            loadMore(){
+                if (this.scrollLoading) {
+                    return;
+                }
+                this.scrollLoading = true;
+                this.scrollLoadingHeight = 50;
+                setTimeout(() => {
+                    this.http.post(this.ports.person.list, this.form, res => {
+                        if (!!res.records && res.records.length > 0){
+                            this.pageAdd();
+                            res.records.forEach(item => {
+                                this.tableData.push(item);
+                            })
+                        }
+                        this.scrollLoading = false;
+                        this.scrollLoadingHeight = 0;
+                    });
+                }, 1000);
+            },
+            /**瀑布流*/
         }
     }
 </script>
