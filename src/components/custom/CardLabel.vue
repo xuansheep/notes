@@ -16,7 +16,7 @@
                     <Radio v-for="dict in dictData" :label="dict.value">{{dict.name}}</Radio>
                 </RadioGroup>
 
-                <DatePicker v-if="modifyStatus&&modifyType==='date'" v-model="contentValue" @on-change="getDate" type="date" size="small"></DatePicker>
+                <DatePicker v-if="modifyStatus&&modifyType==='date'" v-model="contentValue" @on-change="getDate" transfer type="date" size="small"></DatePicker>
 
                 <CheckboxGroup v-if="modifyStatus&&modifyType==='checkBox'&&dictData.length<=3" v-model="contentValue" size="small">
                     <Checkbox v-for="dict in dictData" :label="dict.value" border>{{dict.name}}</Checkbox>
