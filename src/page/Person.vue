@@ -1,8 +1,8 @@
 <template>
-    <div class="background">
+    <div class="person-background">
         <!--操作栏-->
-        <div class="header">
-            <div class="header-content">
+        <div class="person-header">
+            <div class="person-header-content">
                 <!--创建按钮-->
                 <div>
                     <Button type="primary" ghost @click="drawerOpen">创建</Button>
@@ -65,7 +65,7 @@
             </div>
         </div>
         <!--人物信息-->
-        <div class="person-background">
+        <div class="person-content-background">
             <waterfall :col="col" :width="itemWidth" :gutterWidth="gutterWidth" :data="tableData" :loadDistance="1"  @loadmore="loadMore"  @scroll="scroll"  >
                 <template>
                     <div style="margin-bottom: 24px" :loading="scrollLoading" v-for="(person,index) in tableData">
