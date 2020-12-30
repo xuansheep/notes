@@ -4,8 +4,9 @@
         <div class="person-header">
             <div class="person-header-content">
                 <!--创建按钮-->
-                <div>
-                    <Button type="primary" ghost @click="drawerOpen">创建</Button>
+                <div class="person-header-add-icon" @click="drawerOpen">
+                    <Icon custom="iconfont icon-xinzeng" size="20"/>
+                    <span>创建</span>
                     <Drawer
                             title='创建人物'
                             v-model=personWindowStatus
@@ -61,6 +62,10 @@
                             <Button type="primary" @click="savePerson">保存</Button>
                         </div>
                     </Drawer>
+                </div>
+                <!--筛选-->
+                <div class="person-header-search">
+                    <Input style="width: 900px" search placeholder="Enter something..." v-model="form.name" />
                 </div>
             </div>
         </div>

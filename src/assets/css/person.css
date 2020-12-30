@@ -9,12 +9,46 @@
 .person-header {
     position:relative;
     height: 50px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    padding: 0 12px 0 12px;
 }
 .person-header-content {
-    margin-left: 12px;
     position: absolute;
+    width: 1000px;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.person-header-add-icon {
+    width: 10%;
+    cursor: pointer;
+    display: inline-block;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.person-header-add-icon:hover {
+    color: #00bfff;
+}
+
+/*.add-icon {
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; !* Firefox 4 *!
+    -webkit-transition: all 0.5s; !* Safari and Chrome *!
+    -o-transition: all 0.5s; !* Opera *!
+}
+.add-icon:hover {
+    color: #00bfff;
+}
+.add-icon:active {
+    transform: rotate(30deg);
+}*/
+
+.person-header-search {
+    display: inline-block;
+    width: 90%;
 }
 
 .person-content-background {
