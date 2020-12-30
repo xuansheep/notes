@@ -27,10 +27,10 @@
     min-height: 220px;
 }
 
-.person-header {
+.person-card-header {
     position:relative;
 }
-.person-header-name {
+.person-card-header-name {
     margin-left: 10px;
     font-size: 24px;
     font-weight: bold;
@@ -39,7 +39,7 @@
     transform: translateY(-50%);
 }
 
-.person-more-button {
+.person-card-more-button {
     position: absolute;
     right: 0;
     bottom: 0;

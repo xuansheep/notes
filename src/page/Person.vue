@@ -71,9 +71,9 @@
                     <div style="margin-bottom: 24px" :loading="scrollLoading" v-for="(person,index) in tableData">
                         <Card style="border-radius: 10px">
                             <div class="person-card" @mouseover="hoverPersonCard(person, index)" @mouseleave="leavePersonCard(person, index)">
-                                <div class="person-header">
+                                <div class="person-card-header">
                                     <Avatar shape="square" icon="ios-person" size="60" />
-                                    <span class="person-header-name">{{person.name}}</span>
+                                    <span class="person-card-header-name">{{person.name}}</span>
                                 </div>
                                 <div style="height: 10px"></div>
                                 <CardLabel title="性别" :dictData="sexDict" :content="person.sex"/>
@@ -81,7 +81,7 @@
                                 <CardLabel title="籍贯" :content="person.hometown" />
                                 <CardLabel title="生日" :content="person.birthday | formatDateyyyyMMdd" />
                                 <div style="height: 20px">
-                                    <Icon v-if="person.hoverStatus" class="person-more-button" custom="iconfont icon-chakan-copy" size="20" @click="openPersonDetail(person.id)" />
+                                    <Icon v-if="person.hoverStatus" class="person-card-more-button" custom="iconfont icon-chakan-copy" size="20" @click="openPersonDetail(person.id)" />
                                 </div>
                             </div>
                         </Card>
