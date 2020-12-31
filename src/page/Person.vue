@@ -283,6 +283,10 @@
                 this.currentPersonIndex = index;
             },
             showPersonCard(){
+                if (!this.password || this.password.length === 0) {
+                    this.$Message.error("请输入查看密码");
+                    return;
+                }
                 this.passwordLoading = true;
                 this.http.post(this.ports.person.show, {id: this.currentPersonId, personPassword: this.password}, res => {
                     this.$set(this.tableData, this.currentPersonIndex, res);
