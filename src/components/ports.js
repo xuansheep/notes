@@ -65,5 +65,7 @@ export default {
         update: '/api/person/update',
         list: '/api/person/list',
         detail: '/api/person/detail',
+        hide: '/api/person/hide',
+        show: '/api/person/show',
     }
 }

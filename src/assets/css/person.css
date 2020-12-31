@@ -58,7 +58,9 @@
 
 .person-card {
     position:relative;
-    min-height: 220px;
+    min-height: 240px;
+    padding: 16px;
+    user-select: none;
 }
 
 .person-card-header {
@@ -73,11 +75,50 @@
     transform: translateY(-50%);
 }
 
+.person-card-hide-button {
+    position: absolute;
+    right: 40px;
+    bottom: 16px;
+    cursor: pointer;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.person-card-hide-button:hover {
+    color: #000000
+}
+
+.person-card-show-button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 16px;
+    cursor: pointer;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.person-card-show-button:hover {
+    color: #000000
+}
+
 .person-card-more-button {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 16px;
+    bottom: 16px;
     cursor: pointer;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.person-card-more-button:hover {
+    color: #000000
 }
 
 .detail-tab-div {
@@ -117,4 +158,8 @@
 
 .person-background .ivu-scroll-container {
     overflow-x: hidden;
+}
+
+.person-content-background .ivu-card-body{
+    padding: 2px;
 }

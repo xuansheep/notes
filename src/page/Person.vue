@@ -73,9 +73,9 @@
         <div class="person-content-background">
             <waterfall :col="col" :width="itemWidth" :gutterWidth="gutterWidth" :data="tableData" :loadDistance="1"  @loadmore="loadMore"  @scroll="scroll"  >
                 <template>
-                    <div style="margin-bottom: 24px" :loading="scrollLoading" v-for="(person,index) in tableData">
-                        <Card style="border-radius: 10px">
-                            <div class="person-card" @mouseover="hoverPersonCard(person, index)" @mouseleave="leavePersonCard(person, index)">
+                    <div style="margin-bottom: 24px" v-for="(person,index) in tableData">
+                        <Card style="border-radius: 10px; padding: 0">
+                            <div class="person-card" :style="{filter:person.hideFlag?'blur(3px)':''}" @mouseover="hoverPersonCard(person, index)" @mouseleave="leavePersonCard(person, index)">
                                 <div class="person-card-header">
                                     <Avatar shape="square" icon="ios-person" size="60" />
                                     <span class="person-card-header-name">{{person.name}}</span>
@@ -85,9 +85,13 @@
                                 <CardLabel title="微信名" :content="person.weChatName"/>
                                 <CardLabel title="籍贯" :content="person.hometown" />
                                 <CardLabel title="生日" :content="person.birthday | formatDateyyyyMMdd" />
-                                <div style="height: 20px">
+                                <div v-if="!person.hideFlag" style="height: 20px; color: #c5cfe2;">
+                                    <Icon v-if="person.hoverStatus" class="person-card-hide-button" custom="iconfont icon-yanjing1" size="20" @click="hiddenPersonCard(person, index)" />
                                     <Icon v-if="person.hoverStatus" class="person-card-more-button" custom="iconfont icon-chakan-copy" size="20" @click="openPersonDetail(person.id)" />
                                 </div>
+                            </div>
+                            <div v-if="!!person.hideFlag" style="color: #c5cfe2">
+                                <Icon class="person-card-show-button" custom="iconfont icon-yanjing" size="25" @click="beforeShowPersonCard(person, index)" />
                             </div>
                         </Card>
                     </div>
@@ -96,7 +100,7 @@
             <div class="scroll-loading" :style="{paddingBottom: scrollLoadingHeight + 'px'}">
                 <Spin v-if="scrollLoading">
                     <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
-                    <div>拼命加载中...</div>
+                    <div>{{scrollLoadingText}}</div>
                 </Spin>
             </div>
         </div>
@@ -124,6 +128,11 @@
 
                 </TabPane>
             </Tabs>
+        </Modal>
+        <!--密码输入-->
+        <Modal v-model="passwordWindowStatus" title="查看" :loading="passwordLoading"
+               @on-ok="showPersonCard" @on-cancel="resetPasswordWindow">
+            <Input v-model="password" type="password" placeholder="请输入查看密码"></Input>
         </Modal>
     </div>
 </template>
@@ -158,6 +167,12 @@
                 personWindowStatus:false,
                 detailWindowStatus:false,
                 personDetail:{},
+                passwordWindowStatus:false,
+                passwordLoading:false,
+                password:"",
+
+                currentPersonId:0,
+                currentPersonIndex:0,
 
                 /*dictData*/
                 sexDict:[
@@ -178,6 +193,7 @@
                 gutterWidth:24,
                 scrollLoading:false,
                 scrollLoadingHeight:0,
+                scrollLoadingText:"拼命加载中...",
             }
         },
         created() {
@@ -221,10 +237,12 @@
                 });
             },
             getPersonList(){
+                this.scrollLoading = true;
                 this.http.post(this.ports.person.list, this.form, res => {
                     this.tableData = res.records;
                     this.tableData.forEach(item => item.hoverStatus = false);
                     this.pageAdd();
+                    this.scrollLoading = false;
                 });
             },
             pageAdd(){
@@ -253,6 +271,26 @@
                 person.hoverStatus = true;
                 this.$set(this.tableData, index, person);
 
+            },
+            hiddenPersonCard(person, index){
+                person.hideFlag = true;
+                this.$set(this.tableData, index, person);
+                this.http.post(this.ports.person.hide, {id: person.id}, res => {});
+            },
+            beforeShowPersonCard(person, index){
+                this.passwordWindowStatus = true;
+                this.currentPersonId = person.id;
+                this.currentPersonIndex = index;
+            },
+            showPersonCard(){
+                this.passwordLoading = true;
+                this.http.post(this.ports.person.show, {id: this.currentPersonId, personPassword: this.password}, res => {
+                    this.$set(this.tableData, this.currentPersonIndex, res);
+                }, this.resetPasswordWindow());
+            },
+            resetPasswordWindow(){
+                this.password = "";
+                this.passwordLoading = false;
             },
             leavePersonCard(person, index){
                 person.hoverStatus = false;

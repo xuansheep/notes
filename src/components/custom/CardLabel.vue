@@ -166,6 +166,6 @@
         -o-transition: all 0.5s; /* Opera */
     }
     .card-label-update:hover {
-        color: #3f3f3f;
+        color: #000000;
     }
 </style>

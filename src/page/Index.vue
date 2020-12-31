@@ -202,14 +202,14 @@
                     <Col span="6">
                         <Card class="window-card">
                             <div class="window-card-content">
-                                <p style="line-height: 36px" @click="goCalendar">日历</p>
+                                <p style="line-height: 36px" @click="goPerson">人物</p>
                             </div>
                         </Card>
                     </Col>
                     <Col span="6">
                         <Card class="window-card">
                             <div class="window-card-content">
-                                <p style="line-height: 36px" @click="goPerson">人物</p>
+                                <p style="line-height: 36px" @click="goCalendar">日历</p>
                             </div>
                         </Card>
                     </Col>
