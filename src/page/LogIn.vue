@@ -5,13 +5,14 @@
                 <h1>NOTES</h1>
             </div>
             <div style="margin-top: 20px">
-                <Input type="text" placeholder="Enter name" style="width: 200px" v-model="form.userName">
+                <Input style="width: 200px" v-model="form.userName" type="text" placeholder="Enter name" @on-enter="focusPassword">
                     <Icon type="md-contact" slot="prefix" />
                 </Input>
             </div>
             <div style="margin-top: 5px">
-                <Input type="password" prefix="md-lock" placeholder="Enter password" style="width: 200px" v-model="form.passWord">
-                    <Button :loading="loading" type="text" slot="suffix" icon="md-arrow-round-forward" @click="singIn" />
+                <Input ref="password" style="width: 200px" v-model="form.passWord" @on-enter="singIn"
+                       type="password" prefix="md-lock" placeholder="Enter password" >
+                    <Button :loading="loading" type="text" slot="suffix" icon="md-arrow-round-forward" @click="singIn"  />
                 </Input>
             </div>
         </div>
@@ -77,6 +78,9 @@
                     });
                     this.loading = false;
                 },1000);
+            },
+            focusPassword(){
+                this.$refs.password.focus();
             }
         }
     }
