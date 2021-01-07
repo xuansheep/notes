@@ -18,9 +18,41 @@ Vue.prototype.http = http;
 Vue.prototype.ports = ports;
 Vue.prototype.store = store;
 
+Vue.prototype.getToken = () => {
+  let user = JSON.parse(window.localStorage.getItem('user'));
+  if (!!user){
+    return user.token;
+  }
+  return '';
+};
+
 Vue.prototype.isMobile = () => {
   let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
   return !!flag;
+};
+
+Vue.prototype.getDict = (code) => {
+  let dictList = store.fetch('noteDict');
+  let resultList = [];
+  for (let i = 0; i < dictList.length; i++) {
+    if (dictList[i].code === code) {
+      resultList.push(dictList[i]);
+    }
+  }
+  return resultList;
+};
+
+Vue.prototype.getDictName = (code, value) => {
+  if (value === null || value === undefined) {
+    return '--';
+  }
+  let dictList = store.fetch('noteDict');
+  for (let i = 0; i < dictList.length; i++) {
+    if (dictList[i].code === code && dictList[i].value === value) {
+      return dictList[i].name;
+    }
+  }
+  return '--';
 };
 
 Vue.prototype.proxyImage = (url) => {

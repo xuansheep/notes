@@ -4,6 +4,9 @@ export default {
         signIn: '/api/user/signIn', // 登录
         signOut: '/api/user/signOut', // 退出
     },
+    dataDict: {
+        list: '/api/dataDict/list' // 数据字典
+    },
     category: {
         list: '/api/category/list',
         delete: '/api/category/delete',
@@ -16,6 +19,7 @@ export default {
     },
     file: {
         import: '/api/file/import/chrome',
+        upload: '/api/file/upload',
     },
     note: {
         save: '/api/note/save',

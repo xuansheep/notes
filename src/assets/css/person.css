@@ -46,6 +46,10 @@
     transform: rotate(30deg);
 }*/
 
+.demo-drawer-footer {
+
+}
+
 .person-header-search {
     display: inline-block;
     width: 90%;
@@ -162,4 +166,8 @@
 
 .person-content-background .ivu-card-body{
     padding: 2px;
+}
+
+.vue-waterfall.is-transition img {
+    opacity: 1;
 }

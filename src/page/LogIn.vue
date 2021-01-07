@@ -74,6 +74,9 @@
                 setTimeout(() => {
                     this.http.post(this.ports.user.signIn, this.form, res => {
                         this.store.save('user',res);
+                        this.http.post(this.ports.dataDict.list, {}, res => {
+                            this.store.save('noteDict',res);
+                        });
                         this.$router.push({path:'/index'})
                     });
                     this.loading = false;

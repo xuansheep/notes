@@ -6,23 +6,35 @@
             </div>
         </div>
         <div v-if="title || $slots.title" class="card-label-content">
-            <div style="width: 90%">
+            <!--<Tooltip style="width: 90%" max-width="90%" placement="top-start" transfer :delay="!!description ? 500 : 10000000">
+                <div slot="content">
+                    <span>{{description}}</span>
+                    <div style="text-align: right">
+                        <Icon class="card-description-update" custom="iconfont icon-bianji" />
+                    </div>
+                </div>-->
+                <div>
 
-                <slot v-if="!modifyStatus" name="content">{{ handleContent() }}</slot>
+                    <slot v-if="!modifyStatus" name="content">{{ handleContent() }}</slot>
 
-                <Input v-if="modifyStatus&&modifyType==='input'" v-model="contentValue" size="small"></Input>
+                    <Input v-if="modifyStatus&&modifyType==='input'" v-model="contentValue" size="small"></Input>
 
-                <RadioGroup v-if="modifyStatus&&modifyType==='radio'" v-model="contentValue" type="button" size="small">
-                    <Radio v-for="dict in dictData" :label="dict.value">{{dict.name}}</Radio>
-                </RadioGroup>
+                    <RadioGroup v-if="modifyStatus&&modifyType==='radio'&&dictData.length<=3" v-model="contentValue" type="button" size="small">
+                        <Radio v-for="dict in dictData" :label="dict.value">{{dict.name}}</Radio>
+                    </RadioGroup>
 
-                <DatePicker v-if="modifyStatus&&modifyType==='date'" v-model="contentValue" @on-change="getDate" transfer type="date" size="small"></DatePicker>
+                    <Select v-if="modifyStatus&&modifyType==='radio'&&dictData.length>3" v-model="contentValue" transfer clearable filterable size="small">
+                        <Option v-for="dict in dictData" :value="dict.value" :key="dict.value">{{dict.name}}</Option>
+                    </Select>
 
-                <CheckboxGroup v-if="modifyStatus&&modifyType==='checkBox'&&dictData.length<=3" v-model="contentValue" size="small">
-                    <Checkbox v-for="dict in dictData" :label="dict.value" border>{{dict.name}}</Checkbox>
-                </CheckboxGroup>
+                    <DatePicker v-if="modifyStatus&&modifyType==='date'" v-model="contentValue" @on-change="getDate" transfer type="date" size="small"></DatePicker>
 
-            </div>
+                    <CheckboxGroup v-if="modifyStatus&&modifyType==='checkBox'&&dictData.length<=3" v-model="contentValue" size="small">
+                        <Checkbox v-for="dict in dictData" :label="dict.value" border>{{dict.name}}</Checkbox>
+                    </CheckboxGroup>
+
+                </div>
+            <!--</Tooltip>-->
         </div>
         <div v-if="modifyType" class="card-label-update">
             <Icon v-if="!modifyStatus&&hoverStatus" custom="iconfont icon-bianji" @click="modifyStatus = true" />
@@ -76,6 +88,10 @@
                 type: [String, Number, Boolean, Date, Array],
                 default: ''
             },
+            description: {
+                type: String,
+                default: ''
+            }
         },
         data(){
             return{
@@ -167,5 +183,16 @@
     }
     .card-label-update:hover {
         color: #000000;
+    }
+    .card-description-update {
+        cursor: pointer;
+        color: #c5cfe2;
+        transition: all 0.5s;
+        -moz-transition: all 0.5s; /* Firefox 4 */
+        -webkit-transition: all 0.5s; /* Safari and Chrome */
+        -o-transition: all 0.5s; /* Opera */
+    }
+    .card-description-update:hover {
+        color: #ffffff;
     }
 </style>
