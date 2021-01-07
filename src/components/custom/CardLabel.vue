@@ -36,6 +36,11 @@
                 </div>
             <!--</Tooltip>-->
         </div>
+        <div v-if="modifyType" class="card-description-update">
+            <Tooltip style="width: 90%" :content="description" max-width="90%" placement="top-start" transfer>
+                <Icon v-if="!modifyStatus&&hoverStatus&&!!description" custom="iconfont icon-icon" />
+            </Tooltip>
+        </div>
         <div v-if="modifyType" class="card-label-update">
             <Icon v-if="!modifyStatus&&hoverStatus" custom="iconfont icon-bianji" @click="modifyStatus = true" />
             <Icon v-if="modifyStatus" type="md-checkmark" v-on:click="executeFun(method)" />
@@ -185,6 +190,9 @@
         color: #000000;
     }
     .card-description-update {
+        position: absolute;
+        right: 22px;
+        top: 0;
         cursor: pointer;
         color: #c5cfe2;
         transition: all 0.5s;
@@ -193,6 +201,6 @@
         -o-transition: all 0.5s; /* Opera */
     }
     .card-description-update:hover {
-        color: #ffffff;
+        color: #000000;
     }
 </style>

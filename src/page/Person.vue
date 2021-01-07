@@ -140,7 +140,7 @@
                                 </div>
                                 <div style="height: 10px"></div>
                                 <CardLabel title="性别" :dictData="getDict('person.sex')" :content="person.sex"/>
-                                <CardLabel title="微信名" :content="person.weChatName"/>
+                                <CardLabel title="主要职业" :content="person.profession"/>
                                 <CardLabel title="籍贯" :content="person.hometown" />
                                 <CardLabel title="生日" :content="person.birthday | formatDateyyyyMMdd" />
                                 <div v-if="!person.hideFlag" style="height: 20px; color: #c5cfe2;">
