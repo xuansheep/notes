@@ -6,7 +6,7 @@
             </div>
         </div>
         <div v-if="title || $slots.title" class="card-label-content">
-            <Tooltip style="width: 90%" max-width="90%" placement="top-start" transfer :delay="!!descriptionValue ? 300 : 10000000">
+            <Tooltip style="width: 260px" placement="top-start" transfer :delay="!!descriptionValue ? 300 : 10000000">
                 <div slot="content">
                     <slot name="description">{{ descriptionValue }}</slot>
                     <div style="text-align: right">
@@ -218,5 +218,8 @@
     }
     .card-description-update:hover {
         color: #ffffff;
+    }
+    .ivu-tooltip-inner {
+        width: 260px;
     }
 </style>
