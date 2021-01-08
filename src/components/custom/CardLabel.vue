@@ -6,7 +6,7 @@
             </div>
         </div>
         <div v-if="title || $slots.title" class="card-label-content">
-            <Tooltip style="width: 260px" placement="top-start" transfer :delay="!!descriptionValue ? 300 : 10000000">
+            <Tooltip style="width: 260px" placement="top-start" transfer :delay="descriptionValue!==null ? 300 : 10000000">
                 <div slot="content">
                     <slot name="description">{{ descriptionValue }}</slot>
                     <div style="text-align: right">
@@ -107,7 +107,7 @@
                 contentValue: '',
                 hoverStatus: false,
                 descriptionModifyStatus: false,
-                descriptionValue: '',
+                descriptionValue: null,
             }
         },
         methods: {
@@ -175,8 +175,8 @@
         },
         watch: {
             description(val) {
-                if (!val || val.length === 0) {
-                    val = '暂无'
+                if (!val) {
+                    val = ''
                 }
                 this.descriptionValue = val;
             }
