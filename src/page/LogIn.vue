@@ -47,7 +47,7 @@
                 '135deg, #FFF5C3 20%, #9452A5 100%'
             ];
             let r = Math.floor(Math.random() * backgroundColor.length);
-            console.log("1.",this.backgroundColor);
+            console.log("1.", backgroundColor[r]);
             document.querySelector('html').setAttribute('style', 'height: 100%');
             document.querySelector('body').setAttribute('style', 'background: linear-gradient('+backgroundColor[r]+')');
         },

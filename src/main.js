@@ -32,8 +32,11 @@ Vue.prototype.isMobile = () => {
 };
 
 Vue.prototype.getDict = (code) => {
-  let dictList = store.fetch('noteDict');
   let resultList = [];
+  let dictList = store.fetch('noteDict');
+  if (!dictList) {
+      return resultList;
+  }
   for (let i = 0; i < dictList.length; i++) {
     if (dictList[i].code === code) {
       resultList.push(dictList[i]);
@@ -47,6 +50,9 @@ Vue.prototype.getDictName = (code, value) => {
     return '--';
   }
   let dictList = store.fetch('noteDict');
+  if (!dictList) {
+      return '--';
+  }
   for (let i = 0; i < dictList.length; i++) {
     if (dictList[i].code === code && dictList[i].value === value) {
       return dictList[i].name;

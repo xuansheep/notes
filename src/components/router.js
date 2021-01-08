@@ -17,7 +17,12 @@ Vue.use(Router);
 
 const originalPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
-    return originalPush.call(this, location).catch(err => err)
+    let result;
+    try {
+        result = originalPush.call(this, location).catch(err => err)
+    } catch (e) {
+    }
+    return result;
 };
 
 const router = new Router({
