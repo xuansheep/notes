@@ -90,12 +90,6 @@
                                         </Select>
                                     </FormItem>
                                     <br>
-                                    <FormItem label="主要职业">
-                                        <Input v-model="personForm.profession" placeholder="请输入主要职业" style="width: 200px" />
-                                    </FormItem>
-                                    <FormItem label="副要职业">
-                                        <Input v-model="personForm.secondProfession" placeholder="请输入副要职业" style="width: 200px" />
-                                    </FormItem>
                                 </TabPane>
                                 <TabPane label="社交信息">
                                     <FormItem label="微信昵称">
@@ -117,7 +111,15 @@
                                         <CheckboxGroup v-model="personForm.hobby">
                                             <Checkbox v-for="dict in getDict('person.hobby')" :label="dict.value" border>{{dict.name}}</Checkbox>
                                         </CheckboxGroup>
-                                        <Input style="margin-top: 10px" v-model="personForm.hobbyDescription" placeholder="爱好说明" type="textarea" :rows="6"></Input>
+                                        <Input style="margin-top: 10px" v-model="personForm.hobbyDescription" placeholder="爱好说明" type="textarea" :rows="textareaRows"></Input>
+                                    </FormItem>
+                                    <FormItem label="主要职业">
+                                        <Input v-model="personForm.profession" placeholder="请输入主要职业" style="width: 200px" />
+                                        <Input style="margin-top: 10px" v-model="personForm.professionDescription" placeholder="主要职业说明" type="textarea" :rows="textareaRows"></Input>
+                                    </FormItem>
+                                    <FormItem label="副要职业">
+                                        <Input v-model="personForm.secondProfession" placeholder="请输入副要职业" style="width: 200px" />
+                                        <Input style="margin-top: 10px" v-model="personForm.secondProfessionDescription" placeholder="副要职业说明" type="textarea" :rows="textareaRows"></Input>
                                     </FormItem>
                                 </TabPane>
                             </Tabs>
@@ -181,14 +183,12 @@
                         <CardLabel prop="birthday" modify-type="date" :method="updatePerson" title="生日" :content="personDetail.birthday | formatDateyyyyMMdd" />
                         <CardLabel prop="hometown" modify-type="input" :method="updatePerson" title="籍贯" :content="personDetail.hometown" />
                         <CardLabel prop="hometownAddress" modify-type="input" :method="updatePerson" title="籍贯地址" :content="personDetail.hometownAddress" />
-                        <CardLabel prop="liveAddress" modify-type="input" :method="updatePerson" title="现居地址" :content="personDetail.liveAddress" />
                     </div>
                     <div class="detail-tab-div">
-                        <CardLabel prop="profession" modify-type="input" :method="updatePerson" title="主要职业" :content="personDetail.profession" />
-                        <CardLabel prop="secondProfession" modify-type="input" :method="updatePerson" title="副要职业" :content="personDetail.secondProfession" />
                         <CardLabel prop="education" modify-type="radio" :dictData="getDict('person.education')" :method="updatePerson" title="学历" :content="personDetail.education" />
                         <CardLabel prop="graduatedSchool" modify-type="input" :method="updatePerson" title="毕业院校" :content="personDetail.graduatedSchool" />
                         <CardLabel prop="politicalFace" modify-type="radio" :dictData="getDict('person.politicalFace')" :method="updatePerson" title="政治面貌" :content="personDetail.politicalFace" />
+                        <CardLabel prop="liveAddress" modify-type="input" :method="updatePerson" title="现居地址" :content="personDetail.liveAddress" />
                     </div>
                 </TabPane>
                 <TabPane label="社交信息">
@@ -202,6 +202,8 @@
                 <TabPane label="其他信息">
                     <div class="detail-tab-div">
                         <CardLabel prop="hobby" modify-type="checkBox" :dictData="getDict('person.hobby')" :method="updatePerson" title="爱好" :content="personDetail.hobby" :description="personDetail.hobbyDescription"/>
+                        <CardLabel prop="profession" modify-type="input" :method="updatePerson" title="主要职业" :content="personDetail.profession" :description="personDetail.professionDescription" />
+                        <CardLabel prop="secondProfession" modify-type="input" :method="updatePerson" title="副要职业" :content="personDetail.secondProfession" :description="personDetail.secondProfessionDescription" />
                     </div>
                 </TabPane>
             </Tabs>
@@ -243,10 +245,12 @@
                     hobby:[],
                     hobbyDescription: "",
                     education: 0,
-                    graduatedSchool: '',
+                    graduatedSchool: "",
                     politicalFace: 0,
-                    profession: '',
+                    profession: "",
+                    professionDescription: "",
                     secondProfession: '',
+                    secondProfessionDescription: "",
                 },
                 tableData:[],
                 personWindowStatus:false,
@@ -268,6 +272,8 @@
                 scrollLoadingText:"拼命加载中...",
 
                 avatarVisible: false,
+
+                textareaRows: 4,
             }
         },
         created() {

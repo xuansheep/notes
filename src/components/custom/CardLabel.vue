@@ -175,6 +175,9 @@
         },
         watch: {
             description(val) {
+                if (!val || val.length === 0) {
+                    val = '暂无'
+                }
                 this.descriptionValue = val;
             }
         }
