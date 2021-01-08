@@ -110,7 +110,7 @@
                                         <CheckboxGroup v-model="personForm.hobby">
                                             <Checkbox v-for="dict in getDict('person.hobby')" :label="dict.value" border>{{dict.name}}</Checkbox>
                                         </CheckboxGroup>
-                                        <Input style="margin-top: 10px" v-model="personForm.hobbyDescription" placeholder="爱好说明" type="textarea"></Input>
+                                        <Input style="margin-top: 10px" v-model="personForm.hobbyDescription" placeholder="爱好说明" type="textarea" :rows="6"></Input>
                                     </FormItem>
                                 </TabPane>
                             </Tabs>

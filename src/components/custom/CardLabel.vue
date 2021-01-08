@@ -6,15 +6,15 @@
             </div>
         </div>
         <div v-if="title || $slots.title" class="card-label-content">
-            <!--<Tooltip style="width: 90%" max-width="90%" placement="top-start" transfer :delay="!!description ? 500 : 10000000">
+            <Tooltip style="width: 90%" max-width="90%" placement="top-start" transfer :delay="!!descriptionValue ? 300 : 10000000">
                 <div slot="content">
-                    <span>{{description}}</span>
+                    <slot name="description">{{ descriptionValue }}</slot>
                     <div style="text-align: right">
-                        <Icon class="card-description-update" custom="iconfont icon-bianji" />
+                        <Icon class="card-description-update" custom="iconfont icon-bianji" @click="descriptionModifyStatus=true" />
                     </div>
-                </div>-->
-                <div>
+                </div>
 
+                <div>
                     <slot v-if="!modifyStatus" name="content">{{ handleContent() }}</slot>
 
                     <Input v-if="modifyStatus&&modifyType==='input'" v-model="contentValue" size="small"></Input>
@@ -34,13 +34,9 @@
                     </CheckboxGroup>
 
                 </div>
-            <!--</Tooltip>-->
-        </div>
-        <div v-if="modifyType" class="card-description-update">
-            <Tooltip style="width: 90%" :content="description" max-width="90%" placement="top-start" transfer>
-                <Icon v-if="!modifyStatus&&hoverStatus&&!!description" custom="iconfont icon-icon" />
             </Tooltip>
         </div>
+
         <div v-if="modifyType" class="card-label-update">
             <Icon v-if="!modifyStatus&&hoverStatus" custom="iconfont icon-bianji" @click="modifyStatus = true" />
             <Icon v-if="modifyStatus" type="md-checkmark" v-on:click="executeFun(method)" />
@@ -54,6 +50,14 @@
             </CheckboxGroup>
             <div slot="footer">
                 <Button icon="md-checkmark" @click="executeFun(method)">确定</Button>
+            </div>
+        </Modal>
+
+        <!--说明文字修改-->
+        <Modal v-model="descriptionModifyStatus" title="说明" :closable="false" :mask-closable="false" >
+            <Input v-model="descriptionValue" type="textarea" :rows="6"></Input>
+            <div slot="footer">
+                <Button icon="md-checkmark" @click="executeDescriptionFun(method)">确定</Button>
             </div>
         </Modal>
 
@@ -101,8 +105,10 @@
         data(){
             return{
                 modifyStatus: false,
-                contentValue: undefined,
+                contentValue: '',
                 hoverStatus: false,
+                descriptionModifyStatus: false,
+                descriptionValue: '',
             }
         },
         methods: {
@@ -117,6 +123,14 @@
                 }
                 method(this.prop, this.contentValue);
                 this.modifyStatus = false;
+            },
+            executeDescriptionFun(method) {
+                if (!this.descriptionValue || this.descriptionValue.length === 0){
+                    this.descriptionModifyStatus = false;
+                    return;
+                }
+                method(this.prop+'Description', this.descriptionValue);
+                this.descriptionModifyStatus = false;
             },
             handleContent(){
                 this.contentValue = this.content;
@@ -160,6 +174,11 @@
                 this.contentValue = undefined;
             },
         },
+        watch: {
+            description(val) {
+                this.descriptionValue = val;
+            }
+        }
     };
 </script>
 <style>
@@ -190,9 +209,6 @@
         color: #000000;
     }
     .card-description-update {
-        position: absolute;
-        right: 22px;
-        top: 0;
         cursor: pointer;
         color: #c5cfe2;
         transition: all 0.5s;
@@ -201,6 +217,6 @@
         -o-transition: all 0.5s; /* Opera */
     }
     .card-description-update:hover {
-        color: #000000;
+        color: #ffffff;
     }
 </style>
