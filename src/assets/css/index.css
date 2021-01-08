@@ -177,6 +177,12 @@
     height: 100px;
     width: 97%;
 }
+.window-row {
+
+}
+.window-row p {
+    line-height: 36px
+}
 .window-card {
     margin-top: 15px;
     margin-bottom: -10px;

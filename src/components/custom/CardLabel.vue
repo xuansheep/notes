@@ -98,7 +98,7 @@
             },
             description: {
                 type: String,
-                default: ''
+                default: undefined
             }
         },
         data(){

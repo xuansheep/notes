@@ -200,23 +200,27 @@
                         </div>
                     </Col>
                     <Col span="6">
-                        <Card class="window-card">
-                            <div class="window-card-content">
-                                <p style="line-height: 36px" @click="goPerson">人物</p>
-                            </div>
-                        </Card>
+                        <div @click="goPerson">
+                            <Card class="window-card">
+                                <div class="window-card-content">
+                                    <p>人物</p>
+                                </div>
+                            </Card>
+                        </div>
+                    </Col>
+                    <Col span="6">
+                        <div @click="goCalendar">
+                            <Card class="window-card">
+                                <div class="window-card-content">
+                                    <p>日历</p>
+                                </div>
+                            </Card>
+                        </div>
                     </Col>
                     <Col span="6">
                         <Card class="window-card">
                             <div class="window-card-content">
-                                <p style="line-height: 36px" @click="goCalendar">日历</p>
-                            </div>
-                        </Card>
-                    </Col>
-                    <Col span="6">
-                        <Card class="window-card">
-                            <div class="window-card-content">
-                                <p style="line-height: 36px">开发中...</p>
+                                <p>开发中...</p>
                             </div>
                         </Card>
                     </Col>
@@ -240,7 +244,7 @@
                                 <Tooltip :content="mark.name" placement="top-start" :delay="500" :max-width="500">
                                     <Checkbox class="card-mark-checkBox" v-if="modifyStatus" v-model="mark.isSelect"
                                               @on-change="onCheck(mark,card)"/>
-                                    <a class="card-mark-text" :href="mark.link"
+                                    <a class="card-mark-text" :href="mark.link" target="_blank"
                                        draggable="true"
                                        @dragstart="handleDragStart($event, mark)"
                                        @dragend="handleDragEnd($event)">
