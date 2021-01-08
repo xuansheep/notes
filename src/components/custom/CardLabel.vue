@@ -32,7 +32,6 @@
                     <CheckboxGroup v-if="modifyStatus&&modifyType==='checkBox'&&dictData.length<=3" v-model="contentValue" size="small">
                         <Checkbox v-for="dict in dictData" :label="dict.value" border>{{dict.name}}</Checkbox>
                     </CheckboxGroup>
-
                 </div>
             </Tooltip>
         </div>
@@ -44,7 +43,7 @@
 
         <!--多选框，选项大于3时展示-->
         <Modal v-model="!!modifyType&&modifyStatus&&modifyType==='checkBox'&&dictData.length>3"
-               title="选择" :closable="false" :mask-closable="false" >
+               title="选择"  :mask-closable="false" @on-cancel="modifyStatus=false">
             <CheckboxGroup v-if="modifyStatus&&modifyType==='checkBox'" v-model="contentValue" size="small">
                 <Checkbox v-for="dict in dictData" :label="dict.value" border>{{dict.name}}</Checkbox>
             </CheckboxGroup>
@@ -54,7 +53,7 @@
         </Modal>
 
         <!--说明文字修改-->
-        <Modal v-model="descriptionModifyStatus" title="说明" :closable="false" :mask-closable="false" >
+        <Modal v-model="descriptionModifyStatus" title="说明" :mask-closable="false" @on-cancel="descriptionValue=description">
             <Input v-model="descriptionValue" type="textarea" :rows="6"></Input>
             <div slot="footer">
                 <Button icon="md-checkmark" @click="executeDescriptionFun(method)">确定</Button>
