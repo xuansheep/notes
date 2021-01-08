@@ -63,9 +63,9 @@
                                         <DatePicker v-model="personForm.birthday" @on-change="getDate" type="date" placeholder="请选择生日" style="width: 200px" />
                                     </FormItem>
                                     <br>
-                                    <!--<FormItem label="身份证号">
+                                    <FormItem label="身份ID">
                                         <Input v-model="personForm.idCard" placeholder="请输入身份证号" style="width: 200px" />
-                                    </FormItem>-->
+                                    </FormItem>
                                     <FormItem label="籍贯">
                                         <Input v-model="personForm.hometown" placeholder="请输入籍贯地址" style="width: 200px" />
                                     </FormItem>
@@ -102,7 +102,14 @@
                                         <Input v-model="personForm.weChatName" placeholder="请输入微信昵称" style="width: 200px" />
                                     </FormItem>
                                     <FormItem label="微信号">
-                                        <Input v-model="personForm.weChatNo" placeholder="请输入微信号" style="width: 200px" />
+                                        <Input v-model="personForm.weChatId" placeholder="请输入微信号" style="width: 200px" />
+                                    </FormItem>
+                                    <br>
+                                    <FormItem label="QQ昵称">
+                                        <Input v-model="personForm.qqName" placeholder="请输入QQ昵称" style="width: 200px" />
+                                    </FormItem>
+                                    <FormItem label="QQ号">
+                                        <Input v-model="personForm.qqId" placeholder="请输入QQ号" style="width: 200px" />
                                     </FormItem>
                                 </TabPane>
                                 <TabPane label="其他信息">
@@ -169,7 +176,7 @@
                     <div class="detail-tab-div">
                         <CardLabel prop="name" title="姓名" :content="personDetail.name"/>
                         <CardLabel prop="sex" modify-type="radio" :dictData="getDict('person.sex')" :method="updatePerson" title="性别" :content="personDetail.sex"/>
-                        <!--<CardLabel prop="idCard" modify-type="input" :method="updatePerson" title="身份证号" :content="personDetail.idCard"/>-->
+                        <CardLabel prop="idCard" modify-type="input" :method="updatePerson" title="身份ID" :content="personDetail.idCard"/>
                         <CardLabel prop="mobileNo" modify-type="input" :method="updatePerson" title="手机号" :content="personDetail.mobileNo"/>
                         <CardLabel prop="birthday" modify-type="date" :method="updatePerson" title="生日" :content="personDetail.birthday | formatDateyyyyMMdd" />
                         <CardLabel prop="hometown" modify-type="input" :method="updatePerson" title="籍贯" :content="personDetail.hometown" />
@@ -187,7 +194,9 @@
                 <TabPane label="社交信息">
                     <div class="detail-tab-div">
                         <CardLabel prop="weChatName" modify-type="input" :method="updatePerson" title="微信昵称" :content="personDetail.weChatName"/>
-                        <CardLabel prop="weChatNo" modify-type="input" :method="updatePerson" title="微信号" :content="personDetail.weChatNo"/>
+                        <CardLabel prop="weChatId" modify-type="input" :method="updatePerson" title="微信号" :content="personDetail.weChatId"/>
+                        <CardLabel prop="qqName" modify-type="input" :method="updatePerson" title="QQ昵称" :content="personDetail.qqName"/>
+                        <CardLabel prop="qqId" modify-type="input" :method="updatePerson" title="QQ号" :content="personDetail.qqId"/>
                     </div>
                 </TabPane>
                 <TabPane label="其他信息">
@@ -226,8 +235,10 @@
                     hometown: "",
                     hometownAddress: "",
                     liveAddress: "",
-                    weChatNo: "",
+                    weChatId: "",
                     weChatName: "",
+                    qqId: "",
+                    qqName: "",
                     birthday: "",
                     hobby:[],
                     hobbyDescription: "",
