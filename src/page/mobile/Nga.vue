@@ -53,27 +53,9 @@
                             })
                         }
                     },
-                    /*{
-                        title:"作者", key:"author", className:"row-background", width:240
-                    },
                     {
-                        title: "发布时间",
-                        key: "postDate",
-                        className: "row-background",
-                        render: (h, params) => {
-                            return h('div', !!params.row.postDate ?
-                                new Date(params.row.postDate).Format('yyyy-MM-dd HH:mm:ss') : params.row.postDateStr);
-                        },
-                        sortable: 'custom',
-                        sortType:this.getSort('postDate'),
-                        width:200
+                        title:"回复", key:"replyNum", className:"row-background", sortable:'custom', sortType:this.getSort('replyNum'), width:85
                     },
-                    {
-                        title:"回复数", key:"replyNum", className:"row-background", sortable:'custom', sortType:this.getSort('replyNum'), width:100
-                    },
-                    {
-                        width:100
-                    },*/
                 ],
                 sections:[],
                 tableDate:[],

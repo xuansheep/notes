@@ -1,7 +1,7 @@
 .background {
     height: 100%;
     width: 1024px;
-    background-color: #f8f8f8;
+    /*background-color: #f8f8f8;*/
     margin: auto;
     border-radius: 5px;
 }
@@ -34,13 +34,13 @@
 .header-carousel {
     text-align: center;
 }
-.header-bottom-nga-div {
+.header-bottom-logo-div {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 16px;
     cursor: pointer;
 }
-.header-bottom-nga-icon {
+.header-bottom-logo-icon {
     height: 30px;
     width: 30px;
     border-radius: 15px;
@@ -48,21 +48,21 @@
 .header-bottom-import-icon {
     position: absolute;
     top: 5px;
-    left: 78px;
+    right: 108px;
 }
 .header-bottom-add-icon {
     position: absolute;
     top: 5px;
-    left: 18px;
+    right: 78px;
 }
 .header-bottom-del-icon {
     position: absolute;
     top: 5px;
-    left: 48px;
+    right: 48px;
 }
 .header-bottom-logout-icon{
     position: absolute;
-    top: 5px;
+    top: 2px;
     right: 12px;
 }
 .add-icon {
@@ -159,7 +159,7 @@
     height: 80%;
     border-radius: 5px;
     padding-bottom: 15px;
-    background-color: #f8f8f8;
+    /*background-color: #f8f8f8;*/
 }
 
 

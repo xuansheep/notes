@@ -13,9 +13,12 @@
 
             <!--书签功能按钮-->
             <div v-if="!headerOpenStatus">
+                <div class="header-bottom-logo-div">
+                    <img style="height: 30px" src="../assets/image/logo2.png">
+                </div>
                 <!--导入书签按钮-->
                 <div class="header-bottom-import-icon">
-                    <Poptip placement="bottom-start" :width="200" v-model="importVisible">
+                    <Poptip placement="bottom-end" :width="200" v-model="importVisible">
                         <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru" size="20"/>
                         <div slot="title">
                             导入Chrome离线书签
@@ -38,7 +41,7 @@
                 </div>
                 <!--添加书签按钮-->
                 <div class="header-bottom-add-icon">
-                    <Poptip placement="bottom-start" :width="300" v-model="visible">
+                    <Poptip placement="bottom-end" :width="300" v-model="visible">
                         <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
                         <div slot="title">
                             添加书签
@@ -65,7 +68,7 @@
                 </div>
                 <!--删除书签按钮-->
                 <div class="header-bottom-del-icon">
-                    <Dropdown placement="bottom-start" trigger="custom" :visible="modifyStatus">
+                    <Dropdown placement="bottom-end" trigger="custom" :visible="modifyStatus">
                         <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy"
                               size="20" @click="modify"/>
                         <DropdownMenu slot="list" style="width: 150px">
@@ -83,7 +86,7 @@
                 </div>
                 <!--退出按钮-->
                 <div class="header-bottom-logout-icon">
-                    <Icon class="logout-icon" custom="iconfont icon-dengchu" size="26" @click="signOut"/>
+                    <Icon class="logout-icon" custom="iconfont icon-dengchu" size="27" @click="signOut"/>
                 </div>
             </div>
 
