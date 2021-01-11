@@ -13,6 +13,7 @@
 
             <!--书签功能按钮-->
             <div v-if="!headerOpenStatus">
+                <!--logo-->
                 <div class="header-bottom-logo-div">
                     <img style="height: 30px" src="../assets/image/logo2.png">
                 </div>
@@ -110,6 +111,10 @@
 
             <!--笔记功能按钮，详情抽屉-->
             <div v-if="headerOpenStatus">
+                <!--logo-->
+                <div class="header-bottom-logo-div">
+                    <img style="height: 30px" src="../assets/image/logo2.png">
+                </div>
                 <!--新增按钮-->
                 <div class="header-bottom-add-icon">
                     <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20" @click="getNoteDetail"/>
@@ -146,6 +151,10 @@
                 <!--删除-->
                 <div class="header-bottom-del-icon">
                     <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy" size="20" @click="modify"/>
+                </div>
+                <!--退出按钮-->
+                <div class="header-bottom-logout-icon">
+                    <Icon class="logout-icon" custom="iconfont icon-dengchu" size="27" @click="signOut"/>
                 </div>
             </div>
 

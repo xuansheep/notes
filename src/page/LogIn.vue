@@ -3,6 +3,7 @@
         <div style="margin-top: 12%">
             <div>
                 <h1>NOTES</h1>
+                <!--<img style="height: 42px" src="../assets/image/logo2-2.png">-->
             </div>
             <div style="margin-top: 20px">
                 <Input style="width: 200px" v-model="form.userName" type="text" placeholder="Enter name" @on-enter="focusPassword">
