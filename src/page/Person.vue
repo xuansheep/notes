@@ -220,10 +220,11 @@
 
     import '../assets/css/person.css'
     import CardLabel from "../components/custom/CardLabel";
+    import Top from "../components/custom/Top";
 
     export default {
         name: "Person",
-        components: {CardLabel},
+        components: {Top, CardLabel},
         data(){
             return{
                 form:{
