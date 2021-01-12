@@ -49,8 +49,25 @@
 .search{
     position: relative;
     padding: 10px 10px 16px 10px;
-    text-align: left;
+    text-align: right;
     height: 56px;
+}
+
+.icon-home {
+    position: absolute;
+    text-align: center;
+    line-height: 32px;
+    height: 32px;
+    width: 32px;
+    border: 1px solid #d3d3d3; border-radius: 25px;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.icon-home:hover {
+    color: #f1795c;
+    border: 1px solid #f8895c; border-radius: 25px;
 }
 
 .ft-search{

@@ -57,6 +57,14 @@ tr.ivu-table-row-hover td {
 .ivu-page-item-active a, .ivu-page-item-active:hover a {
     color: #f1795c;
 }
+.ivu-page-options-elevator input:hover {
+    border-color: #f1795c;
+}
+.ivu-page-options-elevator input:focus {
+    border-color: #f1795c;
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(241, 121, 92, 0.2);
+}
 /*loading*/
 .ivu-spin-dot {
     position: relative;

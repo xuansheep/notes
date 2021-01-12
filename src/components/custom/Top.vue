@@ -4,7 +4,7 @@
             <Icon type="ios-home" size="23" />
             <span>首页</span>
         </MenuItem>
-        <MenuItem v-for="item in defaultList" :name="item.name" :to="item.link">
+        <MenuItem v-for="item in defaultList" :name="item.name" :to="!!item.mobileLink&&isMobile() ? item.mobileLink : item.link">
             {{item.title}}
         </MenuItem>
     </Menu>
@@ -22,12 +22,12 @@
         data() {
             return {
                 defaultList: [
-                    {name: 'nga', title: 'NGA', link: '/nga'},
+                    {name: 'nga', title: 'NGA', link: '/nga', mobileLink: '/mobile/nga'},
                     {name: 'person', title: '人物', link: '/person'},
                     {name: 'calendar', title: '日历', link: '/calendar'},
                 ],
             }
-        }
+        },
     }
 </script>
 

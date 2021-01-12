@@ -1,7 +1,10 @@
 <template>
     <div class="nga-background">
         <div class="search">
-            <Input style="width: 380px" v-if="!fullTextSearch"
+            <div class="icon-home" @click="toHome">
+                <Icon type="ios-home" size="25" />
+            </div>
+            <Input style="width: 90%" v-if="!fullTextSearch"
                    search placeholder="Enter something..." v-model="form.subject" @on-search="handleChange" />
             <!--<Input style="width: 200px; margin-left: 15px" v-if="!fullTextSearch"
                    search placeholder="Enter author..." v-model="form.author" @on-search="handleChange" />
@@ -27,9 +30,11 @@
 <script>
 
     import '../../assets/css/nga.css'
+    import Top from "../../components/custom/Top";
 
     export default {
         name: "Nga",
+        components: {Top},
         data() {
             return{
                 form: {
@@ -197,6 +202,9 @@
             },
             blurFtSearch(){
                 this.fullTextSearch = false;
+            },
+            toHome() {
+                this.$router.push({path: '/'})
             }
         }
     }
