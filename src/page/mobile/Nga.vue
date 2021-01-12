@@ -1,6 +1,6 @@
 <template>
     <div class="nga-background">
-        <div class="search">
+        <div style="text-align: right" class="search">
             <div class="icon-home" @click="toHome">
                 <Icon type="ios-home" size="25" />
             </div>
