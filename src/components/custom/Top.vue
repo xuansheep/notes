@@ -3,7 +3,6 @@
         <MenuItem name="index" to="/">
             <Icon type="ios-home" size="23" />
             <span>首页</span>
-
         </MenuItem>
         <MenuItem v-for="item in defaultList" :name="item.name" :to="item.link">
             {{item.title}}
