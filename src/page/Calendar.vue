@@ -1,12 +1,13 @@
 <template>
-    <div>
-        <a-calendar
+    <div style="width: 1024px; margin: auto">
+        <Top active="calendar"></Top>
+        <!--<a-calendar
                 @panelChange="onPanelChange"
                 @select="onSelect"
         >
             <template slot="dateCellRender" slot-scope="value"></template>
             <template slot="monthCellRender" slot-scope="value"></template>
-        </a-calendar>
+        </a-calendar>-->
     </div>
 </template>
 
@@ -16,8 +17,11 @@
     import 'moment/locale/zh-cn';
     moment.locale('zh-cn');
 
+    import Top from "../components/custom/Top";
+
     export default {
-        name: "Calendar"
+        name: "Calendar",
+        components: {Top},
     }
 </script>
 

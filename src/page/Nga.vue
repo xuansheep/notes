@@ -1,5 +1,6 @@
 <template>
     <div class="nga-background">
+        <Top active="nga"></Top>
         <div class="search">
             <Input style="width: 380px" v-if="!fullTextSearch"
                    search placeholder="Enter something..." v-model="form.subject" @on-search="handleChange" />
@@ -27,9 +28,11 @@
 <script>
 
     import '../assets/css/nga.css'
+    import Top from "../components/custom/Top";
 
     export default {
         name: "Nga",
+        components: {Top},
         data() {
             return{
                 form: {
@@ -102,7 +105,6 @@
             this.form.word = this.$route.query.word;
             this.pageLoad();
             this.sectionList();
-            console.log("form", this.form)
         },
         computed: {
             thePage(){

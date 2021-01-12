@@ -123,7 +123,6 @@
                 })
             },
             subjectList(){
-                console.log('参数： ', this.$route.query);
                 let isSearch = !!this.$route.query.word;
                 this.http.post(isSearch ? this.ports.search.subject.list : this.ports.nga.subject.list, this.$route.query, res => {
                     this.tableDate = res.records;

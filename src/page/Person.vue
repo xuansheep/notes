@@ -1,5 +1,6 @@
 <template>
     <div class="person-background">
+        <Top active="person"></Top>
         <!--操作栏-->
         <div class="person-header">
             <div class="person-header-content">
