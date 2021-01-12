@@ -212,7 +212,7 @@
         <!--密码输入-->
         <Modal v-model="passwordWindowStatus" title="查看" :loading="passwordLoading"
                @on-ok="showPersonCard" @on-cancel="resetPasswordWindow">
-            <Input v-model="password" placeholder="请输入查看密码" @on-enter="showPersonCard"></Input>
+            <Input ref="password" v-model="password" placeholder="请输入查看密码" @on-enter="showPersonCard"></Input>
         </Modal>
     </div>
 </template>
@@ -363,6 +363,9 @@
                 this.passwordWindowStatus = true;
                 this.currentPersonId = person.id;
                 this.currentPersonIndex = index;
+                this.$nextTick(() => {
+                    this.$refs.password.focus();
+                })
             },
             showPersonCard(){
                 if (!this.password || this.password.length === 0) {

@@ -1,5 +1,10 @@
 <template>
     <Menu style="margin-bottom: 15px" mode="horizontal" :active-name="active">
+        <MenuItem name="index" to="/">
+            <Icon type="ios-home" size="23" />
+            <span>首页</span>
+
+        </MenuItem>
         <MenuItem v-for="item in defaultList" :name="item.name" :to="item.link">
             {{item.title}}
         </MenuItem>
@@ -18,7 +23,6 @@
         data() {
             return {
                 defaultList: [
-                    {name: 'index', title: '首页', link: '/'},
                     {name: 'nga', title: 'NGA', link: '/nga'},
                     {name: 'person', title: '人物', link: '/person'},
                     {name: 'calendar', title: '日历', link: '/calendar'},

@@ -1,0 +1,166 @@
+/*按钮*/
+.ivu-btn:hover {
+    color: #f1795c;
+    background-color: #fff;
+    border-color: #f1795c;
+}
+.ivu-btn-primary {
+    color: #fff;
+    background-color: #f1795c;
+    border-color: #f1795c;
+}
+.ivu-btn-primary:hover {
+    color: #fff;
+    background-color: #f8895c;
+    border-color: #f8895c;
+}
+.ivu-btn-dashed:hover {
+    color: #f1795c;
+    background-color: #fff;
+    border-color: #f1795c;
+}
+/*输入框*/
+.ivu-input:hover {
+    border-color: #f1795c;
+}
+.ivu-input:focus{
+    border-color: #f1795c;
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(241, 121, 92, 0.2);
+}
+/*下拉框*/
+.ivu-select-visible .ivu-select-selection {
+    border-color: #f1795c;
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(241, 121, 92, 0.2);
+}
+.ivu-select-selection-focused, .ivu-select-selection:hover {
+    border-color: #f1795c;
+}
+.ivu-select-item-selected, .ivu-select-item-selected:hover {
+    color: #f1795c;
+}
+/*表格*/
+tr.ivu-table-row-hover td {
+    background-color: #fafafa;
+}
+/*分页*/
+.ivu-page-item:hover {
+    border-color: #f1795c;
+}
+.ivu-page-item-active {
+ border-color: #f1795c;
+}
+.ivu-page-item:hover a {
+    color: #f1795c;
+}
+.ivu-page-item-active a, .ivu-page-item-active:hover a {
+    color: #f1795c;
+}
+/*loading*/
+.ivu-spin-dot {
+    position: relative;
+    display: block;
+    border-radius: 50%;
+    background-color: #f1795c;
+    width: 20px;
+    height: 20px;
+    animation: ani-spin-bounce 1s 0s ease-in-out infinite;
+}
+/*tabs*/
+.ivu-tabs-nav .ivu-tabs-tab-active {
+    color: #f1795c;
+}
+.ivu-tabs-ink-bar {
+    height: 2px;
+    box-sizing: border-box;
+    background-color: #f1795c;
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+    z-index: 1;
+    transition: transform .3s ease-in-out;
+    transform-origin: 0 0;
+}
+.ivu-tabs-nav .ivu-tabs-tab:hover {
+    color: #f1795c;
+}
+/*文件上传*/
+.ivu-upload-drag:hover {
+    border: 1px dashed #f1795c;
+}
+/*单选*/
+.ivu-radio-group-button .ivu-radio-wrapper:hover {
+    position: relative;
+    color: #f1795c;
+}
+.ivu-radio-group-button .ivu-radio-wrapper-checked:first-child {
+    border-color: #f1795c;
+    box-shadow: none;
+}
+.ivu-radio-group-button .ivu-radio-wrapper-checked:hover {
+    border-color: #f1795c;
+    color: #f1795c;
+}
+.ivu-radio-group-button .ivu-radio-wrapper-checked {
+    background: #fff;
+    border-color: #f1795c;
+    color: #f1795c;
+    box-shadow: -1px 0 0 0 #f1795c;
+    z-index: 1;
+}
+.ivu-radio-group-button .ivu-radio-wrapper-checked.ivu-radio-focus {
+    box-shadow: -1px 0 0 0 #f1795c, 0 0 0 2px rgba(241, 121, 92, .2);
+    transition: all .2s ease-in-out;
+}
+
+.ivu-radio-group-button .ivu-radio-wrapper-checked.ivu-radio-focus:first-child {
+    box-shadow: 0 0 0 2px rgba(241, 121, 92, .2);
+}
+/*日期选择*/
+.ivu-date-picker-focused input {
+    border-color: #f1795c;
+    outline: 0;
+    box-shadow: 0 0 0 2px rgba(241, 121, 92, .2);
+}
+.ivu-date-picker-cells-focused em {
+    box-shadow: 0 0 0 1px #f1795c inset;
+}
+.ivu-date-picker-cells-cell-today em:after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f1795c;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+.ivu-date-picker-cells-cell:hover em {
+    background: #fff1f1;
+}
+.ivu-date-picker-cells-cell-selected em, .ivu-date-picker-cells-cell-selected:hover em {
+    background: #f1795c;
+    color: #fff;
+}
+.ivu-date-picker-header-label:hover {
+    color: #f1795c;
+}
+/*多选*/
+.ivu-checkbox-wrapper-checked.ivu-checkbox-border {
+    border-color: #f1795c;
+}
+.ivu-checkbox-checked .ivu-checkbox-inner {
+    border-color: #f1795c;
+    background-color: #f1795c;
+}
+.ivu-checkbox:hover .ivu-checkbox-inner {
+    border-color: #f1795c;
+}
+.ivu-checkbox-focus {
+    box-shadow: 0 0 0 2px rgba(241, 121, 92, .2);
+    z-index: 1;
+}
+
+

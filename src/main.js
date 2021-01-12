@@ -8,6 +8,7 @@ import router from './components/router'
 import store from './components/store.js'
 
 import './assets/icon/iconfont.css'
+import './assets/css/iview-custom.css'
 
 Vue.use(ViewUI);
 

@@ -177,17 +177,17 @@
 }
 
 .search-highlight{
-    color: sandybrown;
+    color: #f8895c;
 }
 
 .onlyLouButton{
-    color: sandybrown;
-    border-color: sandybrown;
+    color: #f8895c;
+    border-color: #f8895c;
 }
 
 .onlyImageButton{
-    color: sandybrown;
-    border-color: sandybrown;
+    color: #f8895c;
+    border-color: #f8895c;
 }
 
 /*user*/
@@ -231,12 +231,6 @@
     color: rgba(0,0,0,.85);
     font-size: 12px;
     line-height: 24px;
-}
-
-.ivu-btn:hover {
-    color: sandybrown;
-    background-color: #fff;
-    border-color: sandybrown;
 }
 
 .ivu-btn:focus {

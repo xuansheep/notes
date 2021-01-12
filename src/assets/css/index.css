@@ -291,7 +291,7 @@
     color: black;
 }
 .card-mark-text:hover {
-    color: #ff7f50;
+    color: #f8895c;
 }
 .card-icon {
     height: 16px;
@@ -309,7 +309,7 @@
     display: block;
 }
 .card-note-text:hover {
-    color: #ff7f50;
+    color: #f8895c;
 }
 .card-note-title {
     font-size: 14px;

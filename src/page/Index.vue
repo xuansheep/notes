@@ -181,7 +181,7 @@
         <!--书签内容-->
         <div class="content">
             <!--书签分类-->
-            <div>
+            <div v-if="!headerOpenStatus">
                 <Card class="category-card">
                     <div class="category-list">
                         <Tag class="category-tag" v-for="(category, index) in markCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
@@ -470,6 +470,7 @@
                 if (!this.inputStatus) {
                     this.inputStatus = true;
                 }
+                this.categoryForm.name = "";
                 this.$nextTick(()=>{
                     this.$refs.c_input.focus();
                 });
@@ -685,8 +686,6 @@
     }
 </script>
 
-<style scoped>
-    /**/
-
+<style>
 
 </style>
