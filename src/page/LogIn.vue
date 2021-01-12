@@ -99,4 +99,17 @@
     .ivu-btn:not([disabled]):hover{
         background-color: transparent;
     }
+    >>> .ivu-input:hover {
+        border-color: transparent;
+    }
+    >>> .ivu-input:focus{
+        border-color: transparent;
+        outline: 0;
+        box-shadow: 0 0 0 2px rgba(241, 121, 92, 0.2);
+    }
+    >>> .ivu-btn:hover {
+        color: transparent;
+        background-color: #fff;
+        border-color: transparent;
+    }
 </style>
