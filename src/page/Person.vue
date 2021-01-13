@@ -133,7 +133,7 @@
                 </div>
                 <!--筛选-->
                 <div class="person-header-search">
-                    <Input style="width: 900px" search placeholder="Enter something..." v-model="form.name" />
+                    <Input style="width: 927px" search placeholder="Enter something..." v-model="form.name" />
                 </div>
             </div>
         </div>

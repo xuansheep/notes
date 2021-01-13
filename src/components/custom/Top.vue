@@ -1,13 +1,15 @@
 <template>
-    <Menu style="margin-bottom: 15px" mode="horizontal" :active-name="active">
-        <MenuItem name="index" to="/">
-            <Icon type="ios-home" size="23" />
-            <span>首页</span>
-        </MenuItem>
-        <MenuItem v-for="item in defaultList" :name="item.name" :to="!!item.mobileLink&&isMobile() ? item.mobileLink : item.link">
-            {{item.title}}
-        </MenuItem>
-    </Menu>
+    <div class="background-div">
+        <Menu mode="horizontal" :active-name="active">
+            <MenuItem name="index" to="/">
+                <Icon type="ios-home" size="23" />
+                <span>首页</span>
+            </MenuItem>
+            <MenuItem v-for="item in defaultList" :name="item.name" :to="!!item.mobileLink&&isMobile() ? item.mobileLink : item.link">
+                {{item.title}}
+            </MenuItem>
+        </Menu>
+    </div>
 </template>
 
 <script>
@@ -32,6 +34,12 @@
 </script>
 
 <style scoped>
+    .background-div {
+        background-color: #ffffff;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        padding-top: 16px;
+    }
     .ivu-menu-horizontal {
         height: 40px;
         line-height: 30px;

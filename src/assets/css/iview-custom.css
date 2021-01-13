@@ -1,3 +1,8 @@
+body {
+    /*background-color: #DFE7EF;*/
+    background-color: #EEF3F7;
+}
+
 /*按钮*/
 .ivu-btn:hover {
     color: #f1795c;
@@ -43,6 +48,15 @@
 /*表格*/
 tr.ivu-table-row-hover td {
     background-color: #fafafa;
+}
+.ivu-table td, .ivu-table th {
+    min-width: 0;
+    height: 46px;
+    box-sizing: border-box;
+    text-align: left;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    border-bottom: 1px solid #e8eaec;
 }
 /*分页*/
 .ivu-page-item:hover {

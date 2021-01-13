@@ -10,7 +10,11 @@
 /**/
 .header {
     position: relative;
-    height: 30px;
+    height: 50px;
+    margin: auto;
+    width: 97%;
+    padding-top: 10px;
+    border-radius: 4px;
     background-color: #ffffff;
     transition: all 0.5s;
     -moz-transition: all 0.5s; /* Firefox 4 */
@@ -18,8 +22,6 @@
     -o-transition: all 0.5s; /* Opera */
 }
 .headerHover {
-    position: relative;
-    height: 30px;
     background-color: #FFF5E8;
     transition: all 0.5s;
     -moz-transition: all 0.5s; /* Firefox 4 */
@@ -32,7 +34,7 @@
     background-color: #FFF5E8;
 }
 .header-carousel {
-    text-align: center;
+    position: relative;
 }
 .header-bottom-logo-div {
     position: absolute;
@@ -128,7 +130,7 @@
 }
 .header-bottom-openMore-icon {
     position: absolute;
-    bottom: 3px;
+    bottom: 8px;
     left: 502px;
 }
 .openMore-icon {
@@ -231,7 +233,8 @@
 }
 .note-category-list {
     text-align: left;
-    padding: 30px 20px 20px 20px;
+    padding: 16px;
+    margin-top: 40px;
 }
 .note-category-tag {
     background-color: #faf3e9;
@@ -263,17 +266,17 @@
 }
 .card-title-icon1 {
     position: absolute;
-    right: 75px;
+    right: 76px;
     cursor: pointer;
 }
 .card-title-icon2 {
     position: absolute;
-    right: 45px;
+    right: 46px;
     cursor: pointer;
 }
 .card-title-icon3 {
     position: absolute;
-    right: 15px;
+    right: 16px;
     cursor: pointer;
 }
 .card-title-icon1:hover, .card-title-icon2:hover, .card-title-icon3:hover {

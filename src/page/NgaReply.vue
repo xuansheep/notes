@@ -8,7 +8,7 @@
         <div class="reply-list">
             <List item-layout="vertical">
                 <ListItem v-for="data in tableData" :key="data.lou">
-                    <Affix>
+                    <Affix :offset-top="20">
                     <p v-if="data.lou===0" class="reply-lou">
                         <Button size="small" style="font-size: 12px" v-bind:class={onlyImageButton:form.onlyImageFlag}
                                 @click="onlyImage">只看图片</Button>

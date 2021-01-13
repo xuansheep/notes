@@ -1,185 +1,187 @@
 <template>
     <div class="background">
         <Affix>
-        <div class="header" v-bind:class={headerOpen:headerOpenStatus,headerHover:headerHoverStatus}>
-            <div class="header-carousel">
+            <div class="header" v-bind:class={headerOpen:headerOpenStatus,headerHover:headerHoverStatus}>
+                <div class="header-carousel">
+                    <!--nga按钮-->
+                    <!--<div class="header-bottom-nga-div">
+                        <img class="header-bottom-nga-icon" src="../assets/image/dex-fish-nga-1.jpg" @click="goNga" />
+                    </div>-->
 
-            </div>
-
-            <!--nga按钮-->
-            <!--<div class="header-bottom-nga-div">
-                <img class="header-bottom-nga-icon" src="../assets/image/dex-fish-nga-1.jpg" @click="goNga" />
-            </div>-->
-
-            <!--书签功能按钮-->
-            <div v-if="!headerOpenStatus">
-                <!--logo-->
-                <div class="header-bottom-logo-div">
-                    <img style="height: 30px" src="../assets/image/logo2.png">
-                </div>
-                <!--导入书签按钮-->
-                <div class="header-bottom-import-icon">
-                    <Poptip placement="bottom-end" :width="200" v-model="importVisible">
-                        <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru" size="20"/>
-                        <div slot="title">
-                            导入Chrome离线书签
+                    <!--书签功能按钮-->
+                    <div v-if="!headerOpenStatus">
+                        <!--logo-->
+                        <div class="header-bottom-logo-div">
+                            <img style="height: 30px" src="../assets/image/logo2.png">
                         </div>
-                        <div slot="content" style="line-height: 35px">
-                            <div>
-                                <Upload :before-upload="handleUpload"
-                                        action="">
-                                    <Button icon="ios-cloud-upload-outline">选择文件</Button>
-                                </Upload>
-                                <div v-if="file !== null">
-                                    文件名：{{file.name}}<br/>
-                                    <Button type="default" size="small" @click="upload" :loading="importLoading">
-                                        {{importLoading ? '导入中' : '开始导入' }}
-                                    </Button>
+                        <!--导入书签按钮-->
+                        <div class="header-bottom-import-icon">
+                            <Poptip placement="bottom-end" :width="200" v-model="importVisible">
+                                <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru" size="20"/>
+                                <div slot="title">
+                                    导入Chrome离线书签
                                 </div>
-                            </div>
+                                <div slot="content" style="line-height: 35px">
+                                    <div>
+                                        <Upload :before-upload="handleUpload"
+                                                action="">
+                                            <Button icon="ios-cloud-upload-outline">选择文件</Button>
+                                        </Upload>
+                                        <div v-if="file !== null">
+                                            文件名：{{file.name}}<br/>
+                                            <Button type="default" size="small" @click="upload" :loading="importLoading">
+                                                {{importLoading ? '导入中' : '开始导入' }}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Poptip>
                         </div>
-                    </Poptip>
-                </div>
-                <!--添加书签按钮-->
-                <div class="header-bottom-add-icon">
-                    <Poptip placement="bottom-end" :width="300" v-model="visible">
-                        <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
-                        <div slot="title">
-                            添加书签
+                        <!--添加书签按钮-->
+                        <div class="header-bottom-add-icon">
+                            <Poptip placement="bottom-end" :width="300" v-model="visible">
+                                <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
+                                <div slot="title">
+                                    添加书签
+                                </div>
+                                <div slot="content" style="line-height: 35px">
+                                    <div style="width: 215px">
+                                        名称：<Input v-model="markForm.name"></Input>
+                                    </div>
+                                    <div style="width: 215px">
+                                        链接：<Input v-model="markForm.link"></Input>
+                                    </div>
+                                    <div style="width: 215px">
+                                        分类：<Select v-model="markForm.categoryId">
+                                        <Option v-for="category in markCategoryList" :value="category.id" :key="category.id">
+                                            {{category.name}}
+                                        </Option>
+                                    </Select>
+                                    </div>
+                                    <div style="text-align: right">
+                                        <Button :loading="saveMarkLoading" type="primary" size="small" @click="saveMark">确定</Button>
+                                    </div>
+                                </div>
+                            </Poptip>
                         </div>
-                        <div slot="content" style="line-height: 35px">
-                            <div style="width: 215px">
-                                名称：<Input v-model="markForm.name"></Input>
-                            </div>
-                            <div style="width: 215px">
-                                链接：<Input v-model="markForm.link"></Input>
-                            </div>
-                            <div style="width: 215px">
-                                分类：<Select v-model="markForm.categoryId">
-                                <Option v-for="category in markCategoryList" :value="category.id" :key="category.id">
-                                    {{category.name}}
-                                </Option>
-                            </Select>
-                            </div>
-                            <div style="text-align: right">
-                                <Button :loading="saveMarkLoading" type="primary" size="small" @click="saveMark">确定</Button>
-                            </div>
+                        <!--删除书签按钮-->
+                        <div class="header-bottom-del-icon">
+                            <Dropdown placement="bottom-end" trigger="custom" :visible="modifyStatus">
+                                <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy"
+                                      size="20" @click="modify"/>
+                                <DropdownMenu slot="list" style="width: 150px">
+                                    <div class="del-dropdownMenu-div">
+                                        <p>删除书签</p>
+                                    </div>
+                                    <Divider id="del-divider"/>
+                                    <div class="del-dropdownMenu-div">
+                                        <Button type="default" size="small" @click="modify">取消</Button>
+                                        <span style="display:inline-block; width:30px"></span>
+                                        <Button type="primary" size="small" @click="deleteMark">确定</Button>
+                                    </div>
+                                </DropdownMenu>
+                            </Dropdown>
                         </div>
-                    </Poptip>
+                        <!--退出按钮-->
+                        <div class="header-bottom-logout-icon">
+                            <Icon class="logout-icon" custom="iconfont icon-dengchu" size="27" @click="signOut"/>
+                        </div>
+                    </div>
+
+                    <!--笔记功能按钮-->
+                    <div v-if="headerOpenStatus">
+                        <!--logo-->
+                        <div class="header-bottom-logo-div">
+                            <img style="height: 30px" src="../assets/image/logo2.png">
+                        </div>
+                        <!--新增按钮-->
+                        <div class="header-bottom-add-icon">
+                            <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20" @click="getNoteDetail"/>
+                            <!--详情抽屉-->
+                            <Drawer
+                                    :title=noteWindowTitle
+                                    v-model=noteWindowStatus
+                                    width="40"
+                                    :mask-closable="false"
+                                    :draggable="true"
+                                    @on-close="drawerClose(noteForm.id)"
+                            >
+                                <Form :model="noteForm">
+                                    <FormItem label="标题">
+                                        <Input v-model="noteForm.title" placeholder="please enter the title"></Input>
+                                    </FormItem>
+                                    <FormItem label="内容" label-position="top">
+                                        <Input type="textarea" v-model="noteForm.content" :rows="28" placeholder="please enter the content" />
+                                    </FormItem>
+                                    <FormItem label="分类">
+                                        <Select v-model="noteForm.categoryId">
+                                            <Option v-for="category in noteCategoryList" :value="category.id" :key="category.id">
+                                                {{category.name}}
+                                            </Option>
+                                        </Select>
+                                    </FormItem>
+                                </Form>
+                                <div class="demo-drawer-footer">
+                                    <Button style="margin-right: 8px" @click="drawerClose(noteForm.id)">{{noteForm.id>0 ? '关闭' : '取消'}}</Button>
+                                    <Button type="primary" @click="saveNote">保存</Button>
+                                    <Button v-if="noteForm.id>0" style="position: absolute; right: 15px;" type="error" @click="deleteNote">删除</Button>
+                                </div>
+                            </Drawer>
+                        </div>
+                        <!--删除-->
+                        <div class="header-bottom-del-icon">
+                            <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy" size="20" @click="modify"/>
+                        </div>
+                        <!--退出按钮-->
+                        <div class="header-bottom-logout-icon">
+                            <Icon class="logout-icon" custom="iconfont icon-dengchu" size="27" @click="signOut"/>
+                        </div>
+                    </div>
                 </div>
-                <!--删除书签按钮-->
-                <div class="header-bottom-del-icon">
-                    <Dropdown placement="bottom-end" trigger="custom" :visible="modifyStatus">
-                        <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy"
-                              size="20" @click="modify"/>
-                        <DropdownMenu slot="list" style="width: 150px">
-                            <div class="del-dropdownMenu-div">
-                                <p>删除书签</p>
-                            </div>
-                            <Divider id="del-divider"/>
-                            <div class="del-dropdownMenu-div">
-                                <Button type="default" size="small" @click="modify">取消</Button>
-                                <span style="display:inline-block; width:30px"></span>
-                                <Button type="primary" size="small" @click="deleteMark">确定</Button>
-                            </div>
-                        </DropdownMenu>
-                    </Dropdown>
+
+
+
+                <!--笔记分类-->
+                <div v-if="headerOpenStatus" class="note-category-list">
+
+                    <Input class="note-search" search placeholder="搜索笔记..." />
+
+                    <Tag class="note-category-tag" v-for="category in noteCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
+                        <span class="category-tag-span"
+                              @dragover.prevent="handleDragOver($event, category)"
+                              @dragenter="handleDragEnter($event, category)">
+                            {{category.name}}
+                        </span>
+                    </Tag>
+                    <Button icon="ios-add" type="dashed" size="small" @click="inputCategory">
+                        <Input ref="c_input" v-if="inputStatus" v-model="categoryForm.name" size="small" style="width: 70px" @on-blur="saveCategory(1)"></Input>
+                        <span v-if="!inputStatus">添加分类</span>
+                    </Button>
                 </div>
-                <!--退出按钮-->
-                <div class="header-bottom-logout-icon">
-                    <Icon class="logout-icon" custom="iconfont icon-dengchu" size="27" @click="signOut"/>
+
+                <!--顶部栏-打开笔记内容-->
+                <div class="header-bottom-openMore-icon" @mouseover="headerHoverStatus=true" @mouseout="headerHoverStatus=false">
+                    <Icon class="openMore-icon" type="ios-arrow-down" size="22" @click="openMore" v-if="!headerOpenStatus" />
+                    <Icon class="openMore-icon" type="ios-arrow-up" size="22" @click="headerOpenStatus=false" v-if="headerOpenStatus" />
+                </div>
+
+                <!--笔记列表-->
+                <div v-if="headerOpenStatus" class="header-open">
+                    <Collapse simple class="collapse" v-model="panelName">
+                        <Panel :name="index+''" v-for="(card,index) in noteCardList">
+                            <span class="card-note-title">{{card.categoryName}}</span>
+                            <div slot="content">
+                                <a class="card-note-text" v-for="note in card.noteList" @click="getNoteDetail(note.id)">{{note.title}}</a>
+                            </div>
+                        </Panel>
+                    </Collapse>
                 </div>
             </div>
-
-            <!--笔记分类-->
-            <div v-if="headerOpenStatus" class="note-category-list">
-
-                <Input class="note-search" search placeholder="搜索笔记..." />
-
-                <Tag class="note-category-tag" v-for="category in noteCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
-                    <span class="category-tag-span"
-                          @dragover.prevent="handleDragOver($event, category)"
-                          @dragenter="handleDragEnter($event, category)">
-                        {{category.name}}
-                    </span>
-                </Tag>
-                <Button icon="ios-add" type="dashed" size="small" @click="inputCategory">
-                    <Input ref="c_input" v-if="inputStatus" v-model="categoryForm.name" size="small" style="width: 70px" @on-blur="saveCategory(1)"></Input>
-                    <span v-if="!inputStatus">添加分类</span>
-                </Button>
-            </div>
-
-            <!--笔记功能按钮，详情抽屉-->
-            <div v-if="headerOpenStatus">
-                <!--logo-->
-                <div class="header-bottom-logo-div">
-                    <img style="height: 30px" src="../assets/image/logo2.png">
-                </div>
-                <!--新增按钮-->
-                <div class="header-bottom-add-icon">
-                    <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20" @click="getNoteDetail"/>
-                    <Drawer
-                            :title=noteWindowTitle
-                            v-model=noteWindowStatus
-                            width="40"
-                            :mask-closable="false"
-                            :draggable="true"
-                            @on-close="drawerClose(noteForm.id)"
-                    >
-                        <Form :model="noteForm">
-                            <FormItem label="标题">
-                                <Input v-model="noteForm.title" placeholder="please enter the title"></Input>
-                            </FormItem>
-                            <FormItem label="内容" label-position="top">
-                                <Input type="textarea" v-model="noteForm.content" :rows="28" placeholder="please enter the content" />
-                            </FormItem>
-                            <FormItem label="分类">
-                                <Select v-model="noteForm.categoryId">
-                                    <Option v-for="category in noteCategoryList" :value="category.id" :key="category.id">
-                                        {{category.name}}
-                                    </Option>
-                                </Select>
-                            </FormItem>
-                        </Form>
-                        <div class="demo-drawer-footer">
-                            <Button style="margin-right: 8px" @click="drawerClose(noteForm.id)">{{noteForm.id>0 ? '关闭' : '取消'}}</Button>
-                            <Button type="primary" @click="saveNote">保存</Button>
-                            <Button v-if="noteForm.id>0" style="position: absolute; right: 15px;" type="error" @click="deleteNote">删除</Button>
-                        </div>
-                    </Drawer>
-                </div>
-                <!--删除-->
-                <div class="header-bottom-del-icon">
-                    <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy" size="20" @click="modify"/>
-                </div>
-                <!--退出按钮-->
-                <div class="header-bottom-logout-icon">
-                    <Icon class="logout-icon" custom="iconfont icon-dengchu" size="27" @click="signOut"/>
-                </div>
-            </div>
-
-            <!--顶部栏-打开笔记内容-->
-            <div class="header-bottom-openMore-icon" @mouseover="headerHoverStatus=true" @mouseout="headerHoverStatus=false">
-                <Icon class="openMore-icon" type="ios-arrow-down" size="20" @click="openMore" v-if="!headerOpenStatus" />
-                <Icon class="openMore-icon" type="ios-arrow-up" size="20" @click="headerOpenStatus=false" v-if="headerOpenStatus" />
-            </div>
-
-            <!--笔记列表-->
-            <div v-if="headerOpenStatus" class="header-open">
-                <Collapse simple class="collapse" v-model="panelName">
-                    <Panel :name="index+''" v-for="(card,index) in noteCardList">
-                        <span class="card-note-title">{{card.categoryName}}</span>
-                        <div slot="content">
-                            <a class="card-note-text" v-for="note in card.noteList" @click="getNoteDetail(note.id)">{{note.title}}</a>
-                        </div>
-                    </Panel>
-                </Collapse>
-            </div>
-        </div>
         </Affix>
 
         <!--书签内容-->
         <div class="content">
+            <Affix :offsetTop="40">
             <!--书签分类-->
             <div v-if="!headerOpenStatus">
                 <Card class="category-card">
@@ -199,6 +201,7 @@
                     </div>
                 </Card>
             </div>
+            </Affix>
             <!--快捷入口-->
             <div class="window">
                 <Row class="window-row" :gutter="16">
@@ -247,8 +250,7 @@
                         <p id="card-title-text">{{card.categoryName}}</p>
                         <Icon class="card-title-icon1" custom="iconfont icon-liebiao" size="15" @click="listMark(card,24)"/>
                         <Icon class="card-title-icon2" custom="iconfont icon-liebiao1" size="15" @click="listMark(card,8)"/>
-                        <Icon class="card-title-icon3" custom="iconfont icon-iconfontzhizuobiaozhun0247" size="15"
-                              @click="listMark(card,4)"/>
+                        <Icon class="card-title-icon3" custom="iconfont icon-iconfontzhizuobiaozhun0247" size="15" @click="listMark(card,4)"/>
                     </div>
                     <div>
                         <Row style="margin-left: 1%" :gutter="10">
