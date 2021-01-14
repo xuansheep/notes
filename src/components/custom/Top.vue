@@ -27,6 +27,7 @@
                     {name: 'nga', title: 'NGA', link: '/nga', mobileLink: '/mobile/nga'},
                     {name: 'person', title: '人物', link: '/person'},
                     {name: 'calendar', title: '日历', link: '/calendar'},
+                    {name: 'threeBody', title: '三体模型', link: '/threeBody'},
                 ],
             }
         },

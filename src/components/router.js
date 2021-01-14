@@ -39,6 +39,7 @@ const router = new Router({
         {path: '/userReply/:authorId', component: () => import('../page/NgaUserReply.vue')},
         {path: '/web', component: () => import('../page/Web.vue')},
         {path: '/calendar', component: () => import('../page/Calendar.vue')},
+        {path: '/threeBody', component: () => import('../page/ThreeBody.vue')},
         {path: '/door', component: () => import('../page/Door.vue')},
 
         {path: '/mobile/nga', component: () => import('../page/mobile/Nga.vue')},

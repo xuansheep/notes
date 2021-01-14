@@ -233,11 +233,13 @@
                         </div>
                     </Col>
                     <Col span="6">
-                        <Card class="window-card">
-                            <div class="window-card-content">
-                                <p>开发中...</p>
-                            </div>
-                        </Card>
+                        <div @click="goThreeBody">
+                            <Card class="window-card">
+                                <div class="window-card-content">
+                                    <p>三体模型</p>
+                                </div>
+                            </Card>
+                        </div>
                     </Col>
                 </Row>
             </div>
@@ -579,6 +581,9 @@
             },
             goPerson(){
                 this.$router.push({path: '/person'})
+            },
+            goThreeBody(){
+                this.$router.push({path: '/threeBody'})
             },
             signOut(){
                 this.$Modal.confirm({
