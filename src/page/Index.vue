@@ -236,7 +236,7 @@
                         <div @click="goThreeBody">
                             <Card class="window-card">
                                 <div class="window-card-content">
-                                    <p>三体模型</p>
+                                    <p>多星2D模型</p>
                                 </div>
                             </Card>
                         </div>
