@@ -279,7 +279,7 @@
                 data: [],
                 lineStyle: {
                     color: '#00b8a9',
-                    width: 2
+                    width: 0.8
                 }
             }, {
                 coordinateSystem: 'polar',
@@ -290,7 +290,7 @@
                 type: 'line',
                 lineStyle: {
                     color: '#f57170',
-                    width: 2
+                    width: 0.8
                 },
                 data: []
             }, {
@@ -302,7 +302,7 @@
                 type: 'line',
                 lineStyle: {
                     color: '#00e0ff',
-                    width: 2
+                    width: 0.8
                 },
                 data: []
             }],
