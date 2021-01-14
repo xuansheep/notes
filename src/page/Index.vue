@@ -258,15 +258,17 @@
                                 <Tooltip :content="mark.name" placement="top-start" :delay="500" :max-width="500">
                                     <Checkbox class="card-mark-checkBox" v-if="modifyStatus" v-model="mark.isSelect"
                                               @on-change="onCheck(mark,card)"/>
-                                    <a class="card-mark-text" :href="mark.link" target="_blank"
-                                       draggable="true"
-                                       @dragstart="handleDragStart($event, mark)"
-                                       @dragend="handleDragEnd($event)">
+                                    <div style="position: relative">
                                         <img class="card-icon" :src="mark.icon">
-                                        <span v-if="card.colSpan===4">{{mark.name|omitText4}}</span>
-                                        <span v-if="card.colSpan===8">{{mark.name|omitText8}}</span>
-                                        <span v-if="card.colSpan===24">{{mark.name|omitText24}}</span>
-                                    </a>
+                                        <a class="card-mark-text" :href="mark.link" target="_blank"
+                                           draggable="true"
+                                           @dragstart="handleDragStart($event, mark)"
+                                           @dragend="handleDragEnd($event)">
+                                            <span v-if="card.colSpan===4">{{mark.name|omitText4}}</span>
+                                            <span v-if="card.colSpan===8">{{mark.name|omitText8}}</span>
+                                            <span v-if="card.colSpan===24">{{mark.name|omitText24}}</span>
+                                        </a>
+                                    </div>
                                 </Tooltip>
                             </Col>
                         </Row>

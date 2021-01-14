@@ -290,6 +290,7 @@
     text-align: left;
 }
 .card-mark-text {
+    margin-left: 20px;
     cursor: pointer;
     color: black;
 }
@@ -297,10 +298,10 @@
     color: #f8895c;
 }
 .card-icon {
+    position: absolute;
     height: 16px;
     width: 16px;
-    margin-right: 3px;
-    /*margin-bottom: -3px;*/
+    top: 1px;
 }
 
 
