@@ -131,7 +131,9 @@
 .header-bottom-openMore-icon {
     position: absolute;
     bottom: 8px;
-    left: 502px;
+    left:446.5px;
+    width: 100px;
+    text-align: center;
 }
 .openMore-icon {
     color: #a1a3a1;

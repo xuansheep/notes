@@ -161,8 +161,10 @@
 
                 <!--顶部栏-打开笔记内容-->
                 <div class="header-bottom-openMore-icon" @mouseover="headerHoverStatus=true" @mouseout="headerHoverStatus=false">
-                    <Icon class="openMore-icon" type="ios-arrow-down" size="22" @click="openMore" v-if="!headerOpenStatus" />
-                    <Icon class="openMore-icon" type="ios-arrow-up" size="22" @click="headerOpenStatus=false" v-if="headerOpenStatus" />
+                    <div>
+                        <Icon class="openMore-icon" type="ios-arrow-down" size="22" @click="openMore" v-if="!headerOpenStatus" />
+                        <Icon class="openMore-icon" type="ios-arrow-up" size="22" @click="headerOpenStatus=false" v-if="headerOpenStatus" />
+                    </div>
                 </div>
 
                 <!--笔记列表-->
