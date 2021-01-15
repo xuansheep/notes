@@ -15,7 +15,7 @@
                             :mask-closable="false"
                             :draggable="true"
                     >
-                        <Form :model="personForm" inline>
+                        <Form :model="personForm" :rules="personFormRule" inline>
                             <Tabs ref="cardLabelGroup">
                                 <TabPane label="基本信息">
                                     <FormItem label="头像">
@@ -48,7 +48,7 @@
                                         </Modal>
                                     </FormItem>
                                     <br>
-                                    <FormItem label="姓名">
+                                    <FormItem prop="name" label="姓名">
                                         <Input v-model="personForm.name" placeholder="请输入姓名" style="width: 200px" />
                                     </FormItem>
                                     <FormItem label="手机号">
@@ -253,6 +253,11 @@
                     professionDescription: "",
                     secondProfession: '',
                     secondProfessionDescription: "",
+                },
+                personFormRule:{
+                    name: [
+                        {required: true}
+                    ]
                 },
                 tableData:[],
                 personWindowStatus:false,

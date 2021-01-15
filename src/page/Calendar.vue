@@ -1,6 +1,7 @@
 <template>
     <div style="width: 1024px; margin: auto">
         <Top active="calendar"></Top>
+        <LoadingWarrior></LoadingWarrior>
         <!--<a-calendar
                 @panelChange="onPanelChange"
                 @select="onSelect"
@@ -18,10 +19,11 @@
     moment.locale('zh-cn');
 
     import Top from "../components/custom/Top";
+    import LoadingWarrior from "../components/custom/LoadingWarrior";
 
     export default {
         name: "Calendar",
-        components: {Top},
+        components: {LoadingWarrior, Top},
     }
 </script>
 
