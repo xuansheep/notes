@@ -15,7 +15,6 @@
         }
         .form-group {
             font-size: 12px;
-            text-align: right;
             width: auto;
         }
     </style>
@@ -26,8 +25,8 @@
         <div class="col-md-8 mt-2">
             <div id="three-body-animation" class=""></div>
         </div>
-        <div class="col-md-2 m-auto">
-            <p class="text-muted">运行参数:</p>
+        <div class="col-md-3 m-auto">
+            <p class="text-muted">run params:</p>
             <form class="form">
                 <div class="form-group">
                     <table class="table" id="body-param-table">
@@ -41,45 +40,45 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th scope="row">质量</th>
-                            <td contenteditable="true">80</td>
-                            <td contenteditable="true">80</td>
-                            <td contenteditable="true">80</td>
+                            <th scope="row">Mass</th>
+                            <td contenteditable="true">10</td>
+                            <td contenteditable="true">10</td>
+                            <td contenteditable="true">10</td>
                         </tr>
                         <tr>
-                            <th scope="row">轨道半径</th>
-                            <td contenteditable="true">7</td>
-                            <td contenteditable="true">7</td>
-                            <td contenteditable="true">7</td>
+                            <th scope="row">Radius</th>
+                            <td contenteditable="true">8</td>
+                            <td contenteditable="true">8</td>
+                            <td contenteditable="true">8</td>
                         </tr>
                         <tr>
-                            <th scope="row">角度</th>
+                            <th scope="row">Angle</th>
                             <td contenteditable="true">0</td>
                             <td contenteditable="true">120</td>
                             <td contenteditable="true">240</td>
                         </tr>
                         <tr>
-                            <th scope="row">半径速度</th>
+                            <th scope="row">RadiusSpeed</th>
                             <td contenteditable="true">0</td>
                             <td contenteditable="true">0</td>
                             <td contenteditable="true">0</td>
                         </tr>
                         <tr>
-                            <th scope="row">角速度</th>
-                            <td contenteditable="true">15</td>
-                            <td contenteditable="true">15</td>
-                            <td contenteditable="true">15</td>
+                            <th scope="row">AngleSpeed</th>
+                            <td contenteditable="true">5</td>
+                            <td contenteditable="true">5</td>
+                            <td contenteditable="true">5</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <div class="form-group row">
-                    <label for="time-delta-input" class="col-md-4">动画速度:</label>
+                    <label for="time-delta-input" class="col-md-4">Time delta:</label>
                     <div class="col-md-8"><input type="text" id="time-delta-input"></div>
                 </div>
                 <div class="form-group row">
-                    <label for="max-trace-keep-input" class="col-md-4">轨迹动画延迟:</label>
+                    <label for="max-trace-keep-input" class="col-md-4">Max trace keep:</label>
                     <div class="col-md-8"><input type="text" id="max-trace-keep-input"></div>
                 </div>
                 <button type="button" class="btn btn-info" id="start-simulation-btn">Start</button>
@@ -110,7 +109,7 @@
         $timeDeltaInput.ionRangeSlider({
             min: 0.001,
             max: 0.5,
-            from: 0.05,
+            from: 0.277, // 0.277
             step: 0.001,
             skin: skin,
             onChange: stopAnimation
@@ -120,7 +119,7 @@
         $maxTraceKeepInput.ionRangeSlider({
             min: 100,
             max: 5000,
-            from: 200,
+            from: 500,
             step: 100,
             skin: skin,
             onChange: stopAnimation

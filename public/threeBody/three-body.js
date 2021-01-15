@@ -215,7 +215,7 @@
         const domElement = document.getElementById(domId);
         const echartsInstance = echarts.init(domElement);
         const resizeChart = function () {
-            const w = Math.min(780, window.innerWidth, window.innerHeight) - 30;
+            const w = Math.min(750, window.innerWidth, window.innerHeight) - 30;
             domElement.style.width = w + 'px';
             domElement.style.height = w + 'px';
             echartsInstance.resize();
