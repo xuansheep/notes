@@ -44,7 +44,7 @@ function getToken (){
 
 export default {
 
-    serverUrl:'http://47.106.79.168:10001',
+    serverUrl:'https://notes.xuanss.com',
     //serverUrl:'http://127.0.0.1:10001',
 
     /*
