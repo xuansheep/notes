@@ -15,7 +15,7 @@
                             <img style="height: 30px" src="../assets/image/logo2.png">
                         </div>
                         <!--导入书签按钮-->
-                        <div class="header-bottom-import-icon">
+                        <div class="header-bottom-import-icon" @mouseover="showTip('导入书签')" @mouseout="closeTip">
                             <Poptip placement="bottom-end" :width="200" v-model="importVisible">
                                 <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru" size="20"/>
                                 <div slot="title">
@@ -38,11 +38,11 @@
                             </Poptip>
                         </div>
                         <!--添加书签按钮-->
-                        <div class="header-bottom-add-icon">
+                        <div class="header-bottom-add-icon" @mouseover="showTip('创建书签')" @mouseout="closeTip">
                             <Poptip placement="bottom-end" :width="300" v-model="visible">
                                 <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
                                 <div slot="title">
-                                    添加书签
+                                    创建书签
                                 </div>
                                 <div slot="content" style="line-height: 35px">
                                     <div style="width: 215px">
@@ -65,7 +65,7 @@
                             </Poptip>
                         </div>
                         <!--删除书签按钮-->
-                        <div class="header-bottom-del-icon">
+                        <div class="header-bottom-del-icon" @mouseover="showTip('删除书签')" @mouseout="closeTip">
                             <Dropdown placement="bottom-end" trigger="custom" :visible="modifyStatus">
                                 <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy"
                                       size="20" @click="modify"/>
@@ -83,7 +83,7 @@
                             </Dropdown>
                         </div>
                         <!--退出按钮-->
-                        <div class="header-bottom-logout-icon">
+                        <div class="header-bottom-logout-icon" @mouseover="showTip('退出')" @mouseout="closeTip">
                             <Icon class="logout-icon" custom="iconfont icon-dengchu" size="27" @click="signOut"/>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                             <img style="height: 30px" src="../assets/image/logo2.png">
                         </div>
                         <!--新增按钮-->
-                        <div class="header-bottom-add-icon">
+                        <div class="header-bottom-add-icon" @mouseover="showTip('创建笔记')" @mouseout="closeTip">
                             <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20" @click="getNoteDetail"/>
                             <!--详情抽屉-->
                             <Drawer
@@ -129,11 +129,11 @@
                             </Drawer>
                         </div>
                         <!--删除-->
-                        <div class="header-bottom-del-icon">
+                        <div class="header-bottom-del-icon" @mouseover="showTip('删除笔记')" @mouseout="closeTip">
                             <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy" size="20" @click="modify"/>
                         </div>
                         <!--退出按钮-->
-                        <div class="header-bottom-logout-icon">
+                        <div class="header-bottom-logout-icon" @mouseover="showTip('退出')" @mouseout="closeTip">
                             <Icon class="logout-icon" custom="iconfont icon-dengchu" size="27" @click="signOut"/>
                         </div>
                     </div>
@@ -161,10 +161,15 @@
 
                 <!--顶部栏-打开笔记内容-->
                 <div class="header-bottom-openMore-icon" @mouseover="headerHoverStatus=true" @mouseout="headerHoverStatus=false">
-                    <div>
+                    <div v-if="!tipText || tipText.length === 0">
                         <Icon class="openMore-icon" type="ios-arrow-down" size="22" @click="openMore" v-if="!headerOpenStatus" />
                         <Icon class="openMore-icon" type="ios-arrow-up" size="22" @click="headerOpenStatus=false" v-if="headerOpenStatus" />
                     </div>
+                </div>
+
+                <!--顶部栏-提示内容-->
+                <div class="header-tip">
+                    <span>{{tipText}}</span>
                 </div>
 
                 <!--笔记列表-->
@@ -343,6 +348,8 @@
                 headerHoverStatus: false,
 
                 noteWindowStatus: false,
+
+                tipText: '',
             }
         },
         created() {
@@ -597,6 +604,12 @@
                         this.$router.push({path: '/logIn'})
                     }
                 });
+            },
+            showTip(text) {
+                this.tipText = text;
+            },
+            closeTip() {
+                this.tipText = '';
             },
 
             /***可拖放***/
