@@ -22,7 +22,7 @@
             },
             placeholder: {
                 type: String,
-                default: ''
+                default: 'please enter the content'
             },
             height: {
                 type: Number,
@@ -62,6 +62,7 @@
             };
             this.editor.config.height = this.height;
             this.editor.config.zIndex = 100;
+            this.editor.config.placeholder = this.placeholder;
             // 设置上传图片
             this.editor.config.uploadImgShowBase64 = true;
             this.editor.config.uploadImgServer = this.uploadImgServer;
@@ -99,6 +100,7 @@
         },
         beforeDestroy () {
             this.editor.destroy();
+            this.editor = null
         }
     };
 </script>
