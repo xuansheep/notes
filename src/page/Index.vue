@@ -111,7 +111,11 @@
                                         <Input v-model="noteForm.title" placeholder="please enter the title"></Input>
                                     </FormItem>
                                     <FormItem label="内容" label-position="top">
-                                        <Input type="textarea" v-model="noteForm.content" :rows="28" placeholder="please enter the content" />
+                                        <Wangeditor
+                                                v-model="noteForm.content"
+                                                :upload-img-server="this.http.serverUrl + this.ports.file.upload + '?token=' + this.getToken()"
+                                        ></Wangeditor>
+                                        <!--<Input type="textarea" v-model="noteForm.content" :rows="28" placeholder="please enter the content" />-->
                                     </FormItem>
                                     <FormItem label="分类">
                                         <Select v-model="noteForm.categoryId">
@@ -294,9 +298,11 @@
 
 <script>
     import '../assets/css/index.css'
+    import Wangeditor from "../components/custom/Wangeditor";
 
     export default {
         name: "Index",
+        components: {Wangeditor},
         data() {
             return {
                 listParams: {
