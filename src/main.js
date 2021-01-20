@@ -75,6 +75,10 @@ Vue.prototype.proxyImage = (url) => {
   if (url.indexOf("http://img.ngacn.cc") > -1){
     return url;
   }
+  // 去除不安全字符
+  if (url.indexOf("|") > -1) {
+    url = url.substring(0, url.indexOf("|"))
+  }
   return http.serverUrl + "/proxy/file?url="+url;
 };
 
