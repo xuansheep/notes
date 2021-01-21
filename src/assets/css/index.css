@@ -305,6 +305,7 @@
     margin-left: 20px;
     cursor: pointer;
     color: black;
+    font-size: 15px;
 }
 .card-mark-text:hover {
     color: #f8895c;
