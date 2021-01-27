@@ -106,6 +106,12 @@
                                     <FormItem label="QQ号">
                                         <Input v-model="personForm.qqId" placeholder="请输入QQ号" style="width: 200px" />
                                     </FormItem>
+                                    <FormItem label="私人邮箱">
+                                        <Input v-model="personForm.personalEmail" placeholder="请输入私人邮箱" style="width: 200px" />
+                                    </FormItem>
+                                    <FormItem label="工作邮箱">
+                                        <Input v-model="personForm.workEmail" placeholder="请输入工作邮箱" style="width: 200px" />
+                                    </FormItem>
                                 </TabPane>
                                 <TabPane label="其他信息">
                                     <FormItem label="爱好">
@@ -143,7 +149,7 @@
                 <template>
                     <div style="margin-bottom: 24px" v-for="(person,index) in tableData">
                         <Card style="border-radius: 10px; padding: 0">
-                            <div class="person-card" :style="{filter:person.hideFlag?'blur(4px)':''}" @mouseover="hoverPersonCard(person, index)" @mouseleave="leavePersonCard(person, index)">
+                            <div class="person-card" :style="{filter:person.hideFlag?'blur(5px)':''}" @mouseover="hoverPersonCard(person, index)" @mouseleave="leavePersonCard(person, index)">
                                 <div class="person-card-header">
                                     <Avatar :src="!!person.avatar ? person.avatar+'?x-oss-process=image/resize,w_100' : ''" shape="square" icon="ios-person" size="60" />
                                     <span class="person-card-header-name">{{person.name}}</span>
@@ -198,6 +204,8 @@
                         <CardLabel prop="weChatId" modify-type="input" :method="updatePerson" title="微信号" :content="personDetail.weChatId"/>
                         <CardLabel prop="qqName" modify-type="input" :method="updatePerson" title="QQ昵称" :content="personDetail.qqName"/>
                         <CardLabel prop="qqId" modify-type="input" :method="updatePerson" title="QQ号" :content="personDetail.qqId"/>
+                        <CardLabel prop="personalEmail" modify-type="input" :method="updatePerson" title="私人邮箱" :content="personDetail.personalEmail"/>
+                        <CardLabel prop="workEmail" modify-type="input" :method="updatePerson" title="工作邮箱" :content="personDetail.workEmail"/>
                     </div>
                 </TabPane>
                 <TabPane label="其他信息">
@@ -476,5 +484,11 @@
         font-size: 20px;
         cursor: pointer;
         margin: 0 2px;
+    }
+    .vue-waterfall {
+        width: 100%;
+        /* overflow-y: auto; */
+        position: relative;
+        overflow-x: hidden;
     }
 </style>
