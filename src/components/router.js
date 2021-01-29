@@ -46,6 +46,7 @@ const router = new Router({
         {path: '/mobile/reply/:tid', component: () => import('../page/mobile/NgaReply.vue')},
 
         {path: '/lottery', component: () => import('../page/Lottery.vue')},
+        {path: '/release1', component: () => import('../page/Release1.vue')},
     ]
 });
 
