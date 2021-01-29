@@ -244,10 +244,10 @@
                         </div>
                     </Col>
                     <Col span="6">
-                        <div @click="goThreeBody">
+                        <div @click="goReleaseGroup">
                             <Card class="window-card">
                                 <div class="window-card-content">
-                                    <p>多星2D模型</p>
+                                    <p>版本管理</p>
                                 </div>
                             </Card>
                         </div>
@@ -599,6 +599,9 @@
             },
             goThreeBody(){
                 this.$router.push({path: '/threeBody'})
+            },
+            goReleaseGroup(){
+                this.$router.push({path: '/releaseGroup'})
             },
             signOut(){
                 this.$Modal.confirm({

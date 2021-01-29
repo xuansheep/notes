@@ -71,5 +71,14 @@ export default {
         detail: '/api/person/detail',
         hide: '/api/person/hide',
         show: '/api/person/show',
+    },
+    release: {
+        group: {
+            save: '/api/release/group/save',
+            list: '/api/release/group/list',
+            delete: '/api/release/group/delete'
+        },
+        save: '/api/release/save',
+        list: '/api/release/list'
     }
 }

@@ -14,6 +14,10 @@ Vue.use(ViewUI);
 
 import waterfall from 'vue-waterfall2'
 Vue.use(waterfall);
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+Vue.use(mavonEditor);
+
 
 Vue.prototype.http = http;
 Vue.prototype.ports = ports;
