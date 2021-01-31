@@ -76,6 +76,7 @@ export default {
         group: {
             save: '/api/release/group/save',
             list: '/api/release/group/list',
+            detail: '/api/release/group/detail',
             delete: '/api/release/group/delete'
         },
         save: '/api/release/save',

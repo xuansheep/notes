@@ -41,7 +41,6 @@ const router = new Router({
         {path: '/calendar', component: () => import('../page/Calendar.vue')},
         {path: '/releaseGroup', component: () => import('../page/ReleaseGroup.vue')},
         {path: '/release/:groupId', component: () => import('../page/Release.vue')},
-        {path: '/releaseForm/:groupId', component: () => import('../page/ReleaseForm.vue')},
         {path: '/threeBody', component: () => import('../page/ThreeBody.vue')},
         {path: '/door', component: () => import('../page/Door.vue')},
 

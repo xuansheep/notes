@@ -1,7 +1,7 @@
 <template>
     <div class="release-background">
         <Top active="releaseGroup"></Top>
-        <div style="padding: 16px">
+        <div class="release-content-div">
             <Row :gutter="16">
                 <Col span="6" v-for="(group) in tableData">
                     <Card :to="'release/' + group.id">
