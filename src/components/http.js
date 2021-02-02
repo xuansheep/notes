@@ -88,6 +88,42 @@ export default {
             }
         )
     },
+
+    postJson (url, data, response, exception) {
+        axios({
+            method: 'post',
+            url: this.serverUrl+url,
+            data: handleParams(data),
+            timeout: TIME_OUT_MS,
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8',
+                'token': getToken(),
+            }
+        }).then(
+            (result) => {
+                console.log(url,result.data);
+                if (result.data.success) {
+                    response(handleResults(result))
+                }else {
+                    let msg = !!result.data.message ? result.data.message : "服务器错误";
+                    Message.error(msg);
+                    if (result.data.code === 400004) {
+                        window.location.href = '/';
+                        window.localStorage.removeItem('user');
+                    }
+                }
+            }
+        ).catch(
+            (error) => {
+                if (exception) {
+                    exception(error)
+                } else {
+                    console.log(error)
+                }
+            }
+        )
+    },
+
     /*
      * get 请求
      * @param url

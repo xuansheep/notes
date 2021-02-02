@@ -1,30 +1,43 @@
 <template>
     <div class="release-background">
-        <div style="height: 100px;">
-            <h1>{{groupName}}</h1>
-            <Button style="margin-top: 60px" @click="openReleaseForm">新发布</Button>
+        <div class="release-header-div">
+            <div class="release-header-group-name">
+                <span>{{groupName}}</span>
+            </div>
+            <div class="release-header-add-icon" @click="openReleaseForm">
+                <Button>新发布</Button>
+            </div>
         </div>
         <EventLine :data="tableData" />
 
         <Modal v-model="releaseFormShowStatus" fullscreen title="版本发布" :on-cancel="closeReleaseForm">
             <div style="width: 80%; margin: auto">
                 <Form :model="releaseForm" label-position="top">
-                    <FormItem prop="name" label="标题">
-                        <Input v-model="releaseForm.name" placeholder="请输入标题" />
-                    </FormItem>
-                    <FormItem prop="name" label="版本">
-                        <Input v-model="releaseForm.version" placeholder="请输入版本" />
-                    </FormItem>
-                    <FormItem prop="publisher" label="发布者">
-                        <Input v-model="releaseForm.publisher" placeholder="请输入发布者" />
-                    </FormItem>
+                    <Row :gutter="16">
+                        <Col span="8">
+                            <FormItem prop="name" label="标题">
+                                <Input v-model="releaseForm.name" placeholder="请输入标题" />
+                            </FormItem>
+                        </Col>
+                        <Col span="8">
+                            <FormItem prop="name" label="版本">
+                                <Input v-model="releaseForm.version" placeholder="请输入版本" />
+                            </FormItem>
+                        </Col>
+                        <Col span="8">
+                            <FormItem prop="publisher" label="发布者">
+                                <Input v-model="releaseForm.publisher" placeholder="请输入发布者" />
+                            </FormItem>
+                        </Col>
+                    </Row>
                     <FormItem prop="name" label="内容">
-                        <mavon-editor v-model="releaseForm.content" @change="htmlCode">
-
-                        </mavon-editor>
+                        <mavon-editor style="height: 460px" v-model="releaseForm.content" @change="htmlCode"></mavon-editor>
                     </FormItem>
-                    <FormItem prop="name" label="备注">
+                    <!--<FormItem prop="name" label="备注">
                         <Input v-model="releaseForm.remark" type="textarea" placeholder="请输入备注" />
+                    </FormItem>-->
+                    <FormItem prop="name" label="参与人员">
+                        <ArrayForm ref="arrayForm" :data="releaseForm.participant" key-place-holder="职责" value-place-holder="人员名称"></ArrayForm>
                     </FormItem>
                 </Form>
             </div>
@@ -40,10 +53,11 @@
 
     import EventLine from "../components/custom/EventLine";
     import '../assets/css/release.css'
+    import ArrayForm from "../components/custom/ArrayForm";
 
     export default {
         name: "ReleaseGroup",
-        components: {EventLine},
+        components: {ArrayForm, EventLine},
         data() {
             return{
                 form:{
@@ -60,7 +74,7 @@
                     publisher: '',
                     content: '',
                     htmlContent: '',
-                    participant: '',
+                    participant: [],
                     remark: ''
                 },
                 releaseFormShowStatus: false,
@@ -84,7 +98,7 @@
                 if (!!this.form.id) {
 
                 }else {
-                    this.http.post(this.ports.release.save, this.releaseForm, res => {
+                    this.http.postJson(this.ports.release.save, this.releaseForm, res => {
                         this.closeReleaseForm();
                         this.getReleaseList();
                         this.$Message.success("创建成功");
@@ -103,6 +117,8 @@
             closeReleaseForm() {
                 this.releaseFormShowStatus = false;
                 this.releaseForm = {};
+                /*调用子组件函数，重置属性*/
+                this.$refs.arrayForm.resetField();
             },
             htmlCode(value, render) {
                 console.log(render)

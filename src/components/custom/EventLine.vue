@@ -4,13 +4,16 @@
             <div class="left-div">
                 <div style="height: 20px"></div>
                 <div>
-                    <Icon type="md-paw" />
-                    <span>{{item.version}}</span>
+                    <Icon type="md-git-branch" size="16" />
+                    <span> {{item.version}}</span>
+                </div>
+                <div class="left-div-flag">
+                    <Icon type="md-paw" size="1" />
                 </div>
             </div>
             <div class="right-div">
                 <div>
-                    <h2>{{item.name}}</h2>
+                    <p style="font-size: 22px">{{item.name}}</p>
                 </div>
                 <div class="event-line-time">
                     <span>
@@ -20,12 +23,13 @@
                 <div class="event-line-html-content">
                     <mavon-editor style="box-shadow: rgb(0 0 0) 0 0 0 0;" v-html="item.htmlContent"></mavon-editor>
                 </div>
-                <Collapse>
+                <Collapse v-if="item.participant.length > 0">
                     <Panel>
                         参与人员
                         <div slot="content">
-                            <p>开发：<span>张三、李四</span></p>
-                            <p>开发：<span>张三、李四</span></p>
+                            <p v-for="par in item.participant">
+                                {{par.key}}：<span>{{par.value}}</span>
+                            </p>
                         </div>
                     </Panel>
                 </Collapse>
@@ -68,7 +72,15 @@
         height: 100%;
         float: left;
         text-align: right;
-        padding: 16px;
+        padding: 24px 16px;
+        background-color: #ffffff;
+        position: relative;
+    }
+    .left-div-flag {
+        position: absolute;
+        right: -7px;
+        top: 45px;
+        color: #f8895c;
         background-color: #ffffff;
     }
     .right-div {
@@ -76,12 +88,12 @@
         width: 70%;
         height: 100%;
         text-align: left;
-        padding: 16px;
+        padding: 24px 16px;
         border-left: rgb(225, 228, 232) solid 1px;
         background-color: #ffffff;
     }
     .event-line-html-content {
-        margin: 10px 0 30px 0;
+        margin: 20px 0 30px 0;
     }
     .event-line-time {
         font-size: 12px;
