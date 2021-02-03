@@ -1,6 +1,6 @@
 <template>
     <div class="background-div">
-        <div v-for="(item, index) in data">
+        <div v-for="(item, index) in listData">
             <div class="left-div">
                 <div style="height: 20px"></div>
                 <div>
@@ -11,7 +11,7 @@
                     <Icon type="md-paw" size="1" />
                 </div>
             </div>
-            <div class="right-div">
+            <div class="right-div" @mouseenter="enterRight(item, index)" @mouseleave="leaveRight(item, index)">
                 <div>
                     <p style="font-size: 22px">{{item.name}}</p>
                 </div>
@@ -33,9 +33,13 @@
                         </div>
                     </Panel>
                 </Collapse>
+
+                <div class="right-div-update" v-if="item.hoverStatus" @click="updateItem(item)">
+                    <Icon custom="iconfont icon-bianji" />
+                </div>
             </div>
         </div>
-        <div v-if="!data || data.length===0" style="text-align: center; height: 100px; line-height: 100px">
+        <div v-if="!listData || listData.length===0" style="text-align: center; height: 100px; line-height: 100px">
             <span>暂无内容</span>
         </div>
     </div>
@@ -48,14 +52,37 @@
             data: {
                 type: Array,
                 request: true,
-                default: []
+                default: function () {
+                    return [];
+                }
             }
         },
         data() {
             return {
-
+                listData: [],
             }
         },
+        created() {
+            this.listData = this.data;
+        },
+        watch: {
+            data(val) {
+                this.listData = val;
+            }
+        },
+        methods: {
+            enterRight(item, index) {
+                item.hoverStatus = true;
+                this.$set(this.listData, index, item);
+            },
+            leaveRight(item, index) {
+                item.hoverStatus = false;
+                this.$set(this.listData, index, item);
+            },
+            updateItem(item) {
+                this.$emit('onUpdate', item)
+            }
+        }
     }
 </script>
 
@@ -82,6 +109,7 @@
         top: 45px;
         color: #f8895c;
         background-color: #ffffff;
+        z-index: 999;
     }
     .right-div {
         margin-left: 30%;
@@ -91,6 +119,21 @@
         padding: 24px 16px;
         border-left: rgb(225, 228, 232) solid 1px;
         background-color: #ffffff;
+        position: relative;
+    }
+    .right-div-update {
+        position: absolute;
+        right: 16px;
+        top: 24px;
+        cursor: pointer;
+        color: #c5cfe2;
+        transition: all 0.5s;
+        -moz-transition: all 0.5s; /* Firefox 4 */
+        -webkit-transition: all 0.5s; /* Safari and Chrome */
+        -o-transition: all 0.5s; /* Opera */
+    }
+    .right-div-update:hover {
+        color: #000000;
     }
     .event-line-html-content {
         margin: 20px 0 30px 0;

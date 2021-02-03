@@ -8,9 +8,9 @@
                 <Button>新发布</Button>
             </div>
         </div>
-        <EventLine :data="tableData" />
+        <EventLine :data="tableData" @onUpdate="openReleaseForm" />
 
-        <Modal v-model="releaseFormShowStatus" fullscreen title="版本发布" :on-cancel="closeReleaseForm">
+        <Modal v-model="releaseFormShowStatus" fullscreen :title="modalTitle" :on-cancel="closeReleaseForm">
             <div style="width: 80%; margin: auto">
                 <Form :model="releaseForm" label-position="top">
                     <Row :gutter="16">
@@ -78,6 +78,7 @@
                     remark: ''
                 },
                 releaseFormShowStatus: false,
+                modalTitle: '版本发布'
             }
         },
         created() {
@@ -110,7 +111,12 @@
                     this.groupName = res.name;
                 });
             },
-            openReleaseForm() {
+            openReleaseForm(release) {
+                this.modalTitle = "版本发布";
+                if (!!release) {
+                    this.releaseForm = {...release};
+                    this.modalTitle = "更新";
+                }
                 this.releaseFormShowStatus = true;
                 this.releaseForm.groupId = this.$route.params.groupId
             },
@@ -121,7 +127,6 @@
                 this.$refs.arrayForm.resetField();
             },
             htmlCode(value, render) {
-                console.log(render)
                 this.releaseForm.htmlContent = render;
             }
         }
