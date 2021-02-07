@@ -51,6 +51,9 @@ export default {
             subjectNum: '/api/nga/userSubjectNum',
             replyNum: '/api/nga/userReplyNum',
             replyList: '/api/nga/userReplyList'
+        },
+        stat: {
+            postNum: '/api/nga/stat/postNum'
         }
     },
     search: {

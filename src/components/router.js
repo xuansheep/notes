@@ -37,6 +37,7 @@ const router = new Router({
         {path: '/reply/:tid', component: () => import('../page/NgaReply.vue')},
         {path: '/user/:uid', component: () => import('../page/NgaUser.vue')},
         {path: '/userReply/:authorId', component: () => import('../page/NgaUserReply.vue')},
+        {path: '/stat', component: () => import('../page/NgaStat.vue')},
         {path: '/web', component: () => import('../page/Web.vue')},
         {path: '/calendar', component: () => import('../page/Calendar.vue')},
         {path: '/releaseGroup', component: () => import('../page/ReleaseGroup.vue')},
