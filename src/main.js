@@ -18,6 +18,9 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor);
 
+import * as echarts from 'echarts';
+Vue.prototype.$echarts = echarts;
+
 
 Vue.prototype.http = http;
 Vue.prototype.ports = ports;

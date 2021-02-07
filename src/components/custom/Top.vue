@@ -28,6 +28,7 @@
                     {name: 'person', title: '人物', link: '/person'},
                     {name: 'calendar', title: '日历', link: '/calendar'},
                     {name: 'releaseGroup', title: '版本管理', link: '/releaseGroup'},
+                    {name: 'stat', title: '统计', link: '/stat'},
                 ],
             }
         },
