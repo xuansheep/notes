@@ -192,7 +192,7 @@
 
         <!--书签内容-->
         <div class="content">
-            <Affix :offsetTop="40">
+            <Affix :offsetTop="35">
             <!--书签分类-->
             <div v-if="!headerOpenStatus">
                 <Card class="category-card">
