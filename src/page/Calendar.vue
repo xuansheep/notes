@@ -1,14 +1,15 @@
 <template>
-    <div style="width: 1024px; margin: auto">
+    <div class="calendar-background">
         <Top active="calendar"></Top>
-        <LoadingWarrior></LoadingWarrior>
-        <!--<a-calendar
-                @panelChange="onPanelChange"
-                @select="onSelect"
-        >
-            <template slot="dateCellRender" slot-scope="value"></template>
+        <a-calendar>
+            <ul slot="dateCellRender" slot-scope="value">
+                <div style="font-size: 14px; color: #a4a4a4">{{ getLunarDay(value) }}</div>
+                <li v-for="item in getDataForDay(value)" :key="item.title">
+                    <Badge  :status="item.type" :text="item.title" />
+                </li>
+            </ul>
             <template slot="monthCellRender" slot-scope="value"></template>
-        </a-calendar>-->
+        </a-calendar>
     </div>
 </template>
 
@@ -21,9 +22,51 @@
     import Top from "../components/custom/Top";
     import LoadingWarrior from "../components/custom/LoadingWarrior";
 
+    import '../assets/css/calendar.css'
+
     export default {
         name: "Calendar",
         components: {LoadingWarrior, Top},
+        data() {
+            return {
+                dataList: [
+                    {
+                        date: '2021-02-08',
+                        events: [
+                            { type: 'warning', title: 'xxx生日.' },
+                            { type: 'success', title: '今天要喝水.' },
+                        ]
+                    }
+                ]
+            }
+        },
+        created() {
+        },
+        methods: {
+            getDataForDay(day) {
+                //day(moment对象)
+                let formatDay = day.format('yyyy-MM-DD');
+                let resultList = [];
+                this.dataList.forEach(item => {
+                    if (item.date === formatDay) {
+                        console.log("match:",formatDay, item.events)
+                        resultList = item.events;
+                        return false;
+                    }
+                });
+                return resultList;
+            },
+            getLunarDay(day) {
+                let lunarDay = this.$solarLunar.solar2lunar(day.year(), day.month()+1, day.date());
+                if (lunarDay.isTerm) {
+                    return lunarDay.term;
+                }
+                if (lunarDay.dayCn === "初一") {
+                    return lunarDay.monthCn;
+                }
+                return lunarDay.dayCn;
+            }
+        }
     }
 </script>
 

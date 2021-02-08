@@ -61,7 +61,7 @@
                             smooth: true,
                             data: yAxisData,
                             itemStyle : {
-                                color:'#f8895c'
+                                color:'#f18970'
                             },
                         }]
                     });

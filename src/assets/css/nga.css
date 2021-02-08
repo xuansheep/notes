@@ -67,7 +67,7 @@
 }
 .icon-home:hover {
     color: #f1795c;
-    border: 1px solid #f8895c; border-radius: 25px;
+    border: 1px solid #f18970; border-radius: 25px;
 }
 
 .ft-search{
@@ -198,17 +198,17 @@
 }
 
 .search-highlight{
-    color: #f8895c;
+    color: #f18970;
 }
 
 .onlyLouButton{
-    color: #f8895c;
-    border-color: #f8895c;
+    color: #f18970;
+    border-color: #f18970;
 }
 
 .onlyImageButton{
-    color: #f8895c;
-    border-color: #f8895c;
+    color: #f18970;
+    border-color: #f18970;
 }
 
 /*user*/

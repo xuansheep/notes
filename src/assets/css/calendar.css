@@ -1,0 +1,7 @@
+.calendar-background {
+    height: 100%;
+    width: 1024px;
+    background-color: #ffffff;
+    margin: auto;
+    border-radius: 5px;
+}

@@ -6,25 +6,27 @@ import http from './components/http.js'
 import ports from './components/ports'
 import router from './components/router'
 import store from './components/store.js'
+import waterfall from 'vue-waterfall2'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+import * as echarts from 'echarts';
+import { Calendar } from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
+import solarLunar from 'solarlunar';
 
 import './assets/icon/iconfont.css'
 import './assets/css/iview-custom.css'
 
+
 Vue.use(ViewUI);
-
-import waterfall from 'vue-waterfall2'
-Vue.use(waterfall);
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
-Vue.use(mavonEditor);
-
-import * as echarts from 'echarts';
-Vue.prototype.$echarts = echarts;
-
-
 Vue.prototype.http = http;
 Vue.prototype.ports = ports;
 Vue.prototype.store = store;
+Vue.use(waterfall);
+Vue.use(mavonEditor);
+Vue.prototype.$echarts = echarts;
+Vue.use(Calendar);
+Vue.prototype.$solarLunar = solarLunar;
 
 Vue.prototype.getToken = () => {
   let user = JSON.parse(window.localStorage.getItem('user'));

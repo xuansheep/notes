@@ -107,7 +107,7 @@
         position: absolute;
         right: -7px;
         top: 45px;
-        color: #f8895c;
+        color: #f18970;
         background-color: #ffffff;
         z-index: 999;
     }

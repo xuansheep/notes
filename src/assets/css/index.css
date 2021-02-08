@@ -1,4 +1,8 @@
-/*主色调：#f8895c*/
+.main-color {
+    color: rgb(241, 121, 92);   /*#f1795c*/ /*主色调*/
+    color: rgb(241, 144, 128);  /*#f18970*/ /*浅*/
+    color: rgb(241, 100, 66);   /*#f16442*/ /*深*/
+}
 
 .background {
     height: 100%;
@@ -309,7 +313,7 @@
     color: black;
 }
 .card-mark-text:hover {
-    color: #f8895c;
+    color: #f18970;
 }
 .card-icon {
     position: absolute;
@@ -327,7 +331,7 @@
     display: block;
 }
 .card-note-text:hover {
-    color: #f8895c;
+    color: #f18970;
 }
 .card-note-title {
     font-size: 14px;
