@@ -1,6 +1,6 @@
 <template>
     <div style="text-align: center; ">
-        <div style="margin-top: 12%">
+        <div style="padding-top: 12%">
             <div>
                 <h1>NOTES</h1>
                 <!--<img style="height: 42px" src="../assets/image/logo2-2.png">-->
