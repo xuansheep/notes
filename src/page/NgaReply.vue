@@ -32,8 +32,10 @@
                     </div>
                     <p class="reply-text" v-html="data.content"></p>
                     <div style="height: 30px"></div>
-                    <div style="height: 26px;">
-                        <div class="reply-attach-icon" v-for="attach in data.attachList" @click="showAttach(attach)">显示附件</div>
+                    <div>
+                        <div style="width: 80%; position: relative">
+                            <div class="reply-attach-icon" v-for="attach in data.attachList" @click="showAttach(attach)">显示附件</div>
+                        </div>
                         <div class="reply-supplement">
                             <Tooltip placement="top-end">
                                 <div style="overflow: auto" slot="content" v-html="data.signature"></div>

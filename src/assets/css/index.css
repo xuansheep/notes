@@ -278,6 +278,11 @@
 #card-title-text {
     display: inline;
 }
+.card-mark-ellipsis {
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space: nowrap;
+}
 .card-mark-checkBox {
     position: absolute;
     left: -20px;

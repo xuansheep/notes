@@ -153,7 +153,7 @@
 }
 
 .reply-attach-icon{
-    float: left;
+
     cursor: pointer;
     display: inline-block;
     height: 22px;
@@ -191,6 +191,7 @@
 
 .reply-supplement{
     float: right;
+    margin-top: -20px;
 }
 
 .reply-supplement-signature{
