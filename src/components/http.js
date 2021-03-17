@@ -31,12 +31,12 @@ function handleParamsUpload(data) {
     return params;
 }
 
-function getToken (){
-    let user = JSON.parse(window.localStorage.getItem('user'));
-    if (!!user){
-        return user.token;
+function getBearer (){
+    let bearer = window.localStorage.getItem('bearer');
+    if (!!bearer) {
+        bearer = bearer;
     }
-    return '';
+    return bearer;
 }
 
 export default {
@@ -59,7 +59,7 @@ export default {
             transformRequest:[data => qs.stringify(data)],
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'token': getToken(),
+                'Authorization': getBearer()
             }
         }).then(
             (result) => {

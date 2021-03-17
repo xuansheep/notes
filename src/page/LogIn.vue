@@ -74,7 +74,7 @@
                 this.loading = true;
                 setTimeout(() => {
                     this.http.post(this.ports.user.signIn, this.form, res => {
-                        this.store.save('user',res);
+                        this.store.save('bearer', res);
                         this.http.post(this.ports.dataDict.list, {}, res => {
                             this.store.save('noteDict',res);
                         });

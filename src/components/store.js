@@ -8,7 +8,10 @@ export default{
         return result;
     },
     save(key,value){
-        window.localStorage.setItem(key,JSON.stringify(value))
+        if (typeof value !== "string" && typeof value !== "number") {
+            value = JSON.stringify(value);
+        }
+        window.localStorage.setItem(key, value)
     },
     remove(key){
         window.localStorage.removeItem(key)
