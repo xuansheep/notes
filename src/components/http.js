@@ -33,9 +33,6 @@ function handleParamsUpload(data) {
 
 function getBearer (){
     let bearer = window.localStorage.getItem('bearer');
-    if (!!bearer) {
-        bearer = bearer;
-    }
     return bearer;
 }
 
