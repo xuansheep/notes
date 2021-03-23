@@ -91,7 +91,7 @@ export default {
             timeout: TIME_OUT_MS,
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
-                'token': getToken(),
+                'Authorization': getBearer(),
             }
         }).then(
             (result) => {
