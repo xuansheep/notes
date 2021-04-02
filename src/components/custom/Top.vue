@@ -1,7 +1,7 @@
 <template>
     <div class="background-div">
         <Menu mode="horizontal" :active-name="active">
-            <MenuItem name="index" to="/">
+            <MenuItem name="index" to="/index">
                 <Icon type="ios-home" size="23" />
                 <span>首页</span>
             </MenuItem>
