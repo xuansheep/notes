@@ -408,7 +408,9 @@
                     this.pageLoad();
                     this.$Message.success('添加成功');
                     this.saveMarkLoading=false;
-                })
+                }, () => {
+                    this.saveMarkLoading=false;
+                });
             },
             listMark(card, span) {
                 if (card.colSpan === span) {
@@ -433,6 +435,8 @@
                         this.file = null;
                         this.pageLoad();
                         this.$Message.success('导入成功');
+                        this.importLoading = false;
+                    }, () => {
                         this.importLoading = false;
                     });
                 }, 1500);

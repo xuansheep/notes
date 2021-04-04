@@ -17,6 +17,8 @@ import solarLunar from 'solarlunar';
 import './assets/icon/iconfont.css'
 import './assets/css/iview-custom.css'
 
+import CryptoJS from "crypto-js";
+
 
 Vue.use(ViewUI);
 Vue.prototype.http = http;
@@ -89,6 +91,43 @@ Vue.prototype.proxyImage = (url) => {
     url = url.substring(0, url.indexOf("|"))
   }
   return http.serverUrl + "/proxy/file?url="+url;
+};
+
+// AES解密
+function aesDecrypt(word) {
+  if (!word) {
+    return word
+  }
+  let key = CryptoJS.enc.Utf8.parse('notes.xuanss.com');
+  let decrypt = CryptoJS.AES.decrypt(word, key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  });
+  return decrypt.toString(CryptoJS.enc.Utf8);
+}
+
+// 人物信息解密
+Vue.prototype.decryptPerson = (item) => {
+  item.name = aesDecrypt(item.name);
+  item.mobileNo = aesDecrypt(item.mobileNo);
+  item.idCard = aesDecrypt(item.idCard);
+  item.weChatId = aesDecrypt(item.weChatId);
+  item.weChatName = aesDecrypt(item.weChatName);
+  item.qqId = aesDecrypt(item.qqId);
+  item.qqName = aesDecrypt(item.qqName);
+  item.hometown = aesDecrypt(item.hometown);
+  item.hometownAddress = aesDecrypt(item.hometownAddress);
+  item.liveAddress = aesDecrypt(item.liveAddress);
+  item.personalEmail = aesDecrypt(item.personalEmail);
+  item.workEmail = aesDecrypt(item.workEmail);
+  item.avatar = aesDecrypt(item.avatar);
+  item.hobbyDescription = aesDecrypt(item.hobbyDescription);
+  item.graduatedSchool = aesDecrypt(item.graduatedSchool);
+  item.profession = aesDecrypt(item.profession);
+  item.professionDescription = aesDecrypt(item.professionDescription);
+  item.secondProfession = aesDecrypt(item.secondProfession);
+  item.secondProfessionDescription = aesDecrypt(item.secondProfessionDescription);
+  return item;
 };
 
 Vue.filter('formatDateMMddHHmmss', function (date) {

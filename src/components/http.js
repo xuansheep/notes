@@ -70,6 +70,7 @@ export default {
                         window.location.href = '/';
                         window.localStorage.removeItem('user');
                     }
+                    exception(result.data);
                 }
             }
         ).catch(
@@ -105,6 +106,7 @@ export default {
                         window.location.href = '/';
                         window.localStorage.removeItem('user');
                     }
+                    exception(result.data);
                 }
             }
         ).catch(
@@ -232,6 +234,7 @@ export default {
                     response(handleResults(result))
                 }else {
                     Message.error(result.data.message);
+                    exception(result.data);
                 }
             }
         ).catch(

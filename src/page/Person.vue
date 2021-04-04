@@ -335,7 +335,10 @@
                 this.scrollLoading = true;
                 this.http.post(this.ports.person.list, this.form, res => {
                     this.tableData = res.records;
-                    this.tableData.forEach(item => item.hoverStatus = false);
+                    this.tableData.forEach(item => {
+                        item = this.decryptPerson(item);
+                        item.hoverStatus = false;
+                    });
                     this.pageAdd();
                     this.scrollLoading = false;
                 });
@@ -348,7 +351,7 @@
             },
             openPersonDetail(personId){
                 this.http.post(this.ports.person.detail, {id: personId}, res => {
-                    this.personDetail = res;
+                    this.personDetail = this.decryptPerson(res);
                 });
                 this.detailWindowStatus = true;
             },

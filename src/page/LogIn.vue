@@ -112,4 +112,7 @@
         background-color: #fff;
         border-color: transparent;
     }
+    h1 {
+        font-weight: 700;
+    }
 </style>
