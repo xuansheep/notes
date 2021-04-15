@@ -9,6 +9,7 @@
 .release-content-div {
     min-height: 850px;
     padding: 16px;
+    text-align: center;
 }
 
 .release-header-div {
@@ -17,6 +18,7 @@
 }
 
 .release-header-group-name {
+    padding-top: 10px;
     font-weight: bold;
     font-size: 28px;
     text-align: center;
