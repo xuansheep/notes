@@ -1,10 +1,17 @@
 <template>
     <div class="nga-background">
-        <div>
+        <div style="padding: 0 16px">
             <Avatar :src="user.avatar" icon="ios-person" size="100" />
             <span class="user-username-span">{{user.username}}</span>
         </div>
-        <div style="height: 30px"></div>
+        <div style="height: 30px; padding: 0 16px">
+            <Affix :offset-top="20">
+            <p class="reply-lou">
+                <Button size="small" style="font-size: 12px" v-bind:class={onlyImageButton:form.onlyImageFlag}
+                        @click="onlyImage">只看图片</Button>
+            </p>
+            </Affix>
+        </div>
         <div class="user-reply-div">
             <div class="reply-list">
                 <List item-layout="vertical" :loading="loading">
@@ -103,6 +110,10 @@
             },
             pushSubjectReply(tid){
                 this.$router.push(`/reply/${tid}`);
+            },
+            onlyImage(){
+                this.form.onlyImageFlag = !this.form.onlyImageFlag;
+                this.replyList();
             },
         }
     }

@@ -1,6 +1,6 @@
 <template>
     <div class="nga-background">
-        <div>
+        <div style="padding: 0 16px">
             <Avatar :src="user.avatar" icon="ios-person" size="100" />
             <span class="user-username-span">{{user.username}}</span>
             <div class="user-card">
