@@ -83,6 +83,7 @@ export default {
             delete: '/api/release/group/delete'
         },
         save: '/api/release/save',
-        list: '/api/release/list'
+        list: '/api/release/list',
+        delete: '/api/release/delete'
     }
 }

@@ -8,7 +8,7 @@
                 <Button>新发布</Button>
             </div>
         </div>
-        <EventLine :data="tableData" @onUpdate="openReleaseForm" />
+        <EventLine :data="tableData" @onUpdate="openReleaseForm" @onDelete="deleteRelease" />
 
         <Modal v-model="releaseFormShowStatus" fullscreen :title="modalTitle" :on-cancel="closeReleaseForm">
             <div style="width: 80%; margin: auto">
@@ -43,7 +43,8 @@
             </div>
             <div slot="footer" style="text-align: center">
                 <Button style="margin-right: 5%" @click="closeReleaseForm" >取消</Button>
-                <Button type="primary" @click="saveRelease">保存</Button>
+                <Button v-if="!releaseForm.publishTime" @click="tempSaveRelease">暂存</Button>
+                <Button style="width: 100px" type="primary" @click="saveRelease">发布</Button>
             </div>
         </Modal>
     </div>
@@ -75,7 +76,8 @@
                     content: '',
                     htmlContent: '',
                     participant: [],
-                    remark: ''
+                    remark: '',
+                    temporaryFlag: false
                 },
                 releaseFormShowStatus: false,
                 modalTitle: '版本发布'
@@ -95,16 +97,25 @@
                     this.tableData = res.records;
                 });
             },
+            tempSaveRelease() {
+                this.releaseForm.temporaryFlag = true;
+                this.http.postJson(this.ports.release.save, this.releaseForm, res => {
+                    this.closeReleaseForm();
+                    this.getReleaseList();
+                    this.$Message.success("暂存成功");
+                })
+            },
             saveRelease() {
-                if (!!this.form.id) {
-
-                }else {
-                    this.http.postJson(this.ports.release.save, this.releaseForm, res => {
-                        this.closeReleaseForm();
-                        this.getReleaseList();
+                this.releaseForm.temporaryFlag = false;
+                this.http.postJson(this.ports.release.save, this.releaseForm, res => {
+                    this.closeReleaseForm();
+                    this.getReleaseList();
+                    if (!!this.form.id) {
                         this.$Message.success("创建成功");
-                    });
-                }
+                    }else {
+                        this.$Message.success("更新成功");
+                    }
+                });
             },
             getReleaseGroupDetail(id){
                 this.http.post(this.ports.release.group.detail, {id: id}, res => {
@@ -119,6 +130,18 @@
                 }
                 this.releaseFormShowStatus = true;
                 this.releaseForm.groupId = this.$route.params.groupId
+            },
+            deleteRelease(release) {
+                this.$Modal.confirm({
+                    title: '删除',
+                    content: '确定要删除版本吗？',
+                    onOk: () => {
+                        this.http.post(this.ports.release.delete, {id: release.id}, res => {
+                            this.$Message.success('删除成功');
+                            this.getReleaseList();
+                        })
+                    }
+                });
             },
             closeReleaseForm() {
                 this.releaseFormShowStatus = false;

@@ -12,6 +12,30 @@
     text-align: center;
 }
 
+.release-group-col {
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.release-group-delete-icon {
+    position: absolute;
+    top: 0;
+    right: 9px;
+    width: 22px;
+    height: 20px;
+    border-bottom-left-radius: 15px;
+    cursor: pointer;
+    transition: all 0.1s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.release-group-delete-icon:hover {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, .7);
+}
+
 .release-header-div {
     position: relative;
     height: 74px;

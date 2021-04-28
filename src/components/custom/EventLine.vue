@@ -3,12 +3,12 @@
         <div v-for="(item, index) in listData">
             <div class="left-div">
                 <div style="height: 20px"></div>
-                <div>
+                <div :style="{color: !item.publishTime ? '#a2a2a2' : ''}">
                     <Icon type="md-git-branch" size="16" />
                     <span> {{item.version}}</span>
                 </div>
                 <div class="left-div-flag">
-                    <Icon type="md-paw" size="1" />
+                    <Icon :style="{color: !item.publishTime ? '#a2a2a2' : ''}" type="md-paw" size="1" />
                 </div>
             </div>
             <div class="right-div" @mouseenter="enterRight(item, index)" @mouseleave="leaveRight(item, index)">
@@ -16,9 +16,10 @@
                     <p style="font-size: 22px">{{item.name}}</p>
                 </div>
                 <div class="event-line-time">
-                    <span>
+                    <span v-if="item.publishTime">
                         {{item.publisher}} 发布于 <Time :time="item.publishTime"></Time>
                     </span>
+                    <span v-else>编辑中...</span>
                 </div>
                 <div class="event-line-html-content">
                     <mavon-editor style="box-shadow: rgb(0 0 0) 0 0 0 0;" v-html="item.htmlContent"></mavon-editor>
@@ -34,6 +35,9 @@
                     </Panel>
                 </Collapse>
 
+                <div class="right-div-delete" v-if="item.hoverStatus" @click="deleteItem(item)">
+                    <Icon custom="iconfont icon-remove-1-copy" />
+                </div>
                 <div class="right-div-update" v-if="item.hoverStatus" @click="updateItem(item)">
                     <Icon custom="iconfont icon-bianji" />
                 </div>
@@ -81,6 +85,9 @@
             },
             updateItem(item) {
                 this.$emit('onUpdate', item)
+            },
+            deleteItem(item) {
+                this.$emit('onDelete', item)
             }
         }
     }
@@ -133,6 +140,20 @@
         -o-transition: all 0.5s; /* Opera */
     }
     .right-div-update:hover {
+        color: #000000;
+    }
+    .right-div-delete {
+        position: absolute;
+        right: 36px;
+        top: 24px;
+        cursor: pointer;
+        color: #c5cfe2;
+        transition: all 0.5s;
+        -moz-transition: all 0.5s; /* Firefox 4 */
+        -webkit-transition: all 0.5s; /* Safari and Chrome */
+        -o-transition: all 0.5s; /* Opera */
+    }
+    .right-div-delete:hover {
         color: #000000;
     }
     .event-line-html-content {
