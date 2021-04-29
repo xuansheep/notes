@@ -171,12 +171,7 @@
                     </div>
                 </template>
             </waterfall>
-            <div class="scroll-loading" :style="{paddingBottom: scrollLoadingHeight + 'px'}">
-                <Spin v-if="scrollLoading">
-                    <Icon type="ios-loading" size=18 class="demo-spin-icon-load"></Icon>
-                    <div>{{scrollLoadingText}}</div>
-                </Spin>
-            </div>
+            <Loading :bottom-height="scrollLoadingHeight" :loading="scrollLoading"></Loading>
         </div>
         <!--详情弹窗-->
         <Modal ref="detailModal" v-model="detailWindowStatus" :mask-closable="false" footer-hide width="800" @on-cancel="closePersonDetail">
@@ -230,10 +225,11 @@
     import '../assets/css/person.css'
     import CardLabel from "../components/custom/CardLabel";
     import Top from "../components/custom/Top";
+    import Loading from "../components/custom/Loading";
 
     export default {
         name: "Person",
-        components: {Top, CardLabel},
+        components: {Loading, Top, CardLabel},
         data(){
             return{
                 form:{
@@ -284,7 +280,6 @@
                 gutterWidth:24,
                 scrollLoading:false,
                 scrollLoadingHeight:0,
-                scrollLoadingText:"拼命加载中...",
 
                 avatarVisible: false,
 

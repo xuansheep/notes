@@ -2,19 +2,32 @@
     <div class="stat-background">
         <Top active="stat"></Top>
         <div class="stat-content">
-            <div>
+            <div style="height: 450px">
                 <p class="stat-title">NGA热词统计</p>
-                <CellGroup>
-                    <Cell v-for="(term, index) in topTermList" :title="term.word" :extra="term.count.toString()">
-                        <div style="width: 20px" slot="icon">
-                            <Icon v-if="index === 0" type="md-flame" color="#FF0000" size="20"></Icon>
-                            <Icon v-if="index === 1" type="md-flame" color="#FF5718" size="20"></Icon>
-                            <Icon v-if="index === 2" type="md-flame" color="#FFA53E" size="20"></Icon>
-                        </div>
-                    </Cell>
+                <CellGroup :loading="termLoading">
+                    <Row>
+                        <Col span="12">
+                            <Cell v-for="(term, index) in topTermList.slice(0, 10)" :title="term.word" :extra="term.count.toString()">
+                                <div style="width: 20px" slot="icon">
+                                    <Icon v-if="index === 0" type="md-flame" color="#FF0000" size="20"></Icon>
+                                    <Icon v-if="index === 1" type="md-flame" color="#FF5718" size="20"></Icon>
+                                    <Icon v-if="index === 2" type="md-flame" color="#FFA53E" size="20"></Icon>
+                                </div>
+                            </Cell>
+                        </Col>
+                        <Col span="12">
+                            <Cell v-for="(term, index) in topTermList.slice(10, 20)" :title="term.word" :extra="term.count.toString()">
+                                <div style="width: 20px" slot="icon"></div>
+                            </Cell>
+                        </Col>
+                    </Row>
+
                 </CellGroup>
+                <Loading :loading="termLoading"></Loading>
             </div>
-            <div id="postNumLineChart" style="height: 300px"></div>
+            <div id="postNumLineChart" style="height: 300px">
+                <Loading :loading="postNumLoading"></Loading>
+            </div>
         </div>
     </div>
 </template>
@@ -24,15 +37,18 @@
     import '../assets/css/stat.css'
     import LoadingWarrior from "../components/custom/LoadingWarrior";
     import Top from "../components/custom/Top";
+    import Loading from "../components/custom/Loading";
 
     export default {
         name: "NgaStat",
-        components: {Top, LoadingWarrior},
+        components: {Top, LoadingWarrior, Loading},
         data() {
             return {
                 statList: [],
                 topTermList: [],
-                lineChart: null
+                lineChart: null,
+                termLoading: false,
+                postNumLoading: false
             }
         },
         created() {
@@ -40,14 +56,18 @@
         },
         methods: {
             pageLoad() {
+                this.postNumLoading = true;
                 this.http.post(this.ports.nga.stat.postNum, {}, res => {
                     this.statList = res;
                     let xAxisData = this.statList.map(stat => stat.axisX.substring(3));
                     let yAxisData = this.statList.map(stat => stat.postNum);
                     this.initPostNumLineChart(xAxisData, yAxisData);
+                    this.postNumLoading = false;
                 });
-                this.http.post(this.ports.nga.stat.topTerms, {size: 10}, res => {
+                this.termLoading = true;
+                this.http.post(this.ports.nga.stat.topTerms, {size: 20}, res => {
                     this.topTermList = res;
+                    this.termLoading = false;
                 });
             },
             initPostNumLineChart(xAxisData, yAxisData) {

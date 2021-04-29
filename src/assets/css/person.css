@@ -135,29 +135,6 @@
     margin-bottom: 12px;
 }
 
-.scroll-loading {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    background-image: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.4), rgba(255,255,255,0.9));
-    transition: all 0.5s;
-    -moz-transition: all 0.5s; /* Firefox 4 */
-    -webkit-transition: all 0.5s; /* Safari and Chrome */
-    -o-transition: all 0.5s; /* Opera */
-}
-
-.scroll-loading .ivu-spin {
-    color: #f1795c;
-    vertical-align: middle;
-    text-align: center;
-    margin-top: 10%;
-}
-
-.demo-spin-icon-load{
-    animation: ani-demo-spin 1s linear infinite;
-}
-
 /*iviewUI*/
 
 .person-background .ivu-scroll-container {
