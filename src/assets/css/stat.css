@@ -9,3 +9,9 @@
 .stat-content {
     padding: 16px;
 }
+
+.stat-title {
+    font-size: 19px;
+    font-weight: bold;
+    color: #464646;
+}

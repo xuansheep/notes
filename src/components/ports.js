@@ -53,7 +53,8 @@ export default {
             replyList: '/api/nga/userReplyList'
         },
         stat: {
-            postNum: '/api/nga/stat/postNum'
+            postNum: '/api/nga/stat/postNum',
+            topTerms: '/api/search/topTerms'
         }
     },
     search: {
