@@ -2,8 +2,12 @@
     <div class="stat-background">
         <Top active="stat"></Top>
         <div class="stat-content">
-            <div style="height: 450px">
+            <div style="height: 500px">
                 <p class="stat-title">NGA热词统计</p>
+                <div style="margin: 10px 0; text-align: right">
+                    <DatePicker style="width: 240px" :value="dateRange" @on-change="selectDate" split-panels type="daterange" placement="bottom-end" placeholder="Select date"></DatePicker>
+                    <Button style="margin-left: 10px" @click="getTopTermList">查询</Button>
+                </div>
                 <CellGroup :loading="termLoading">
                     <Row>
                         <Col span="12">
@@ -44,6 +48,12 @@
         components: {Top, LoadingWarrior, Loading},
         data() {
             return {
+                topTermForm: {
+                    startTime: null,
+                    endTime: null,
+                    size: 20
+                },
+                dateRange: [],
                 statList: [],
                 topTermList: [],
                 lineChart: null,
@@ -64,11 +74,7 @@
                     this.initPostNumLineChart(xAxisData, yAxisData);
                     this.postNumLoading = false;
                 });
-                this.termLoading = true;
-                this.http.post(this.ports.nga.stat.topTerms, {size: 20}, res => {
-                    this.topTermList = res;
-                    this.termLoading = false;
-                });
+                this.getTopTermList();
             },
             initPostNumLineChart(xAxisData, yAxisData) {
                 let newPromise = new Promise((resolve) => {
@@ -102,6 +108,17 @@
                         }]
                     });
                 })
+            },
+            getTopTermList() {
+                this.termLoading = true;
+                this.http.post(this.ports.nga.stat.topTerms, this.topTermForm, res => {
+                    this.topTermList = res;
+                    this.termLoading = false;
+                });
+            },
+            selectDate(dateRange) {
+                this.topTermForm.startTime = dateRange[0];
+                this.topTermForm.endTime = dateRange[1];
             }
         }
     }
