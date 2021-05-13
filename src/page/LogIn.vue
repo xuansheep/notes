@@ -1,5 +1,5 @@
 <template>
-    <div style="text-align: center; ">
+    <div style="text-align: center;">
         <div style="padding-top: 12%">
             <div>
                 <h1>NOTES</h1>
@@ -16,6 +16,12 @@
                     <Button :loading="loading" type="text" slot="suffix" icon="md-arrow-round-forward" @click="singIn"  />
                 </Input>
             </div>
+        </div>
+        <div style="position: absolute; bottom: 0; padding-bottom: 10px; width: 100%;">
+            <span style="color: #ffffff">© 2021 Corgier</span>
+            <span style="margin-left: 10px">
+                <a style="color: #ffffff" target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">赣ICP备18004152号</a>
+            </span>
         </div>
     </div>
 </template>
@@ -91,6 +97,9 @@
 </script>
 
 <style scoped>
+    body {
+        position:relative;
+    }
     .ivu-btn:focus {
          box-shadow: 0 0 0 0 rgba(45,140,240,.2);
     }
