@@ -25,7 +25,6 @@
                             </Cell>
                         </Col>
                     </Row>
-
                 </CellGroup>
                 <Loading :loading="termLoading"></Loading>
             </div>
@@ -110,6 +109,7 @@
                 })
             },
             getTopTermList() {
+                this.topTermList = [];
                 this.termLoading = true;
                 this.http.post(this.ports.nga.stat.topTerms, this.topTermForm, res => {
                     this.topTermList = res;
