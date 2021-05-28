@@ -80,6 +80,9 @@ export default {
                 } else {
                     console.log(error)
                 }
+                if (error.response.status === 502) {
+                    Message.error('无法连接到服务器~');
+                }
             }
         )
     },
