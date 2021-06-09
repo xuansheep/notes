@@ -11,7 +11,7 @@
                 <CellGroup :loading="termLoading">
                     <Row>
                         <Col span="12">
-                            <Cell v-for="(term, index) in topTermList.slice(0, 10)" :title="term.word" :extra="term.count.toString()">
+                            <Cell v-for="(term, index) in topTermList.slice(0, 10)" :title="term.word" :extra="term.count.toString()" :to="'/nga?word=' + term.word">
                                 <div style="width: 20px" slot="icon">
                                     <Icon v-if="index === 0" type="md-flame" color="#FF0000" size="20"></Icon>
                                     <Icon v-if="index === 1" type="md-flame" color="#FF5718" size="20"></Icon>
@@ -20,7 +20,7 @@
                             </Cell>
                         </Col>
                         <Col span="12">
-                            <Cell v-for="(term, index) in topTermList.slice(10, 20)" :title="term.word" :extra="term.count.toString()">
+                            <Cell v-for="(term, index) in topTermList.slice(10, 20)" :title="term.word" :extra="term.count.toString()" :to="'/nga?word=' + term.word">
                                 <div style="width: 20px" slot="icon"></div>
                             </Cell>
                         </Col>

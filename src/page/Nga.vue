@@ -103,6 +103,9 @@
             this.form.subject = this.$route.query.subject;
             this.form.author = this.$route.query.author;
             this.form.word = this.$route.query.word;
+            if (!!this.form.word) {
+                this.fullTextSearch = true;
+            }
             this.pageLoad();
             this.sectionList();
         },
