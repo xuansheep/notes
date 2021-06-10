@@ -38,7 +38,9 @@ export default {
     nga: {
         subject: {
             list: '/api/nga/subjectList',
-            detail: '/api/nga/subjectDetail'
+            detail: '/api/nga/subjectDetail',
+            favorite: '/api/nga/subject/favorite',
+            cancelFavorite: '/api/nga/subject/cancelFavorite'
         },
         reply: {
             list: '/api/nga/replyList'

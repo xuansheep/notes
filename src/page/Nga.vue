@@ -16,7 +16,12 @@
                    v-model="form.word" @on-search="handleChange" @on-focus="focusFtSearch" />
         </div>
         <div>
-            <Table :loading="loading" :columns="columns" :data="tableDate" @on-row-click="pushReply" @on-sort-change="dataSort"></Table>
+            <Table :loading="loading" :columns="columns" :data="tableDate" @on-cell-click="pushReply" @on-sort-change="dataSort">
+                <template slot-scope="{ row, index }" slot="action">
+                    <Icon v-if="!row.favoriteFlag" class="icon-favorite" type="md-star-outline" @click="favorite(row, index)" />
+                    <Icon v-else class="icon-favorite" type="md-star" @click="favorite(row, index)" />
+                </template>
+            </Table>
         </div>
         <div class="pagination">
             <Page :total="totalSize" :current="form.page" :page-size="form.size" :page-size-opts="pageSizeOpts"
@@ -75,7 +80,7 @@
                         title:"回复数", key:"replyNum", className:"row-background", sortable:'custom', sortType:this.getSort('replyNum'), width:100
                     },
                     {
-                        width:100
+                        key: 'action', slot: 'action', width: 100
                     },
                 ],
                 loading:false,
@@ -179,8 +184,10 @@
             //
             //     return paramsArr.join('&')
             // },
-            pushReply(row){
-                this.$router.push(`/reply/${row.tid}`);
+            pushReply(row, column, data, event){
+                if (column.key !== 'action') {
+                    this.$router.push(`/reply/${row.tid}`);
+                }
             },
             resetQuery(){
                 this.form={};
@@ -223,6 +230,23 @@
             },
             blurFtSearch(){
                 this.fullTextSearch = false;
+            },
+            favorite(row, index) {
+                console.log(row)
+                if (row.favoriteFlag) {
+                    this.http.post(this.ports.nga.subject.cancelFavorite, {favoriteId: row.id}, res => {
+                        this.$Message.warning('已取消收藏');
+                        row.favoriteFlag = false;
+                        this.$set(this.tableDate, index, row);
+                    });
+                }else {
+                    this.http.post(this.ports.nga.subject.favorite, {favoriteId: row.id}, res => {
+                        this.$Message.success('已收藏');
+                        row.favoriteFlag = true;
+                        this.$set(this.tableDate, index, row);
+                    });
+                }
+
             }
         }
     }

@@ -70,6 +70,19 @@
     border: 1px solid #f18970; border-radius: 25px;
 }
 
+.icon-favorite {
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.icon-favorite:hover {
+
+}
+
 .ft-search{
     width: 92px;
     position: absolute;
