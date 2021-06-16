@@ -15,6 +15,10 @@
             <Input class="ft-search" v-bind:class={ftSearchOpen:fullTextSearch} search placeholder="Full text search..."
                    v-model="form.word" @on-search="handleChange" @on-focus="focusFtSearch" />
         </div>
+        <div class="filter">
+            <span :style="{fontWeight: form.favoriteFlag ? 'bold' : '', color: form.favoriteFlag ? '#f1795c' : ''}"
+             @click="showFavorite">我的收藏</span>
+        </div>
         <div>
             <Table :loading="loading" :columns="columns" :data="tableDate" @on-cell-click="pushReply" @on-sort-change="dataSort">
                 <template slot-scope="{ row, index }" slot="action">
@@ -41,14 +45,15 @@
         data() {
             return{
                 form: {
-                    page:1,
-                    size:15,
-                    subject:null,
-                    author:null,
-                    word:null,
-                    fid:null,
-                    sortField:null,
-                    sort:null,
+                    page: 1,
+                    size: 15,
+                    subject: null,
+                    author: null,
+                    word: null,
+                    fid: null,
+                    sortField: null,
+                    sort: null,
+                    favoriteFlag: false
                 },
                 columns:[
                     {
@@ -108,6 +113,7 @@
             this.form.subject = this.$route.query.subject;
             this.form.author = this.$route.query.author;
             this.form.word = this.$route.query.word;
+            this.form.favoriteFlag = JSON.parse(this.$route.query.favoriteFlag);
             if (!!this.form.word) {
                 this.fullTextSearch = true;
             }
@@ -199,9 +205,10 @@
                         subject: null,
                         author: null,
                         word: null,
-                        fid:null,
-                        sortField:null,
-                        sort:null
+                        fid: null,
+                        sortField: null,
+                        sort: null,
+                        favoriteFlag: null
                     }
                 });
             },
@@ -247,6 +254,17 @@
                     });
                 }
 
+            },
+            showFavorite() {
+                this.form.favoriteFlag = !this.form.favoriteFlag;
+                this.$router.push({
+                    path: `/nga`,
+                    query: {
+                        ...this.$route.query,
+                        page: 1,
+                        favoriteFlag: this.form.favoriteFlag,
+                    }
+                });
             }
         }
     }
