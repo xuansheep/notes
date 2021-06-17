@@ -22,6 +22,7 @@
             <span style="margin-left: 10px">
                 <a style="color: #ffffff" target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index">赣ICP备18004152号</a>
             </span>
+            <span id="colorName" style="color: #ffffff"> - 你好</span>
         </div>
     </div>
 </template>
@@ -37,26 +38,25 @@
                     passWord:'',
                 },
                 loading: false,
+                colorName: ''
             }
         },
         beforeCreate () {
             let backgroundColor = [
-                '135deg, #C2FFD8 20%, #465EFB 100%',
-                '135deg, #ABDCFF 20%, #0396FF 100%',
-                '135deg, #90F7EC 20%, #32CCBC 100%',
-                '135deg, #FFF6B7 20%, #F6416C 100%',
-                '135deg, #FFD26F 20%, #3677FF 100%',
-                '135deg, #FAD7A1 20%, #E96D71 100%',
-                '135deg, #F1CA74 20%, #A64DB6 100%',
-                '135deg, #FFF886 20%, #F072B6 100%',
-                '135deg, #FFD3A5 20%, #FD6585 100%',
-                '135deg, #81FFEF 20%, #F067B4 100%',
-                '135deg, #FFF5C3 20%, #9452A5 100%'
+                {color: '135deg, #FFF5C3 20%, #9452A5 100%', name: '软糖'},
+                {color: '135deg, #C2FFD8 20%, #465EFB 100%', name: '海岸'},
+                {color: '135deg, #FFD26F 20%, #3677FF 100%', name: '工业'},
+                {color: '135deg, #FAD7A1 20%, #E96D71 100%', name: '枫叶'},
+                {color: '135deg, #F1CA74 20%, #A64DB6 100%', name: '浓妆'},
+                {color: '135deg, #81FFEF 20%, #F067B4 100%', name: '颜料'},
             ];
             let r = Math.floor(Math.random() * backgroundColor.length);
             console.log("1.", backgroundColor[r]);
             document.querySelector('html').setAttribute('style', 'height: 100%');
-            document.querySelector('body').setAttribute('style', 'background: linear-gradient('+backgroundColor[r]+')');
+            document.querySelector('body').setAttribute('style', 'background: linear-gradient('+backgroundColor[r].color+')');
+            this.$nextTick(() => {
+                document.getElementById('colorName').innerText = ' - ' + backgroundColor[r].name;
+            })
         },
         beforeDestroy () {
             document.querySelector('body').setAttribute('style', '')
