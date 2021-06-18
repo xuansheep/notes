@@ -20,10 +20,14 @@
              @click="showFavorite">我的收藏</span>
         </div>
         <div>
-            <Table :loading="loading" :columns="columns" :data="tableDate" @on-cell-click="pushReply" @on-sort-change="dataSort">
+            <Table :loading="loading" :columns="columns" :data="tableDate" context-menu show-context-menu
+                   @on-cell-click="pushReply" @on-sort-change="dataSort" @on-contextmenu="handleContextMenu">
                 <template slot-scope="{ row, index }" slot="action">
                     <Icon v-if="!row.favoriteFlag" class="icon-favorite" type="md-star-outline" @click="favorite(row, index)" />
                     <Icon v-else class="icon-favorite" type="md-star" @click="favorite(row, index)" />
+                </template>
+                <template slot="contextMenu">
+                    <DropdownItem @click.native="openReply">新标签页打开</DropdownItem>
                 </template>
             </Table>
         </div>
@@ -88,12 +92,13 @@
                         key: 'action', slot: 'action', width: 100
                     },
                 ],
-                loading:false,
-                sections:[],
-                tableDate:[],
-                totalSize:0,
-                pageSizeOpts:[10, 15, 20, 30],
-                fullTextSearch:false
+                loading: false,
+                sections: [],
+                tableDate: [],
+                totalSize: 0,
+                pageSizeOpts: [10, 15, 20, 30],
+                fullTextSearch: false,
+                contextMenuTid: ''
             }
         },
         created() {
@@ -265,6 +270,12 @@
                         favoriteFlag: this.form.favoriteFlag,
                     }
                 });
+            },
+            handleContextMenu(row) {
+                this.contextMenuTid = row.tid;
+            },
+            openReply() {
+                window.open(`/#/reply/${this.contextMenuTid}`);
             }
         }
     }
