@@ -48,7 +48,10 @@
                 {color: '135deg, #FFD26F 20%, #3677FF 100%', name: '工业'},
                 {color: '135deg, #FAD7A1 20%, #E96D71 100%', name: '枫叶'},
                 {color: '135deg, #F1CA74 20%, #A64DB6 100%', name: '浓妆'},
-                {color: '135deg, #81FFEF 20%, #F067B4 100%', name: '颜料'},
+                {color: '135deg, #81FFEF 20%, #F067B4 100%', name: '幻境'},
+                {color: '135deg, #bdc3c7 20%, #2c3e50 100%', name: '夜幕'},
+                {color: '135deg, #ee9ca7 20%, #ffdde1 100%', name: '少女'},
+                {color: '135deg, #1c92d2 20%, #f2fcfe 100%', name: '天空'},
             ];
             let r = Math.floor(Math.random() * backgroundColor.length);
             console.log("1.", backgroundColor[r]);
