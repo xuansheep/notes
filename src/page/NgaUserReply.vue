@@ -106,7 +106,7 @@
                 });
             },
             showAttach(attach){
-                open("https://img.nga.178.com/attachments/"+attach.attachurl)
+                open(this.proxyImage("https://img.nga.178.com/attachments/"+attach.attachurl))
             },
             pushSubjectReply(tid){
                 this.$router.push(`/reply/${tid}`);
