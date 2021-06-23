@@ -93,6 +93,19 @@ Vue.prototype.proxyImage = (url) => {
   return http.serverUrl + "/proxy/file?url="+url;
 };
 
+// AES加密
+function aesEncrypt(word) {
+    if (!word) {
+        return word
+    }
+    let key = CryptoJS.enc.Utf8.parse('notes.xuanss.com');
+    let encrypt = CryptoJS.AES.encrypt(word, key, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    return btoa(encrypt.ciphertext.toString());
+}
+
 // AES解密
 function aesDecrypt(word) {
   if (!word) {
@@ -106,27 +119,36 @@ function aesDecrypt(word) {
   return decrypt.toString(CryptoJS.enc.Utf8);
 }
 
-// 人物信息解密
-Vue.prototype.decryptPerson = (item) => {
-  item.name = aesDecrypt(item.name);
-  item.mobileNo = aesDecrypt(item.mobileNo);
-  item.idCard = aesDecrypt(item.idCard);
-  item.weChatId = aesDecrypt(item.weChatId);
-  item.weChatName = aesDecrypt(item.weChatName);
-  item.qqId = aesDecrypt(item.qqId);
-  item.qqName = aesDecrypt(item.qqName);
-  item.hometown = aesDecrypt(item.hometown);
-  item.hometownAddress = aesDecrypt(item.hometownAddress);
-  item.liveAddress = aesDecrypt(item.liveAddress);
-  item.personalEmail = aesDecrypt(item.personalEmail);
-  item.workEmail = aesDecrypt(item.workEmail);
-  item.avatar = aesDecrypt(item.avatar);
-  item.hobbyDescription = aesDecrypt(item.hobbyDescription);
-  item.graduatedSchool = aesDecrypt(item.graduatedSchool);
-  item.profession = aesDecrypt(item.profession);
-  item.professionDescription = aesDecrypt(item.professionDescription);
-  item.secondProfession = aesDecrypt(item.secondProfession);
-  item.secondProfessionDescription = aesDecrypt(item.secondProfessionDescription);
+function aesCipher(word, action) {
+    if (action === 'encrypt') {
+        return aesEncrypt(word);
+    }
+    if (action === 'decrypt') {
+        return aesDecrypt(word);
+    }
+}
+
+// 人物信息加解密
+Vue.prototype.aesCipherPerson = (item, action) => {
+  item.name = aesCipher(item.name, action);
+  item.mobileNo = aesCipher(item.mobileNo, action);
+  item.idCard = aesCipher(item.idCard, action);
+  item.weChatId = aesCipher(item.weChatId, action);
+  item.weChatName = aesCipher(item.weChatName, action);
+  item.qqId = aesCipher(item.qqId, action);
+  item.qqName = aesCipher(item.qqName, action);
+  item.hometown = aesCipher(item.hometown, action);
+  item.hometownAddress = aesCipher(item.hometownAddress, action);
+  item.liveAddress = aesCipher(item.liveAddress, action);
+  item.personalEmail = aesCipher(item.personalEmail, action);
+  item.workEmail = aesCipher(item.workEmail, action);
+  item.avatar = aesCipher(item.avatar, action);
+  item.hobbyDescription = aesCipher(item.hobbyDescription, action);
+  item.graduatedSchool = aesCipher(item.graduatedSchool, action);
+  item.profession = aesCipher(item.profession, action);
+  item.professionDescription = aesCipher(item.professionDescription, action);
+  item.secondProfession = aesCipher(item.secondProfession, action);
+  item.secondProfessionDescription = aesCipher(item.secondProfessionDescription, action);
   return item;
 };
 

@@ -310,7 +310,8 @@
                     this.$Message.error("请输入姓名");
                     return;
                 }
-                this.http.post(this.ports.person.save, this.personForm, res => {
+                let item = {...this.personForm};
+                this.http.post(this.ports.person.save, this.aesCipherPerson(item, 'encrypt'), res => {
                     this.resetFormPage();
                     this.getPersonList();
                     this.personWindowStatus = false;
@@ -320,7 +321,8 @@
             },
             updatePerson(fieldName, value){
                 this.$set(this.personDetail, fieldName, value);
-                this.http.post(this.ports.person.update, this.personDetail, res => {
+                let item = {...this.personDetail};
+                this.http.post(this.ports.person.update, this.aesCipherPerson(item, 'encrypt'), res => {
                     this.$Message.success("修改成功");
                     this.resetFormPage();
                     this.getPersonList();
@@ -331,7 +333,7 @@
                 this.http.post(this.ports.person.list, this.form, res => {
                     this.tableData = res.records;
                     this.tableData.forEach(item => {
-                        item = this.decryptPerson(item);
+                        item = this.aesCipherPerson(item, 'decrypt');
                         item.hoverStatus = false;
                     });
                     this.pageAdd();
@@ -346,7 +348,7 @@
             },
             openPersonDetail(personId){
                 this.http.post(this.ports.person.detail, {id: personId}, res => {
-                    this.personDetail = this.decryptPerson(res);
+                    this.personDetail = this.aesCipherPerson(res, 'decrypt');
                 });
                 this.detailWindowStatus = true;
             },
@@ -385,6 +387,7 @@
                 }
                 this.passwordLoading = true;
                 this.http.post(this.ports.person.show, {id: this.currentPersonId, personPassword: this.password}, res => {
+                    this.aesCipherPerson(res, 'decrypt');
                     this.$set(this.tableData, this.currentPersonIndex, res);
                     this.passwordWindowStatus = false;
                 }, this.resetPasswordWindow());
