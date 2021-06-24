@@ -291,16 +291,31 @@
     position: absolute;
     right: 76px;
     cursor: pointer;
+    color: #969896;
+    transition: all 0.2s;
+    -moz-transition: all 0.2s; /* Firefox 4 */
+    -webkit-transition: all 0.2s; /* Safari and Chrome */
+    -o-transition: all 0.2s; /* Opera */
 }
 .card-title-icon2 {
     position: absolute;
     right: 46px;
     cursor: pointer;
+    color: #969896;
+    transition: all 0.2s;
+    -moz-transition: all 0.2s; /* Firefox 4 */
+    -webkit-transition: all 0.2s; /* Safari and Chrome */
+    -o-transition: all 0.2s; /* Opera */
 }
 .card-title-icon3 {
     position: absolute;
     right: 16px;
     cursor: pointer;
+    color: #969896;
+    transition: all 0.2s;
+    -moz-transition: all 0.2s; /* Firefox 4 */
+    -webkit-transition: all 0.2s; /* Safari and Chrome */
+    -o-transition: all 0.2s; /* Opera */
 }
 .card-title-icon1:hover, .card-title-icon2:hover, .card-title-icon3:hover {
     color: black;

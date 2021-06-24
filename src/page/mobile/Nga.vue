@@ -173,7 +173,7 @@
                         word: null,
                         fid:null,
                         sortField:null,
-                        sort:null
+                        sortValue:null
                     }
                 });
             },
@@ -183,7 +183,7 @@
                     query: {
                         ...this.$route.query,
                         sortField: column.key,
-                        sort: column.order
+                        sortValue: column.order
                     }
                 });
             },
@@ -194,7 +194,7 @@
             },
             getSort(key){
                 if (this.$route.query.sortField === key){
-                    return this.$route.query.sort;
+                    return this.$route.query.sortValue;
                 }
             },
             focusFtSearch(){

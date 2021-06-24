@@ -7,79 +7,80 @@
   url('iconfont.svg?t=1560310304515#iconfont') format('svg'); /* iOS 4.1- */
 }
 
-@font-face {
-  font-family: 'iconfont';  /* project id 2300210 */
-  src: url('//at.alicdn.com/t/font_2300210_lnp3uqg6n9a.eot');
-  src: url('//at.alicdn.com/t/font_2300210_lnp3uqg6n9a.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_2300210_lnp3uqg6n9a.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_2300210_lnp3uqg6n9a.woff') format('woff'),
-  url('//at.alicdn.com/t/font_2300210_lnp3uqg6n9a.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_2300210_lnp3uqg6n9a.svg#iconfont') format('svg');
-}
-
-.iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .icon-daoru:before {
-  content: "\e639";
+    content: "\e639";
 }
 
 .icon-remove-1-copy:before {
-  content: "\e61b";
+    content: "\e61b";
 }
 
 .icon-iconfontzhizuobiaozhun0247:before {
-  content: "\e6a3";
+    content: "\e6a3";
 }
 
 .icon-shanchu:before {
-  content: "\e653";
+    content: "\e653";
 }
 
 .icon-xinzeng:before {
-  content: "\e689";
+    content: "\e689";
 }
 
 .icon-liebiao:before {
-  content: "\e659";
+    content: "\e659";
 }
 
 .icon-liebiao1:before {
-  content: "\e602";
+    content: "\e602";
 }
 
-/**/
+
+
+@font-face {
+    font-family: "iconfont"; /* Project id 2300210 */
+    src: url('//at.alicdn.com/t/font_2300210_egtg9mn8qva.woff2?t=1624503164850') format('woff2'),
+    url('//at.alicdn.com/t/font_2300210_egtg9mn8qva.woff?t=1624503164850') format('woff'),
+    url('//at.alicdn.com/t/font_2300210_egtg9mn8qva.ttf?t=1624503164850') format('truetype');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shangyi:before {
+    content: "\e87b";
+}
 
 .icon-icon:before {
-  content: "\e61c";
+    content: "\e61c";
 }
 
 .icon-yanjing:before {
-  content: "\e6cc";
+    content: "\e6cc";
 }
 
 .icon-yanjing1:before {
-  content: "\e6d1";
+    content: "\e6d1";
 }
 
 .icon-dengchu:before {
-  content: "\e79c";
+    content: "\e79c";
 }
 
 .icon-gengduo:before {
-  content: "\e617";
+    content: "\e617";
 }
 
 .icon-chakan-copy:before {
-  content: "\e62b";
+    content: "\e62b";
 }
 
 .icon-bianji:before {
-  content: "\e601";
+    content: "\e601";
 }
 

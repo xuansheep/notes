@@ -11,6 +11,7 @@ export default {
         list: '/api/category/list',
         delete: '/api/category/delete',
         save: '/api/category/save',
+        upgradeSort: '/api/category/upgradeSort'
     },
     mark: {
         save: '/api/mark/save',

@@ -199,7 +199,8 @@
                     <div class="category-list">
                         <Tag class="category-tag" v-for="(category, index) in markCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
                             <span class="category-tag-span" v-if="!category.inputStatus" @click="updateCategory(category, index)"
-                                  @dragover.prevent="handleDragOver($event, category)" @dragenter="handleDragEnter($event, category)">
+                                  @dragover.prevent="handleDragOver($event, category)" @dragenter="handleDragEnter($event, category)"
+                                  draggable="true" @dragstart="handleCategoryDragStart($event, category)" @dragend="handleCategoryDragEnd($event)">
                                 {{category.name}}
                             </span>
                             <Input :id="'c_'+index" v-if="category.inputStatus" v-model="categoryForm.name"
@@ -278,9 +279,6 @@
                                                draggable="true"
                                                @dragstart="handleDragStart($event, mark)"
                                                @dragend="handleDragEnd($event)">
-                                                <!--<span v-if="card.colSpan===4">{{mark.name|omitText4}}</span>
-                                                <span v-if="card.colSpan===8">{{mark.name|omitText8}}</span>
-                                                <span v-if="card.colSpan===24">{{mark.name|omitText24}}</span>-->
                                                 <span  v-if="card.colSpan===4">{{mark.name}}</span>
                                                 <span v-if="card.colSpan===8">{{mark.name}}</span>
                                                 <span v-if="card.colSpan===24">{{mark.name}}</span>
@@ -368,31 +366,39 @@
         },
         methods: {
             pageLoad() {
+                this.getCardList();
+                this.getMarkCategoryList();
+            },
+            getCardList() {
                 this.http.post(this.ports.mark.listIndex, this.listParams, res => {
                     this.cardList = res;
                     for (let c of this.cardList) {
                         c.colSpan = 24;
                     }
                 });
-                this.getCategoryList(2);
             },
             flushNoteData() {
-                this.getCategoryList(1);
+                this.getNoteCategoryList();
                 this.getNoteList();
             },
-            getCategoryList(type){
+            getMarkCategoryList() {
                 let params = {
                     page: 1,
                     size: 999,
-                    type: type,
+                    type: 2,
                 };
                 this.http.post(this.ports.category.list, params, res => {
-                    if (type === 1){
-                        this.noteCategoryList = res.records;
-                    }
-                    if (type === 2){
-                        this.markCategoryList = res.records;
-                    }
+                    this.markCategoryList = res.records;
+                });
+            },
+            getNoteCategoryList() {
+                let params = {
+                    page: 1,
+                    size: 999,
+                    type: 1,
+                };
+                this.http.post(this.ports.category.list, params, res => {
+                    this.noteCategoryList = res.records;
                 });
             },
             saveMark() {
@@ -629,17 +635,40 @@
             closeTip() {
                 this.tipText = '';
             },
+            upgradeSort(card) {
+                let params = {
+                    id: card.categoryId
+                };
+                this.http.post(this.ports.category.upgradeSort, params, res => {
+                    this.pageLoad();
+                })
+            },
 
             /***可拖放***/
             handleDragStart(e, item) {
-                this.dragging = item;
+                this.dragging = {...item};
+                this.dragging.dragType = 'bookmark';
             },
             handleDragEnd(e) {
                 if (e.dataTransfer.dropEffect === 'none'){
                     return;
                 }
                 this.http.post(this.ports.mark.save, this.dragging, res => {
-                    this.pageLoad();
+                    this.getCardList();
+                });
+                this.dragging = null;
+            },
+            handleCategoryDragStart(e, item) {
+                this.dragging = {...item};
+                this.dragging.dragType = 'category';
+            },
+            handleCategoryDragEnd(e) {
+                if (e.dataTransfer.dropEffect === 'none'){
+                    return;
+                }
+                this.http.post(this.ports.category.upgradeSort, this.dragging, res => {
+                    this.getCardList();
+                    this.getMarkCategoryList();
                 });
                 this.dragging = null;
             },
@@ -647,8 +676,14 @@
                 e.preventDefault();
             },
             handleDragEnter(e, item) {
-                if (this.dragging) {
+                if (!this.dragging) {
+                    return;
+                }
+                if (this.dragging.dragType === 'bookmark') {
                     this.dragging.categoryId = item.id;
+                }
+                if (this.dragging.dragType === 'category') {
+                    this.dragging.sort = item.sort;
                 }
             },
             /***可拖放***/
