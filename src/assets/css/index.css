@@ -260,6 +260,10 @@
 }
 .category-tag {
     height: auto;
+    transition: all 0.2s;
+    -moz-transition: all 0.2s; /* Firefox 4 */
+    -webkit-transition: all 0.2s; /* Safari and Chrome */
+    -o-transition: all 0.2s; /* Opera */
 }
 .category-tag-span {
     display: inline-block;
