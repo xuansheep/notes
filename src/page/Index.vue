@@ -651,6 +651,7 @@
             },
             handleDragEnd(e) {
                 if (e.dataTransfer.dropEffect === 'none'){
+                    this.dragging = null;
                     return;
                 }
                 this.http.post(this.ports.mark.save, this.dragging, res => {
@@ -664,6 +665,7 @@
             },
             handleCategoryDragEnd(e) {
                 if (e.dataTransfer.dropEffect === 'none'){
+                    this.dragging = null;
                     return;
                 }
                 this.http.post(this.ports.category.upgradeSort, this.dragging, res => {
