@@ -38,6 +38,11 @@ Vue.prototype.getToken = () => {
   return '';
 };
 
+Vue.prototype.getBearer = () => {
+  let bearer = window.localStorage.getItem('bearer');
+  return bearer;;
+};
+
 Vue.prototype.isMobile = () => {
   let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
   return !!flag;

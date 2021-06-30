@@ -37,7 +37,7 @@
                                                 type="drag"
                                                 name="file"
                                                 :action="http.serverUrl + this.ports.file.upload"
-                                                :data="{token: getToken()}"
+                                                :headers="{Authorization: getBearer()}"
                                                 style="display: inline-block;width:58px;">
                                             <div style="width: 58px;height:58px;line-height: 58px;">
                                                 <Icon type="ios-camera" size="20"></Icon>

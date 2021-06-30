@@ -240,7 +240,7 @@ export default {
             timeout: TIME_OUT_MS,
             headers: {
                 'Content-Type': 'multipart/form-data; boundary='+123,
-                'token': getToken(),
+                'Authorization': getBearer()
             }
         }).then(
             (result) => {
