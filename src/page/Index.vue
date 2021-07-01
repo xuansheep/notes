@@ -197,7 +197,8 @@
             <div v-if="!headerOpenStatus">
                 <Card class="category-card">
                     <div class="category-list">
-                        <Tag :style="{borderLeft: !!dragging && category.sort === dragging.sort ? 'black solid 2px' : ''}" class="category-tag" v-for="(category, index) in markCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
+                        <Tag :style="{borderLeft: !!dragging && category.sort === dragging.sort ? 'black solid 2px' : ''}" class="category-tag"
+                             v-for="(category, index) in markCategoryList" :closable="modifyStatus" @on-close="deleteCategory(category.id)">
                             <span class="category-tag-span" v-if="!category.inputStatus" @click="updateCategory(category, index)"
                                   @dragover.prevent="handleDragOver($event, category)" @dragenter="handleDragEnter($event, category)"
                                   draggable="true" @dragstart="handleCategoryDragStart($event, category)" @dragend="handleCategoryDragEnd($event)">

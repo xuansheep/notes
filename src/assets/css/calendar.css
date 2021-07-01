@@ -5,3 +5,20 @@
     margin: auto;
     border-radius: 5px;
 }
+
+.title-text {
+    font-size: 12px;
+}
+
+
+
+/* ant design vue */
+.ant-fullcalendar-fullscreen .lunar-day {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.ant-fullcalendar-last-month-cell .ant-fullcalendar-value, .ant-fullcalendar-next-month-btn-day .lunar-day {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.25);
+}

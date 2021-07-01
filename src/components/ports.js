@@ -78,6 +78,7 @@ export default {
         detail: '/api/person/detail',
         hide: '/api/person/hide',
         show: '/api/person/show',
+        birthday: '/api/person/birthday',
     },
     release: {
         group: {

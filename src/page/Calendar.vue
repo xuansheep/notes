@@ -1,11 +1,12 @@
 <template>
     <div class="calendar-background">
         <Top active="calendar"></Top>
-        <a-calendar>
+        <a-calendar @panelChange="panelChange">
             <ul slot="dateCellRender" slot-scope="value">
-                <div style="font-size: 14px; color: #a4a4a4">{{ getLunarDay(value) }}</div>
+                <div class="lunar-day">{{ getLunarDay(value) }}</div>
                 <li v-for="item in getDataForDay(value)" :key="item.title">
-                    <Badge  :status="item.type" :text="item.title" />
+                    <Badge :status="item.type" />
+                    <span class="title-text">{{item.title}}</span>
                 </li>
             </ul>
             <template slot="monthCellRender" slot-scope="value"></template>
@@ -29,27 +30,23 @@
         components: {LoadingWarrior, Top},
         data() {
             return {
-                dataList: [
-                    {
-                        date: '2021-02-08',
-                        events: [
-                            { type: 'warning', title: 'xxx生日.' },
-                            { type: 'success', title: '今天要喝水.' },
-                        ]
-                    }
-                ]
+                dataList: []
             }
         },
         created() {
+            this.pageLoad();
         },
         methods: {
+            pageLoad() {
+                this.panelChange(moment());
+            },
             getDataForDay(day) {
                 //day(moment对象)
                 let formatDay = day.format('yyyy-MM-DD');
                 let resultList = [];
                 this.dataList.forEach(item => {
                     if (item.date === formatDay) {
-                        console.log("match:",formatDay, item.events)
+                        // console.log("match:",formatDay, item.events)
                         resultList = item.events;
                         return false;
                     }
@@ -65,6 +62,15 @@
                     return lunarDay.monthCn;
                 }
                 return lunarDay.dayCn;
+            },
+            panelChange(day) {
+                let formatDay = day.format('yyyy-MM-DD');
+                let params = {
+                    date: formatDay
+                };
+                this.http.post(this.ports.person.birthday, params, res => {
+                    this.dataList = res;
+                })
             }
         }
     }
