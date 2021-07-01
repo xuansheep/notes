@@ -260,8 +260,7 @@
             <div class="bookmark-card">
                 <Card class="card" :bordered="true" v-for="card in cardList">
                     <div class="card-title" slot="title">
-                        <Checkbox class="card-title-checkBox" v-if="modifyStatus" v-model="card.checkAll"
-                                  @on-change="onCheckAll(card)"></Checkbox>
+                        <Checkbox class="card-title-checkBox" v-if="modifyStatus" v-model="card.checkAll" @on-change="onCheckAll(card)"></Checkbox>
                         <p id="card-title-text">{{card.categoryName}}</p>
                         <Icon class="card-title-icon1" custom="iconfont icon-liebiao" size="15" @click="listMark(card,24)"/>
                         <Icon class="card-title-icon2" custom="iconfont icon-liebiao1" size="15" @click="listMark(card,8)"/>
@@ -271,9 +270,8 @@
                         <Row style="margin-left: 1%" :gutter="10">
                             <Col class="card-col" :span="card.colSpan" v-for="mark in card.markList">
                                 <div class="card-mark-ellipsis">
+                                    <Checkbox class="card-mark-checkBox" v-if="modifyStatus" v-model="mark.isSelect" @on-change="onCheck(mark,card)"/>
                                     <Tooltip :content="mark.name" placement="top-start" :delay="500" :max-width="500">
-                                        <Checkbox class="card-mark-checkBox" v-if="modifyStatus" v-model="mark.isSelect"
-                                                  @on-change="onCheck(mark,card)"/>
                                         <div style="position: relative">
                                             <img class="card-icon" :src="mark.icon">
                                             <a class="card-mark-text" :href="mark.link" target="_blank"
