@@ -6,14 +6,13 @@
                    search placeholder="Enter something..." v-model="form.subject" @on-search="handleChange" />
             <Input style="width: 200px; margin-left: 15px" v-if="!fullTextSearch"
                    search placeholder="Enter author..." v-model="form.author" @on-search="handleChange" />
-            <Select style="width: 180px; margin-left: 15px" v-if="!fullTextSearch" v-model="form.fid" clearable @on-change="handleChange">
+            <Select style="width: 180px; margin-left: 15px" v-if="!fullTextSearch" v-model="form.fid" clearable placeholder="Select column..." @on-change="handleChange">
                 <Option v-for="item in sections" :value="item.code" :key="item.code">{{item.name}}</Option>
             </Select>
-            <i-button style="margin-left: 15px" v-if="!fullTextSearch"
-                      type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
             <Icon v-if="fullTextSearch" class="ft-search-close" type="ios-arrow-forward" size="32" @click="blurFtSearch" />
             <Input class="ft-search" v-bind:class={ftSearchOpen:fullTextSearch} search placeholder="Full text search..."
                    v-model="form.word" @on-search="handleChange" @on-focus="focusFtSearch" />
+            <i-button class="reset-button" type="default" icon="ios-redo-outline" @click="resetQuery">重置</i-button>
         </div>
         <div class="filter">
             <span :style="{fontWeight: form.favoriteFlag ? 'bold' : '', color: form.favoriteFlag ? '#f1795c' : ''}"

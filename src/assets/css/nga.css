@@ -104,14 +104,14 @@
 .ft-search{
     width: 92px;
     position: absolute;
-    right: 16px;
+    right: 112px;
     transition: all 0.5s;
     -moz-transition: all 0.5s; /* Firefox 4 */
     -webkit-transition: all 0.5s; /* Safari and Chrome */
     -o-transition: all 0.5s; /* Opera */
 }
 .ftSearchOpen{
-    width: 980px;
+    width: 880px;
 }
 
 .ft-search-close{
@@ -119,6 +119,11 @@
     cursor: pointer;
     position: absolute;
     left: 0;
+}
+
+.reset-button {
+    position: absolute;
+    right: 16px;
 }
 
 .reply-title{
