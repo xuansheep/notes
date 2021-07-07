@@ -44,13 +44,10 @@
         beforeCreate () {
             let backgroundColor = [
                 {color: '135deg, #FFF5C3 20%, #9452A5 100%', name: '软糖'},
-                {color: '135deg, #C2FFD8 20%, #465EFB 100%', name: '海岸'},
                 {color: '135deg, #FFD26F 20%, #3677FF 100%', name: '工业'},
                 {color: '135deg, #FAD7A1 20%, #E96D71 100%', name: '枫叶'},
                 {color: '135deg, #F1CA74 20%, #A64DB6 100%', name: '浓妆'},
-                {color: '135deg, #81FFEF 20%, #F067B4 100%', name: '幻境'},
-                {color: '135deg, #ee9ca7 20%, #ffdde1 100%', name: '樱花'},
-                {color: '135deg, #1c92d2 20%, #f2fcfe 100%', name: '天空'},
+                {color: '135deg, #81FFEF 20%, #F067B4 100%', name: '幻境'}
             ];
             let r = Math.floor(Math.random() * backgroundColor.length);
             console.log("1.", backgroundColor[r]);

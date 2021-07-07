@@ -37,6 +37,10 @@
 
 <script>
 
+    import moment from 'moment';
+    import 'moment/locale/zh-cn';
+    moment.locale('zh-cn');
+
     import '../assets/css/stat.css'
     import LoadingWarrior from "../components/custom/LoadingWarrior";
     import Top from "../components/custom/Top";
@@ -61,6 +65,9 @@
             }
         },
         created() {
+            this.dateRange[0] = moment().add(-7, 'days').format('YYYY-MM-DD');
+            this.dateRange[1] = moment().format('YYYY-MM-DD');
+            this.selectDate(this.dateRange);
             this.pageLoad();
         },
         methods: {
@@ -117,6 +124,7 @@
                 });
             },
             selectDate(dateRange) {
+                console.log(dateRange)
                 this.topTermForm.startTime = dateRange[0];
                 this.topTermForm.endTime = dateRange[1];
             }
