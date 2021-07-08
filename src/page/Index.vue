@@ -190,6 +190,16 @@
             </div>
         </Affix>
 
+        <!--快捷入口-->
+        <div class="window">
+            <Row :gutter="12">
+                <Col span="4" v-for="item in windowCardData">
+                    <WindowCard :text="item.text" :image="item.image" :background-color="item.backgroundColor"
+                                :to="item.path" :click-method="item.clickMethod"></WindowCard>
+                </Col>
+            </Row>
+        </div>
+
         <!--书签内容-->
         <div class="content">
             <Affix :offsetTop="35">
@@ -215,47 +225,6 @@
                 </Card>
             </div>
             </Affix>
-            <!--快捷入口-->
-            <div class="window">
-                <Row class="window-row" :gutter="16">
-                    <Col span="6">
-                        <div @click="goNga">
-                            <Card style="background-color: #FFF5E8" class="window-card">
-                                <div class="window-card-content">
-                                    <img style="height: 100%" src="../assets/image/dex-fish-nga-2.jpg">
-                                </div>
-                            </Card>
-                        </div>
-                    </Col>
-                    <Col span="6">
-                        <div @click="goPerson">
-                            <Card class="window-card">
-                                <div class="window-card-content">
-                                    <p>人物</p>
-                                </div>
-                            </Card>
-                        </div>
-                    </Col>
-                    <Col span="6">
-                        <div @click="goCalendar">
-                            <Card class="window-card">
-                                <div class="window-card-content">
-                                    <p>日历</p>
-                                </div>
-                            </Card>
-                        </div>
-                    </Col>
-                    <Col span="6">
-                        <div @click="goReleaseGroup">
-                            <Card class="window-card">
-                                <div class="window-card-content">
-                                    <p>版本管理</p>
-                                </div>
-                            </Card>
-                        </div>
-                    </Col>
-                </Row>
-            </div>
             <!--书签-->
             <div class="bookmark-card">
                 <Card class="card" :bordered="true" v-for="card in cardList">
@@ -301,10 +270,11 @@
 <script>
     import '../assets/css/index.css'
     import Wangeditor from "../components/custom/Wangeditor";
+    import WindowCard from "../components/custom/WindowCard";
 
     export default {
         name: "Index",
-        components: {Wangeditor},
+        components: {WindowCard, Wangeditor},
         data() {
             return {
                 listParams: {
@@ -358,6 +328,15 @@
                 noteWindowStatus: false,
 
                 tipText: '',
+
+                windowCardData: [
+                    {image: require('../assets/image/dex-fish-nga-2.jpg'), backgroundColor: '#FFF5E8', clickMethod: this.goNga},
+                    {text: '人物', path: '/person'},
+                    {text: '日历', path: '/calendar'},
+                    {text: '统计', path: '/stat'},
+                    {text: '版本管理', path: '/releaseGroup'},
+                    {text: '三体2D模型', path: '/threeBody' }
+                ]
             }
         },
         created() {
@@ -604,18 +583,6 @@
                     path = '/mobile/nga';
                 }
                 this.$router.push({path: path})
-            },
-            goCalendar(){
-                this.$router.push({path: '/calendar'})
-            },
-            goPerson(){
-                this.$router.push({path: '/person'})
-            },
-            goThreeBody(){
-                this.$router.push({path: '/threeBody'})
-            },
-            goReleaseGroup(){
-                this.$router.push({path: '/releaseGroup'})
             },
             signOut(){
                 this.$Modal.confirm({

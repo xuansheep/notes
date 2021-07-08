@@ -193,39 +193,8 @@
 .window {
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: -15px;
-    height: 100px;
-    width: 97%;
-}
-.window-row {
-
-}
-.window-row p {
-    line-height: 36px
-}
-.window-card {
     margin-top: 15px;
-    margin-bottom: -10px;
-    margin-right: auto;
-    height: 70px;
-    width: 100%;
-    cursor: pointer;
-}
-.window-card .ivu-card-body{
-    height: 100%;
-}
-.window-card:hover {
-    margin: 12px -2% -12px -2%;
-    height: 76px;
-    width: 104%;
-}
-.window-card-content {
-     text-align: center;
-     height: 100%;
- }
-.window-card-content p {
-    font-weight: bold;
-    font-size: 18px;
+    width: 97%;
 }
 .bookmark-card {
     overflow-y: auto;
