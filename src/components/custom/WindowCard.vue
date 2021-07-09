@@ -1,9 +1,8 @@
 <template>
     <div @click="executeFun">
-        <Card :style="{backgroundColor: backgroundColor}" class="window-card">
+        <Card :style="{backgroundImage: 'url('+image+')'}" class="window-card">
             <div class="window-card-content">
                 <p v-if="text">{{text}}</p>
-                <img v-if="image && !text" style="height: 100%" :src="image">
             </div>
         </Card>
     </div>
@@ -18,10 +17,6 @@
                 default: ''
             },
             image: {
-                type: String,
-                default: ''
-            },
-            backgroundColor: {
                 type: String,
                 default: ''
             },
@@ -52,6 +47,7 @@
     .window-card {
         width: 100%;
         cursor: pointer;
+        background-size: cover;
     }
     >>> .window-card .ivu-card-body{
         height: 60px;

@@ -330,7 +330,7 @@
                 tipText: '',
 
                 windowCardData: [
-                    {image: require('../assets/image/dex-fish-nga-2.jpg'), backgroundColor: '#FFF5E8', clickMethod: this.goNga},
+                    {image: require('../assets/image/dex-fish-nga-3.png'), clickMethod: this.goNga},
                     {text: '人物', path: '/person'},
                     {text: '日历', path: '/calendar'},
                     {text: '统计', path: '/stat'},
