@@ -209,7 +209,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 15px;
-    width: 98%;
+    width: 97.3%;
 }
 .note-search {
     margin: 5px 0 5px 0;
@@ -226,9 +226,11 @@
 .note-category-tag {
     background-color: #faf3e9;
     height: auto;
+    padding: 0;
 }
 .category-tag {
     height: auto;
+    padding: 0;
     transition: all 0.2s;
     -moz-transition: all 0.2s; /* Firefox 4 */
     -webkit-transition: all 0.2s; /* Safari and Chrome */
@@ -236,7 +238,7 @@
 }
 .category-tag-span {
     display: inline-block;
-    padding: 2px 20px;
+    padding: 2px 30px;
     cursor: pointer;
 }
 .card-title {

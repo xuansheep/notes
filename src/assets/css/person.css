@@ -4,6 +4,7 @@
     background-color: #ffffff;
     margin: auto;
     border-radius: 5px;
+    min-height: 870px;
 }
 
 .person-header {

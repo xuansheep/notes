@@ -4,10 +4,10 @@
     background-color: #ffffff;
     margin: auto;
     border-radius: 5px;
+    min-height: 870px;
 }
 
 .release-content-div {
-    min-height: 850px;
     padding: 16px;
     text-align: center;
 }
