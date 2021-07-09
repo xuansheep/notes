@@ -16,7 +16,7 @@
                         </div>
                         <!--导入书签按钮-->
                         <div class="header-bottom-import-icon" @mouseover="showTip('导入书签')" @mouseout="closeTip">
-                            <Poptip placement="bottom-end" :width="200" v-model="importVisible">
+                            <Poptip placement="bottom-end" :width="200" v-model="importVisible" transfer>
                                 <Icon class="import-icon" v-bind:class={import:importVisible} custom="iconfont icon-daoru" size="20"/>
                                 <div slot="title">
                                     导入Chrome离线书签
@@ -39,7 +39,7 @@
                         </div>
                         <!--添加书签按钮-->
                         <div class="header-bottom-add-icon" @mouseover="showTip('创建书签')" @mouseout="closeTip">
-                            <Poptip placement="bottom-end" :width="300" v-model="visible">
+                            <Poptip placement="bottom-end" :width="300" v-model="visible" transfer>
                                 <Icon class="add-icon" v-bind:class={add:visible} custom="iconfont icon-xinzeng" size="20"/>
                                 <div slot="title">
                                     创建书签
@@ -66,7 +66,7 @@
                         </div>
                         <!--删除书签按钮-->
                         <div class="header-bottom-del-icon" @mouseover="showTip('删除书签')" @mouseout="closeTip">
-                            <Dropdown placement="bottom-end" trigger="custom" :visible="modifyStatus">
+                            <Dropdown placement="bottom-end" trigger="custom" :visible="modifyStatus" transfer>
                                 <Icon class="del-icon" v-bind:class={del:modifyStatus} custom="iconfont icon-remove-1-copy"
                                       size="20" @click="modify"/>
                                 <DropdownMenu slot="list" style="width: 150px">
