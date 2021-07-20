@@ -59,7 +59,7 @@
                         }
                     },
                     {
-                        title:"回复", key:"replyNum", className:"row-background", sortable:'custom', sortType:this.getSort('replyNum'), width:85
+                        title:"回复", key:"replies", className:"row-background", sortable:'custom', sortType:this.getSort('replies'), width:85
                     },
                 ],
                 sections:[],
