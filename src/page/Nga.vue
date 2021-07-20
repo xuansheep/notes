@@ -85,7 +85,7 @@
                         width:200
                     },
                     {
-                        title:"回复数", key:"replyNum", className:"row-background", sortable:'custom', sortType:this.getSort('replyNum'), width:100
+                        title:"回复数", key:"replies", className:"row-background", sortable:'custom', sortType:this.getSort('replies'), width:100
                     },
                     {
                         key: 'action', slot: 'action', width: 100
