@@ -22,7 +22,7 @@
                         </p>
                         <div >
                             <ListItemMeta>
-                                <h2 style="cursor: pointer" slot="title" @click="pushSubjectReply(data.tid)">{{data.subject}}</h2>
+                                <h2 style="cursor: pointer; padding-right: 20px" slot="title" @click="pushSubjectReply(data.tid)">{{data.subject}}</h2>
                             </ListItemMeta>
                         </div>
                         <p class="reply-text" v-html="data.content"></p>
@@ -109,7 +109,7 @@
                 open(this.proxyImage("https://img.nga.178.com/attachments/"+attach.attachurl))
             },
             pushSubjectReply(tid){
-                this.$router.push(`/reply/${tid}`);
+                window.open(`/#/reply/${tid}`);
             },
             onlyImage(){
                 this.form.onlyImageFlag = !this.form.onlyImageFlag;
