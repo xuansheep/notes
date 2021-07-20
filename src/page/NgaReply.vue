@@ -105,6 +105,7 @@
             subjectDetail(){
                 this.http.post(this.ports.nga.subject.detail, this.form, res => {
                     this.subject = res;
+                    document.title = res.subject;
                 })
             },
             replyList(){

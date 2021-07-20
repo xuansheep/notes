@@ -2,18 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 Vue.use(Router);
 
-/*export default new Router({
-    routes: [
-        {
-            path: '/',
-            component: LogIn
-        },
-        {
-            path:'/index',
-            component:Index
-        }
-    ]
-})*/
 
 const originalPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
@@ -50,6 +38,15 @@ const router = new Router({
 
         {path: '/lottery', component: () => import('../page/Lottery.vue')},
     ]
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.title) {
+        document.title = to.meta.title;
+    } else {
+        document.title = 'NOTES';
+    }
+    next();
 });
 
 export default router
