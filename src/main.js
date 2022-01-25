@@ -18,6 +18,7 @@ import './assets/icon/iconfont.css'
 import './assets/css/iview-custom.css'
 
 import CryptoJS from "crypto-js";
+import VueMeta from 'vue-meta'
 
 
 Vue.use(ViewUI);
@@ -29,6 +30,7 @@ Vue.use(mavonEditor);
 Vue.prototype.$echarts = echarts;
 Vue.use(Calendar);
 Vue.prototype.$solarLunar = solarLunar;
+Vue.use(VueMeta);
 
 Vue.prototype.getToken = () => {
   let user = JSON.parse(window.localStorage.getItem('user'));

@@ -339,6 +339,11 @@
                 ]
             }
         },
+        metaInfo: {
+            meta: [
+                {name: 'referrer', content: 'never'}
+            ]
+        },
         created() {
             this.pageLoad();
         },
