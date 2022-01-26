@@ -18,11 +18,13 @@ success(){
         echo -e "\033[32m"$1"  \033[0m"
 }
 
+
 #使用说明，用来提示输入参数
 usage() {
     echo "Usage: sh notes.sh [deploy]"
     exit 1
 }
+
 
 #更新代码
 pull() {
@@ -43,6 +45,7 @@ package() {
     success "|---> deploy finished"
 }
 
+
 #发布
 deploy() {
     pull
@@ -50,10 +53,20 @@ deploy() {
 }
 
 
+#更新sh
+update() {
+    pull
+    cp -f $REPO_PATH/shell/* /root/shell
+}
+
+
 #根据输入参数，选择执行对应方法，不输入则执行使用说明
 case "$1" in
    "deploy")
      deploy
+     ;;
+   "update")
+     update
      ;;
    *)
      usage
