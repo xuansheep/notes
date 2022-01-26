@@ -21,7 +21,7 @@ success(){
 
 #使用说明，用来提示输入参数
 usage() {
-    echo "Usage: sh notes.sh [deploy|update]"
+    echo "Usage: sh notes.sh [deploy]"
     exit 1
 }
 
