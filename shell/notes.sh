@@ -57,6 +57,7 @@ deploy() {
 update() {
     pull
     cp -f $REPO_PATH/shell/* /root/shell
+    success "|---> notes.sh update finished"
 }
 
 
