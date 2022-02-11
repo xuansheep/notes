@@ -279,7 +279,7 @@
             return {
                 listParams: {
                     page: 1,
-                    size: 10,
+                    size: 100,
                 },
                 deleteParams: {
                     ids: '',
