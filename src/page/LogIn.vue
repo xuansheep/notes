@@ -80,6 +80,7 @@
                 setTimeout(() => {
                     this.http.post(this.ports.user.signIn, this.form, res => {
                         this.store.save('bearer', res.token);
+                        this.store.save('userId', res.userId);
                         this.http.post(this.ports.dataDict.list, {}, res => {
                             this.store.save('noteDict',res);
                         });

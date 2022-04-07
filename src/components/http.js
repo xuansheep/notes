@@ -39,7 +39,10 @@ function getBearer (){
 export default {
 
     serverUrl:'https://notes.xuanss.com',
-    //serverUrl:'http://127.0.0.1:10001',
+    webSocketUrl:'ws://notes.xuanss.com',
+    // serverUrl:'http://127.0.0.1:10001',
+    // webSocketUrl: 'ws://127.0.0.1:10001',
+
 
     /*
      * @param url

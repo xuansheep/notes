@@ -90,5 +90,14 @@ export default {
         save: '/api/release/save',
         list: '/api/release/list',
         delete: '/api/release/delete'
+    },
+    serverMonitor: {
+        save: '/api/serverMonitor/save',
+        list: '/api/serverMonitor/list',
+        detail: '/api/serverMonitor/detail',
+        delete: '/api/serverMonitor/delete'
+    },
+    webSocket: {
+        serverMonitor: '/webSocket/serverMonitor'
     }
 }

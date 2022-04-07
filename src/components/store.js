@@ -15,5 +15,8 @@ export default{
     },
     remove(key){
         window.localStorage.removeItem(key)
+    },
+    get(key) {
+        return window.localStorage.getItem(key) || ''
     }
 }

@@ -335,7 +335,8 @@
                     {text: '日历', path: '/calendar'},
                     {text: '统计', path: '/stat'},
                     {text: '版本管理', path: '/releaseGroup'},
-                    {text: '三体2D模型', path: '/threeBody' }
+                    {text: '服务监控', path: '/serverMonitor' },
+                    // {text: '三体2D模型', path: '/threeBody' }
                 ]
             }
         },

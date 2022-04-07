@@ -1,0 +1,78 @@
+.serverMonitor-background {
+    height: 100%;
+    width: 1024px;
+    background-color: #ffffff;
+    margin: auto;
+    border-radius: 5px;
+    min-height: 870px;
+}
+
+.serverMonitor-content-div {
+    padding: 16px;
+    text-align: center;
+}
+
+.serverMonitor-col {
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.serverMonitor-delete-icon {
+    position: absolute;
+    top: 0;
+    right: 9px;
+    width: 22px;
+    height: 20px;
+    border-bottom-left-radius: 15px;
+    cursor: pointer;
+    transition: all 0.1s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.serverMonitor-delete-icon:hover {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.serverMonitor-status-icon {
+    position: absolute;
+    top: 47px;
+    right: 9px;
+    width: 22px;
+    height: 20px;
+    border-bottom-left-radius: 15px;
+    cursor: pointer;
+    transition: all 0.1s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.serverMonitor-header-div {
+    position: relative;
+    height: 74px;
+}
+
+.serverMonitor-header-group-name {
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 28px;
+    text-align: center;
+}
+
+.serverMonitor-header-add-icon {
+    position: absolute;
+    right: 4px;
+    bottom: -1px;
+    width: 70px;
+    cursor: pointer;
+    transition: all 0.5s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+.serverMonitor-header-add-icon:hover {
+    color: #00bfff;
+}
