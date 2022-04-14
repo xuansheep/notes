@@ -4,10 +4,12 @@
         <div class="serverMonitor-content-div">
             <Row :gutter="16">
                 <Col style="margin-bottom: 16px" class="release-col" span="6" v-for="(serverMonitor, index) in tableData">
-                    <div @mouseover="overServerMonitor(serverMonitor, index)" @mouseleave="leaveServerMonitor(serverMonitor, index)" @click="openUpdateWindow(serverMonitor)">
-                        <Card style="cursor: pointer">
-                            <p>{{serverMonitor.name}}</p>
-                        </Card>
+                    <div @mouseover="overServerMonitor(serverMonitor, index)" @mouseleave="leaveServerMonitor(serverMonitor, index)">
+                        <div @click="openUpdateWindow(serverMonitor)">
+                            <Card style="cursor: pointer">
+                                <p>{{serverMonitor.name}}</p>
+                            </Card>
+                        </div>
                         <div v-if="serverMonitor.hoverStatus"  class="serverMonitor-delete-icon" @click="deleteServerMonitor(serverMonitor)">
                             <Icon type="ios-close" size="20" />
                         </div>
@@ -26,7 +28,7 @@
             </Row>
         </div>
 
-        <Modal v-model="serverMonitorWindowStatus" title="服务监控" @on-ok="saveServerMonitor" @on-cancel="saveServerMonitorGroup = false">
+        <Modal v-model="serverMonitorWindowStatus" title="服务监控" @on-ok="saveServerMonitor" @on-cancel="cancelServerMonitorWindow">
             <Form :model="serverMonitorForm" label-position="top">
                 <FormItem label="名称">
                     <Input v-model="serverMonitorForm.name"></Input>
@@ -101,10 +103,14 @@
                 this.serverMonitorWindowStatus = true;
                 this.serverMonitorForm = item;
             },
+            cancelServerMonitorWindow() {
+                this.serverMonitorWindowStatus = false;
+                this.serverMonitorForm = {};
+            },
             saveServerMonitor() {
                 this.http.post(this.ports.serverMonitor.save, this.serverMonitorForm, res => {
                     this.serverMonitorWindowStatus = false;
-                    this.serverMonitorForm.name = '';
+                    this.serverMonitorForm = {};
                     this.getServerMonitorList();
                     this.$Message.success('保存成功');
                 });
@@ -118,7 +124,7 @@
                             this.$Message.success('删除成功');
                             this.getServerMonitorList();
                         })
-                    }
+                    },
                 });
             },
             overServerMonitor(serverMonitor, index) {
