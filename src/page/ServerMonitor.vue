@@ -1,31 +1,45 @@
 <template>
     <div class="serverMonitor-background">
         <Top active="serverMonitor"></Top>
+        <div class="serverMonitorGroup-opt">
+            <span type="text" class="serverMonitorGroup-opt-add" @click="openGroupCreateWindow">新增分组</span>
+        </div>
         <div class="serverMonitor-content-div">
-            <Row :gutter="16">
-                <Col style="margin-bottom: 16px" class="release-col" span="6" v-for="(serverMonitor, index) in tableData">
-                    <div @mouseover="overServerMonitor(serverMonitor, index)" @mouseleave="leaveServerMonitor(serverMonitor, index)">
-                        <div @click="openUpdateWindow(serverMonitor)">
+            <div v-for="(group, index) in tableData">
+                <div class="serverMonitorGroup-name">
+                    <span style="font-size: 24px; font-weight: bold">{{group.name}}</span>
+                    <div class="serverMonitorGroup-setting-icon" @click="openGroupUpdateWindow(group)">
+                        <Icon size="16" type="ios-options" />
+                    </div>
+                    <div class="serverMonitorGroup-delete-icon" @click="deleteServerMonitorGroup(group)">
+                        <Icon size="16" type="ios-trash" />
+                    </div>
+                </div>
+                <Row :gutter="16">
+                    <Col style="margin-bottom: 16px" class="release-col" span="4" v-for="(serverMonitor, index) in group.serverMonitorList">
+                        <div @mouseover="overServerMonitor(group, serverMonitor, index)" @mouseleave="leaveServerMonitor(group, serverMonitor, index)">
+                            <div @click="openUpdateWindow(serverMonitor)">
+                                <Card style="cursor: pointer">
+                                    <p>{{serverMonitor.name}}</p>
+                                </Card>
+                            </div>
+                            <div v-if="serverMonitor.hoverStatus" class="serverMonitor-delete-icon" @click="deleteServerMonitor(serverMonitor)">
+                                <Icon type="ios-close" size="20"/>
+                            </div>
+                            <div :style="{color: statusDataDict[serverMonitor.status]}" class="serverMonitor-status-icon">
+                                <Icon type="ios-radio-button-on" size="20"/>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col style="margin-bottom: 16px" span="4">
+                        <div @click="openCreateWindow(group.id)">
                             <Card style="cursor: pointer">
-                                <p>{{serverMonitor.name}}</p>
+                                <Icon style="color: #666666" type="ios-add" size="35"/>
                             </Card>
                         </div>
-                        <div v-if="serverMonitor.hoverStatus"  class="serverMonitor-delete-icon" @click="deleteServerMonitor(serverMonitor)">
-                            <Icon type="ios-close" size="20" />
-                        </div>
-                        <div :style="{color: statusDataDict[serverMonitor.status]}" class="serverMonitor-status-icon">
-                            <Icon type="ios-radio-button-on" size="20" />
-                        </div>
-                    </div>
-                </Col>
-                <Col style="margin-bottom: 16px" span="6">
-                    <div @click="openCreateWindow">
-                        <Card style="cursor: pointer">
-                            <Icon  style="color: #666666" type="ios-add" size="35" />
-                        </Card>
-                    </div>
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
+            </div>
         </div>
 
         <Modal v-model="serverMonitorWindowStatus" title="服务监控" @on-ok="saveServerMonitor" @on-cancel="cancelServerMonitorWindow">
@@ -34,10 +48,27 @@
                     <Input v-model="serverMonitorForm.name"></Input>
                 </FormItem>
                 <FormItem label="地址">
-                  <Input v-model="serverMonitorForm.url"></Input>
+                    <Input v-model="serverMonitorForm.url"></Input>
+                </FormItem>
+                <FormItem label="排序">
+                    <InputNumber style="width: 100%" v-model="serverMonitorForm.sort"></InputNumber>
                 </FormItem>
                 <FormItem label="分组">
-                  <Input v-model="serverMonitorForm.groupId"></Input>
+                    <Select v-model="serverMonitorForm.groupId">
+                        <Option v-for="group in serverMonitorGroupList" :value="group.id" :key="group.id">
+                            {{group.name}}
+                        </Option>
+                    </Select>
+                </FormItem>
+            </Form>
+        </Modal>
+        <Modal v-model="serverMonitorGroupWindowStatus" title="服务监控分组" @on-ok="saveServerMonitorGroup" @on-cancel="cancelServerMonitorGroupWindow">
+            <Form :model="serverMonitorGroupForm" label-position="top">
+                <FormItem label="名称">
+                    <Input v-model="serverMonitorGroupForm.name"></Input>
+                </FormItem>
+                <FormItem label="排序">
+                    <InputNumber style="width: 100%" v-model="serverMonitorGroupForm.sort"></InputNumber>
                 </FormItem>
             </Form>
         </Modal>
@@ -61,16 +92,23 @@
                 serverMonitorForm: {
                     name: '',
                     url: '',
+                    sort: 0,
                     groupId: ''
+                },
+                serverMonitorGroupForm: {
+                    name: '',
+                    sort: 0
                 },
                 tableData: [],
                 serverMonitorWindowStatus: false,
+                serverMonitorGroupWindowStatus: false,
                 statusDataDict: {
                     'un_know': '#c5c8ce',
                     'active': '#19be6b',
                     'warn': '#ff9900',
                     'error': '#ed4014'
                 },
+                serverMonitorGroupList: [],
 
                 webSocket: null,
             }
@@ -78,16 +116,17 @@
         created() {
             // this.pageLoad();
             this.initWebSocket();
+            this.getServerMonitorGroupList();
         },
         destroyed: function (){
             this.webSocket.close();
         },
         methods: {
             pageLoad(){
-                // this.getServerMonitorList();
+                // this.getServerMonitorIndex();
             },
-            getServerMonitorList() {
-                this.http.post(this.ports.serverMonitor.list, this.form, res => {
+            getServerMonitorIndex() {
+                this.http.post(this.ports.serverMonitor.index, this.form, res => {
                     this.tableData = res;
                 });
             },
@@ -96,12 +135,13 @@
                     return res;
                 });
             },
-            openCreateWindow() {
+            openCreateWindow(groupId) {
                 this.serverMonitorWindowStatus = true;
+                this.serverMonitorForm.groupId = groupId;
             },
             openUpdateWindow(item) {
                 this.serverMonitorWindowStatus = true;
-                this.serverMonitorForm = item;
+                this.serverMonitorForm = {...item};
             },
             cancelServerMonitorWindow() {
                 this.serverMonitorWindowStatus = false;
@@ -111,7 +151,7 @@
                 this.http.post(this.ports.serverMonitor.save, this.serverMonitorForm, res => {
                     this.serverMonitorWindowStatus = false;
                     this.serverMonitorForm = {};
-                    this.getServerMonitorList();
+                    this.getServerMonitorIndex();
                     this.$Message.success('保存成功');
                 });
             },
@@ -122,18 +162,59 @@
                     onOk: () => {
                         this.http.post(this.ports.serverMonitor.delete, {id: item.id}, res => {
                             this.$Message.success('删除成功');
-                            this.getServerMonitorList();
+                            this.getServerMonitorIndex();
                         })
                     },
                 });
             },
-            overServerMonitor(serverMonitor, index) {
+            overServerMonitor(group, serverMonitor, index) {
                 serverMonitor.hoverStatus = true;
-                this.$set(this.tableData, index, serverMonitor);
+                this.$set(group, index, serverMonitor);
             },
-            leaveServerMonitor(serverMonitor, index) {
+            leaveServerMonitor(group, serverMonitor, index) {
                 serverMonitor.hoverStatus = false;
-                this.$set(this.tableData, index, serverMonitor);
+                this.$set(group, index, serverMonitor);
+            },
+
+            /**group*/
+            getServerMonitorGroupList() {
+                let params = {};
+                this.http.post(this.ports.serverMonitor.group.list, params, res => {
+                    this.serverMonitorGroupList = res;
+                });
+            },
+            openGroupCreateWindow() {
+                this.serverMonitorGroupWindowStatus = true;
+            },
+            openGroupUpdateWindow(item) {
+                this.serverMonitorGroupWindowStatus = true;
+                this.serverMonitorGroupForm = {...item};
+            },
+            cancelServerMonitorGroupWindow() {
+                this.serverMonitorGroupWindowStatus = false;
+                this.serverMonitorGroupForm = {};
+            },
+            saveServerMonitorGroup() {
+                this.http.post(this.ports.serverMonitor.group.save, this.serverMonitorGroupForm, res => {
+                    this.serverMonitorGroupWindowStatus = false;
+                    this.serverMonitorGroupForm = {};
+                    this.getServerMonitorIndex();
+                    this.getServerMonitorGroupList();
+                    this.$Message.success('保存成功');
+                });
+            },
+            deleteServerMonitorGroup(item) {
+                this.$Modal.confirm({
+                    title: '删除',
+                    content: '确定要删除服务监控分组吗？',
+                    onOk: () => {
+                        this.http.post(this.ports.serverMonitor.group.delete, {id: item.id}, res => {
+                            this.$Message.success('删除成功');
+                            this.getServerMonitorIndex();
+                            this.getServerMonitorGroupList();
+                        })
+                    },
+                });
             },
 
             /**webSocket*/

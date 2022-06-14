@@ -76,3 +76,72 @@
 .serverMonitor-header-add-icon:hover {
     color: #00bfff;
 }
+
+/*group*/
+
+.serverMonitorGroup-opt {
+    text-align: right;
+    padding: 0 16px;
+}
+
+.serverMonitorGroup-opt-add {
+    cursor: pointer;
+    transition: all 0.1s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.serverMonitorGroup-opt-add:hover {
+    color: #f18970;
+    transition: all 0.2s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.serverMonitorGroup-name {
+    text-align: left;
+    padding-bottom: 8px;
+    position: relative;
+}
+
+.serverMonitorGroup-setting-icon {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    cursor: pointer;
+    color: #969896;
+    transition: all 0.2s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.serverMonitorGroup-setting-icon:hover {
+    color: #000000;
+    transition: all 0.2s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.serverMonitorGroup-delete-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    color: #969896;
+    transition: all 0.2s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}
+
+.serverMonitorGroup-delete-icon:hover {
+    color: #000000;
+    transition: all 0.2s;
+    -moz-transition: all 0.5s; /* Firefox 4 */
+    -webkit-transition: all 0.5s; /* Safari and Chrome */
+    -o-transition: all 0.5s; /* Opera */
+}

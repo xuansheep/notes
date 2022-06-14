@@ -93,9 +93,14 @@ export default {
     },
     serverMonitor: {
         save: '/api/serverMonitor/save',
-        list: '/api/serverMonitor/list',
+        index: '/api/serverMonitor/index',
         detail: '/api/serverMonitor/detail',
-        delete: '/api/serverMonitor/delete'
+        delete: '/api/serverMonitor/delete',
+        group: {
+            list: '/api/serverMonitor/group/list',
+            save: '/api/serverMonitor/group/save',
+            delete: '/api/serverMonitor/group/delete'
+        }
     },
     webSocket: {
         serverMonitor: '/webSocket/serverMonitor'
