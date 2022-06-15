@@ -5,7 +5,7 @@
             <span type="text" class="serverMonitorGroup-opt-add" @click="openGroupCreateWindow">新增分组</span>
         </div>
         <div class="serverMonitor-content-div">
-            <div v-for="(group, index) in tableData">
+            <div v-for="(group, gIndex) in tableData">
                 <div class="serverMonitorGroup-name">
                     <span style="font-size: 24px; font-weight: bold">{{group.name}}</span>
                     <div class="serverMonitorGroup-setting-icon" @click="openGroupUpdateWindow(group)">
@@ -17,7 +17,7 @@
                 </div>
                 <Row :gutter="16">
                     <Col style="margin-bottom: 16px" class="release-col" span="4" v-for="(serverMonitor, index) in group.serverMonitorList">
-                        <div @mouseover="overServerMonitor(group, serverMonitor, index)" @mouseleave="leaveServerMonitor(group, serverMonitor, index)">
+                        <div @mouseover="overServerMonitor(group, gIndex, serverMonitor, index)" @mouseleave="leaveServerMonitor(group, gIndex, serverMonitor, index)">
                             <div @click="openUpdateWindow(serverMonitor)">
                                 <Card style="cursor: pointer">
                                     <p>{{serverMonitor.name}}</p>
@@ -167,13 +167,15 @@
                     },
                 });
             },
-            overServerMonitor(group, serverMonitor, index) {
+            overServerMonitor(group, groupIndex, serverMonitor, index) {
                 serverMonitor.hoverStatus = true;
                 this.$set(group, index, serverMonitor);
+                this.$set(this.tableData, groupIndex, group);
             },
-            leaveServerMonitor(group, serverMonitor, index) {
+            leaveServerMonitor(group, groupIndex, serverMonitor, index) {
                 serverMonitor.hoverStatus = false;
                 this.$set(group, index, serverMonitor);
+                this.$set(this.tableData, groupIndex, group);
             },
 
             /**group*/

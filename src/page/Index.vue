@@ -193,7 +193,7 @@
         <!--快捷入口-->
         <div class="window">
             <Row :gutter="12">
-                <Col span="4" v-for="item in windowCardData">
+                <Col :span="windowCardSpan" v-for="item in windowCardData">
                     <WindowCard :text="item.text" :image="item.image" :background-color="item.backgroundColor"
                                 :to="item.path" :click-method="item.clickMethod"></WindowCard>
                 </Col>
@@ -334,10 +334,11 @@
                     {text: '人物', path: '/person'},
                     {text: '日历', path: '/calendar'},
                     {text: '统计', path: '/stat'},
-                    {text: '版本管理', path: '/releaseGroup'},
+                    // {text: '版本管理', path: '/releaseGroup'},
                     {text: '服务监控', path: '/serverMonitor' },
-                    // {text: '三体2D模型', path: '/threeBody' }
-                ]
+                    // {text: '三体2D模型', path: '/threeBody' },
+                ],
+                windowCardSpan: 4,
             }
         },
         metaInfo: {
@@ -352,6 +353,15 @@
             pageLoad() {
                 this.getCardList();
                 this.getMarkCategoryList();
+
+                let cardLength = this.windowCardData.length;
+                this.windowCardSpan = Math.floor(24 / cardLength);
+                let maxLength = 24 / this.windowCardSpan;
+                if (maxLength > cardLength) {
+                    for (let i = 0; i < maxLength - cardLength; i++) {
+                        this.windowCardData.push({text: '', path: '' })
+                    }
+                }
             },
             getCardList() {
                 this.http.post(this.ports.mark.listIndex, this.listParams, res => {
