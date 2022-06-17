@@ -7,8 +7,8 @@ try {
                 url: "live2d/live2d.js?v=1.0.5", dataType: "script", cache: true, success: function () {
                     /* 可直接修改部分参数 */
                     live2d_settings['hitokotoAPI'] = "jinrishici.com";  // 一言 API
-                    live2d_settings['modelId'] = 5;                  // 默认模型 ID
-                    live2d_settings['modelTexturesId'] = 1;          // 默认材质 ID
+                    live2d_settings['modelId'] = 2;                  // 默认模型 ID
+                    live2d_settings['modelTexturesId'] = 0;          // 默认材质 ID
                     live2d_settings['modelStorage'] = false;         // 不储存模型 ID
                     /* 在 initModel 前添加 */
                     initModel("live2d/waifu-tips.json");
