@@ -328,7 +328,7 @@ function loadTipsMessage(result) {
     function ifActed() {
         if (!hitokotoInterval) {
             hitokotoInterval = true;
-            hitokotoTimer = window.setInterval(showHitokotoActed, 10000);
+            hitokotoTimer = window.setInterval(showHitokotoActed, 20000);
         }
     }
     
@@ -363,17 +363,15 @@ function loadTipsMessage(result) {
                 });break;
             case 'jinrishici.com':
                 $.ajax({
-                    url: 'https://v2.jinrishici.com/sentence',
-                    headers: {
-                        'X-User-Token': 'dzRvmvIaC/JsQ6hE78YWAINnHre5ZGSn'
-                    },
+                    url: 'http://localhost:10001/proxy/jinrishici',
                     xhrFields: {withCredentials: true},
                     success: function (result, status) {
-                        if (!empty(result.data.origin.title)) {
+                        console.log("result============", result)
+                        if (!empty(result.origin)) {
                             var text = waifu_tips.hitokoto_api_message['jinrishici.com'][0];
-                            text = text.render({title: result.data.origin.title, dynasty: result.data.origin.dynasty, author:result.data.origin.author});
+                            text = text.render({title: result.origin, author:result.author});
                             window.setTimeout(function() {showMessage(text, 5000, true);}, 5000);
-                        } showMessage(result.data.content, 5000, true);
+                        } showMessage(result.content, 7000, true);
                     }
                 });break;
     	    default:
