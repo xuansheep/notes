@@ -363,7 +363,7 @@ function loadTipsMessage(result) {
                 });break;
             case 'jinrishici.com':
                 $.ajax({
-                    url: 'http://localhost:10001/proxy/jinrishici',
+                    url: 'https://notes.xuannss.com/proxy/jinrishici',
                     xhrFields: {withCredentials: true},
                     success: function (result, status) {
                         console.log("result============", result)
