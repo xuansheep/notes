@@ -63,6 +63,11 @@
                                     <FormItem label="生日">
                                         <DatePicker v-model="personForm.birthday" @on-change="getDate" type="date" placeholder="请选择生日" style="width: 200px" />
                                     </FormItem>
+                                    <FormItem label="生日类型">
+                                        <RadioGroup v-model="personForm.birthdayType" type="button">
+                                            <Radio v-for="dict in getDict('person.birthdayType')" :label="dict.value">{{dict.name}}</Radio>
+                                        </RadioGroup>
+                                    </FormItem>
                                     <br>
                                     <FormItem label="身份ID">
                                         <Input v-model="personForm.idCard" placeholder="请输入身份证号" style="width: 200px" />
@@ -191,6 +196,7 @@
                         <CardLabel prop="graduatedSchool" modify-type="input" :method="updatePerson" title="毕业院校" :content="personDetail.graduatedSchool" />
                         <CardLabel prop="politicalFace" modify-type="radio" :dictData="getDict('person.politicalFace')" :method="updatePerson" title="政治面貌" :content="personDetail.politicalFace" />
                         <CardLabel prop="liveAddress" modify-type="input" :method="updatePerson" title="现居地址" :content="personDetail.liveAddress" />
+                        <CardLabel prop="birthdayType" modify-type="radio" :dictData="getDict('person.birthdayType')" :method="updatePerson" title="生日类型" :content="personDetail.birthdayType"/>
                     </div>
                 </TabPane>
                 <TabPane label="社交信息">

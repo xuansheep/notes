@@ -366,7 +366,6 @@ function loadTipsMessage(result) {
                     url: 'https://notes.xuanss.com/proxy/jinrishici',
                     xhrFields: {withCredentials: true},
                     success: function (result, status) {
-                        console.log("result============", result)
                         if (!empty(result.origin)) {
                             var text = waifu_tips.hitokoto_api_message['jinrishici.com'][0];
                             text = text.render({title: result.origin, author:result.author});
