@@ -88,9 +88,14 @@ function removeHtmlTagByText(text) {
 }
 
 function getAudio(url, data) {
+    var token = window.localStorage.getItem('bearer');
+    if (token === undefined || token === null || token === '') {
+        return;
+    }
     var xhr = new XMLHttpRequest();
     xhr.open("post", url, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Authorization', token);
     xhr.responseType = "blob";
     xhr.onload = function() {
         if (this.status === 200) {
