@@ -93,6 +93,10 @@ function getAudio(url, data) {
     if (token === undefined || token === null || token === '') {
         return;
     }
+    var auditStatus = window.sessionStorage.getItem('auditStatus');
+    if (auditStatus !== 'open') {
+        return;
+    }
     var xhr = new XMLHttpRequest();
     xhr.open("post", url, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -107,14 +111,17 @@ function getAudio(url, data) {
                 console.log("play audio", data);
             }).catch(function (err) {
                 console.warn("play audio error:", err);
+                window.sessionStorage.setItem('auditStatus', 'close');
             })
         }
     };
     xhr.send(data);
 }
 
-function showMessage(text, timeout, flag) {
-    getAudio(live2d_settings.audioAPI, "text=" + removeHtmlTagByText(text));
+function showMessage(text, timeout, flag, voice=true) {
+    if (voice) {
+        getAudio(live2d_settings.audioAPI, "text=" + removeHtmlTagByText(text));
+    }
 
     if(flag || sessionStorage.getItem('waifu-text') === '' || sessionStorage.getItem('waifu-text') === null){
         if(Array.isArray(text)) text = text[Math.floor(Math.random() * text.length + 1)-1];
@@ -227,7 +234,11 @@ function loadTipsMessage(result) {
         $(document).on("mouseover", tips.selector, function (){
             var text = getRandText(tips.text);
             text = text.render({text: $(this).text()});
-            showMessage(text, 3000);
+            if (tips.selector.indexOf('.fui') !== -1) {
+                showMessage(text, 3000, false, false)
+            }else {
+                showMessage(text, 3000)
+            }
         });
     });
     $.each(result.click, function (index, tips){
@@ -360,7 +371,7 @@ function loadTipsMessage(result) {
     function ifActed() {
         if (!hitokotoInterval) {
             hitokotoInterval = true;
-            hitokotoTimer = window.setInterval(showHitokotoActed, 20000);
+            hitokotoTimer = window.setInterval(showHitokotoActed, 40000);
         }
     }
     
@@ -420,6 +431,7 @@ function loadTipsMessage(result) {
     function auditPlay() {
         var audio = document.getElementById('audio-chat');
         audio.play();
+        window.sessionStorage.setItem('auditStatus', 'open');
     }
     
     $('.waifu-tool .fui-eye').click(function (){loadOtherModel()});
