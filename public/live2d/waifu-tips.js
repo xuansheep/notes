@@ -9,6 +9,7 @@ window.live2d_settings = Array(); /*
 live2d_settings['modelAPI']             = '//live2d.xuanss.com/';        // 自建 API 修改这里
 live2d_settings['tipsMessage']          = 'waifu-tips.json';            // 同目录下可省略路径
 live2d_settings['hitokotoAPI']          = 'jinrishici.com';             // 一言 API，可选 'lwl12.com', 'hitokoto.cn', 'jinrishici.com'(古诗词)
+live2d_settings['audioAPI']             = 'https://notes.xuanss.com/api/nls/voiceGet';    // 文本转语音api
 
 // 默认模型
 live2d_settings['modelId']              = 2;            // 默认模型 ID，可在 F12 控制台找到
@@ -113,7 +114,7 @@ function getAudio(url, data) {
 }
 
 function showMessage(text, timeout, flag) {
-    getAudio('http://localhost:10001/api/nls/voiceGet', "text=" + removeHtmlTagByText(text));
+    getAudio(live2d_settings.audioAPI, "text=" + removeHtmlTagByText(text));
 
     if(flag || sessionStorage.getItem('waifu-text') === '' || sessionStorage.getItem('waifu-text') === null){
         if(Array.isArray(text)) text = text[Math.floor(Math.random() * text.length + 1)-1];
