@@ -4,7 +4,7 @@ try {
         '</div><canvas id="live2d" class="live2d"></canvas>' +
         '<div class="waifu-tool">' +
         '<span class="fui-home"></span> ' +
-        '<span class="fui-chat"></span> ' +
+        '<span class="fui-chat"><audio id="audio-chat"></audio></span> ' +
         '<span class="fui-eye"></span> ' +
         '<span class="fui-user"></span> ' +
         '<span class="fui-photo"></span> ' +

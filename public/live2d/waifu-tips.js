@@ -83,7 +83,33 @@ console.log(re);
 function empty(obj) {return typeof obj=="undefined"||obj==null||obj==""?true:false}
 function getRandText(text) {return Array.isArray(text) ? text[Math.floor(Math.random() * text.length + 1)-1] : text}
 
+function removeHtmlTagByText(text) {
+    return text.replace(/<[^>]+>/g,"");
+}
+
+function getAudio(url, data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.responseType = "blob";
+    xhr.onload = function() {
+        if (this.status === 200) {
+            var blob = this.response;
+            const audio = new Audio(window.URL.createObjectURL(blob));
+            var promise = audio.play();
+            promise.then(function () {
+                console.log("play audio", data);
+            }).catch(function (err) {
+                console.warn("play audio error:", err);
+            })
+        }
+    };
+    xhr.send(data);
+}
+
 function showMessage(text, timeout, flag) {
+    getAudio('http://localhost:10001/api/nls/voiceGet', "text=" + removeHtmlTagByText(text));
+
     if(flag || sessionStorage.getItem('waifu-text') === '' || sessionStorage.getItem('waifu-text') === null){
         if(Array.isArray(text)) text = text[Math.floor(Math.random() * text.length + 1)-1];
         if (live2d_settings.showF12Message) console.log('[Message]', text.replace(/<[^<>]+>/g,''));
@@ -384,8 +410,14 @@ function loadTipsMessage(result) {
                 });
     	}
     }
+
+    function auditPlay() {
+        var audio = document.getElementById('audio-chat');
+        audio.play();
+    }
     
     $('.waifu-tool .fui-eye').click(function (){loadOtherModel()});
     $('.waifu-tool .fui-user').click(function (){loadRandTextures()});
-    $('.waifu-tool .fui-chat').click(function (){showHitokoto()});
+    // $('.waifu-tool .fui-chat').click(function (){showHitokoto()});
+    $('.waifu-tool .fui-chat').click(function (){auditPlay()});
 }

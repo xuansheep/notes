@@ -37,7 +37,7 @@
     "mouseover": [
         { "selector": ".container a[href^='http']", "text": ["要看看 <span style=\"color:#0099cc;\">{text}</span> 么？"] },
         { "selector": ".fui-home", "text": ["点击前往首页，想回到上一页可以使用浏览器的后退功能哦"] },
-        { "selector": ".fui-chat", "text": ["我可以说话了吗"] },
+        { "selector": ".fui-chat", "text": ["你想说什么呢"] },
         { "selector": ".fui-eye", "text": ["嗯··· 要去看别人吗？"] },
         { "selector": ".fui-user", "text": ["喜欢换装 Play 吗？"] },
         { "selector": ".fui-photo", "text": ["要拍张纪念照片吗？"] },
@@ -64,7 +64,8 @@
         { "selector": "c-player div.time", "text": ["在这里可以调整<span style=\"color:#0099cc;\">播放进度</span>呢"] },
         { "selector": "c-player div.volume", "text": ["在这里可以调整<span style=\"color:#0099cc;\">音量</span>呢"] },
         { "selector": "c-player div.list-button", "text": ["<span style=\"color:#0099cc;\">播放列表</span>里都有什么呢"] },
-        { "selector": "c-player div.lyric-button", "text": ["有<span style=\"color:#0099cc;\">歌词</span>的话就能跟着一起唱呢"] }
+        { "selector": "c-player div.lyric-button", "text": ["有<span style=\"color:#0099cc;\">歌词</span>的话就能跟着一起唱呢"] },
+        { "selector": ".waifu #live2d", "text": ["碰我干什么", "啦啦啦~"] }
     ],
     "click": [
         {
